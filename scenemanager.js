@@ -1,7 +1,7 @@
 class SceneManager{
     constructor(){
         this.chatLog = [];
-        this.conversationStatus = 'before'; //'before', 'during', 'after' 3가지. Load Scene과 연계된 변수
+        this.conversationStatus = 'during'; //'before', 'during', 'after' 3가지. Load Scene과 연계된 변수
         this.nextLifeImg = null;
     }
 
@@ -22,15 +22,24 @@ class SceneManager{
     }
 
     loadBeforeScene(){
-        text('This is BEFORE Scene');
+        background(0);
+        fill(255);
+        textAlign(CENTER);
+        text('This is BEFORE Scene',width/2,height/2);
     }
 
     loadDuringScene(){
-        text('This is DURING Scene');
+        background(0);
+        fill(255);
+        textAlign(CENTER);
+        text('This is DURING Scene',width/2,height/2);
     }
 
     loadAfterScene(){
-        text('This is AFTER Scene');
+        background(0);
+        fill(255);
+        textAlign(CENTER);
+        text('This is AFTER Scene', width/2, height/2);
     }
 
     changeScene(newConvStatus){
