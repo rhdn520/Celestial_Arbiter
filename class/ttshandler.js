@@ -46,7 +46,7 @@ class TTSHandler {
             if (!response.ok) {
                 throw new Error(`Error Code: ${response.status}`);
             }
-            return await response.blob();
+            return await response.blob(); //AudioHandler Class의 동작을 테스트할 수 있게끔 mp3 파일을 return
         } catch (error) {
             console.error(error);
         }
