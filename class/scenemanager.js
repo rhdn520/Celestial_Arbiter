@@ -61,6 +61,7 @@ class SceneManager{
         this.chatLog = [];
         this.conversationStatus = 'before';
         this.nextLifeImg = null;
+        console.log('Variables Reset');
     }
 
 
