@@ -14,10 +14,14 @@ function draw() {
 
 //test code for TTS
 function testTTS(){ 
-  tts.fetchTTS("아, 아, 마이크테스트!").then(mp3URL => {
+  tts.fetchTTS_dev().then(mp3URL => {
     loadSound(mp3URL,(sound)=>{
-      sound.play()
+      sound.play();
     });
   })
+}
+
+function mousePressed(){
+  testTTS();
 }
 
