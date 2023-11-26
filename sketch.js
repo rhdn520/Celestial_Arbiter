@@ -6,7 +6,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   scene = new SceneManager();
   tts = new TTSHandler();
-  // testTTS();
+  testTTS();
 }
 
 function draw() {
