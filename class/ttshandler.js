@@ -5,8 +5,8 @@ class TTSHandler {
 
     async fetchTTS(userMessage="둥땅둥땅 걸어가는 펭귄") {
         
-        let clientID = "ka7gfav4ae";
-        let secretID = "k3p6qMRm8cK2jzJHveKyrndyzMQuZZAW9g7PiT78";
+        let clientID = "vrmxvti31e";
+        let secretID = "akzeSZuwEQ2Uu5NobDQDOyu320YgLoaeW1X9wh90";
         let url = "https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts";  
         let encText = encodeURIComponent(userMessage);
         let data = `speaker=nsabina&volume=0&speed=0&pitch=0&format=mp3&text=${encText}`
