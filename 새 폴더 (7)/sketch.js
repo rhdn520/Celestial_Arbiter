@@ -1,3 +1,4 @@
+//p5.js로 입력창 만들기 시뮬레이션 
 let paragraphInput; // 전역 변수로 입력창 객체를 선언
 let displayParagraph; // 전역 변수로 결과를 표시할 엘리먼트 객체를 선언
 
