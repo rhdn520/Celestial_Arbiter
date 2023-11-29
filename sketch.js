@@ -10,30 +10,30 @@ function setup() {
   background(0);
   scene = new SceneManager();
   tts = new TTSHandler();
-  generateButton = new Button('CLICK', width / 2 - 50, height - 50, testGPT);
-  judge=new Judge();
+  generateButton = new Button('CLICK', width / 2 - 50, height - 50, testGPT); //버튼 
+  judge=new Judge(); //심판관
   
   //gpt = new GPTHandler();
   //ui = new UIHandler();
 }
 
-function draw() {
-  if (judge.shouldShowImage()) {
+//심판: TTS 작동 중이면 배경 빨강, TTS 작동 X이면 배경 초록
+function draw() { 
+  if (judge.shouldShowImage()) { 
     // Display a speaking image when TTS is playing
-    // You can replace this with your actual image display code
     background(255, 0, 0); // Red background when TTS is playing
   } else {
     // Display a thinking image when TTS is not playing
-    // You can replace this with your actual image display code
     background(0, 255, 0); // Green background when TTS is not playing
   }
 
-  if (ttsSound && ttsSound.isPlaying()) {
-    generateButton.disable();
+  //버튼
+  if (ttsSound && ttsSound.isPlaying()) { //소리 재생 중
+    generateButton.disable(); //버튼 비활성화
     judge.updateTTSStatus(true);
   } else {
-    generateButton.enable();
-    judge.updateTTSStatus(false);
+    generateButton.enable(); //버튼 활성화
+    judge.updateTTSStatus(false); //
   }
 
 }
