@@ -19,13 +19,16 @@ function setup() {
 
 //심판: TTS 작동 중이면 배경 빨강, TTS 작동 X이면 배경 초록
 function draw() { 
-  if (judge.shouldShowImage()) { 
-    // Display a speaking image when TTS is playing
-    background(255, 0, 0); // Red background when TTS is playing
-  } else {
-    // Display a thinking image when TTS is not playing
-    background(0, 255, 0); // Green background when TTS is not playing
-  }
+  // if (judge.shouldShowImage()) { 
+  //   // Display a speaking image when TTS is playing
+  //   background(255, 0, 0); // Red background when TTS is playing
+  // } else {
+  //   // Display a thinking image when TTS is not playing
+  //   background(0, 255, 0); // Green background when TTS is not playing
+  // }
+
+  judge.display(); //코드가 훨씬 단순해졌죠?
+
 
   //버튼
   if (ttsSound && ttsSound.isPlaying()) { //소리 재생 중
