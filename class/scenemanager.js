@@ -6,39 +6,35 @@ class SceneManager{
     }
 
     loadScene(){
+        background(0);
+        fill(255);
+        textAlign(CENTER);
         switch(this.conversationStatus){
             case 'before':
-                this.loadBeforeScene();
+                this.loadScene_before();
                 break;
 
             case 'during':
-                this.loadDuringScene();
+                this.loadScene_during();
                 break;
 
             case 'after':
-                this.loadAfterScene();
+                this.loadScene_after();
                 break;
         }
     }
 
-    loadBeforeScene(){
-        background(0);
-        fill(255);
-        textAlign(CENTER);
+    loadScene_before(){
         text('This is BEFORE Scene',width/2,height/2);
     }
 
-    loadDuringScene(){
-        background(0);
-        fill(255);
-        textAlign(CENTER);
+    loadScene_during(){
         text('This is DURING Scene',width/2,height/2);
+        generateButton = new Button('CLICK', width / 2 - 50, height - 50, testGPT); //버튼 
+        judge=new Judge(); //심판관
     }
 
-    loadAfterScene(){
-        background(0);
-        fill(255);
-        textAlign(CENTER);
+    loadScene_after(){
         text('This is AFTER Scene', width/2, height/2);
     }
 
@@ -63,8 +59,4 @@ class SceneManager{
         this.nextLifeImg = null;
         console.log('Variables Reset');
     }
-
-
-
-
 }

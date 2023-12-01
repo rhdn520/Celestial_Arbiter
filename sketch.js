@@ -15,27 +15,9 @@ function setup() {
   ui = new UIHandler();
 }
 
-function draw() {
-  generateButton = new Button('CLICK', width / 2 - 50, height - 50, testGPT); //버튼 
-  judge=new Judge(); //심판관
-  
-  //gpt = new GPTHandler();
-  //ui = new UIHandler();
-}
 
 function draw() { 
-  judge.display(); //코드가 훨씬 단순해졌죠?
-
-
-  //버튼
-  if (ttsSound && ttsSound.isPlaying()) { //소리 재생 중
-    generateButton.disable(); //버튼 비활성화
-    judge.updateTTSStatus(true);
-  } else {
-    generateButton.enable(); //버튼 활성화
-    judge.updateTTSStatus(false); //
-  }
-
+  scene.loadScene();
 }
 
 
