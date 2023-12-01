@@ -30,8 +30,8 @@ class SceneManager{
 
     loadScene_during(){
         text('This is DURING Scene',width/2,height/2);
-        generateButton = new Button('CLICK', width / 2 - 50, height - 50, testGPT); //버튼 
-        judge=new Judge(); //심판관
+        let clickButton = new Button('CLICK', width / 2 - 50, height - 50, ()=>{console.log('button clicked!')} ); //버튼 
+        let judge=new Judge(); //심판관
     }
 
     loadScene_after(){
