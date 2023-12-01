@@ -13,8 +13,11 @@ function setup() {
   tts = new TTSHandler();
   gpt = new GPTHandler();
   ui = new UIHandler();
-  ui.createGptInput();
-  ui.initTextBox(scene.chatLog);
+
+  // ui.createGptInput();
+  // ui.initTextBox();
+
+  ui.loadUI(scene);
 }
 
 function draw() {

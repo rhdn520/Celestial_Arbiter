@@ -6,6 +6,40 @@ class UIHandler {
     this.submitBtn = null;
   }
 
+  loadUI(scene) {
+    switch (scene.conversationStatus) {
+      case "before":
+        this.loadUI_before();
+        break;
+
+      case "during":
+        this.loadUI_during(scene.chatLog);
+        break;
+
+      case "after":
+        this.loadUI_after();
+        break;
+    }
+  }
+
+  loadUI_before() {
+
+  }
+
+  loadUI_during(chatLog) {
+    let clickButton = new Button("CLICK", width / 2 - 50, height - 50, () => {
+      console.log("button clicked!");
+    }); //버튼
+
+    this.createGptInput();
+    this.initTextBox(chatLog);
+  }
+
+  loadUI_after() {
+
+  }
+
+
   //맨처음 chatLog 렌더링
   initTextBox(chatLog) {
     this.chatLogBox = new ChatLogBox(50, 100, 500, 100);
@@ -33,6 +67,7 @@ class UIHandler {
       }
     }
   }
+
 
   createGptInput() {
     //텍스트 인풋 + 보내기 버튼 wrapper
@@ -62,6 +97,7 @@ class UIHandler {
     });
   }
 
+
   //인풋
   disableGptInput() {
     this.textInput.attribute("disabled", true);
@@ -72,6 +108,8 @@ class UIHandler {
     this.textInput.removeAttribute("disabled");
     this.submitBtn.removeAttribute("disabled");
   }
+
+
 }
 
 //chatLog를 담는 wrapper div

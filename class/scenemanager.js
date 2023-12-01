@@ -44,40 +44,8 @@ class SceneManager {
         text("This is AFTER Scene", width / 2, height / 2);
     }
 
-
-    loadUI(){
-        removeElements();
-        switch (this.conversationStatus) {
-            case "before":
-                this.loadUI_before();
-                break;
-
-            case "during":
-                this.loadUI_during();
-                break;
-
-            case "after":
-                this.loadUI_after();
-                break;
-        }
-    }
-    
-
-    loadUI_before() {
-
-    }
-
-    loadUI_during() {
-        let clickButton = new Button("CLICK", width / 2 - 50, height - 50, () => {
-            console.log("button clicked!");
-        }); //버튼
-    }
-
-    loadUI_after() {
-
-    }
-
     changeScene(newConvStatus) {
+        removeElements();
         this.conversationStatus = newConvStatus;
         console.log("Conversation Status Changed");
         this.loadUI();
