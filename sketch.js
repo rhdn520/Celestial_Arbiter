@@ -2,7 +2,7 @@ let scene;
 let tts;
 let ttsSound;
 let gpt;
-//let gpt;
+let ui;
 let button; //버튼 선언
 let judge; //심판관 선언
 
@@ -13,13 +13,13 @@ function setup() {
   tts = new TTSHandler();
   gpt = new GPTHandler();
   ui = new UIHandler();
+  ui.createGptInput();
+  ui.initTextBox(scene.chatLog);
 }
 
-
-function draw() { 
+function draw() {
   scene.loadScene();
 }
-
 
 //test code for TTS
 function testTTS() {
@@ -31,21 +31,21 @@ function testTTS() {
 }
 
 //test code for GPT
-function testGPT() {
-  gpt.sendToGPT("안녕하세요.").then((response) => {
-    scene.updateChatLog(response); //대화로그 업데이트
+function testGPT(text) {
+  if (text === "") {
+    return;
+  }
+  const userMessage = { role: "user", content: text };
+  scene.handleResponseStatus();
+  scene.updateChatLog(userMessage); //대화로그 업데이트(유저인풋)
+  // console.log(scene.chatLog);
+  gpt.sendToGPT(scene.chatLog).then((response) => {
+    scene.updateChatLog(response); //대화로그 업데이트(GPT대답)
     console.log(scene.chatLog);
-    ui.drawTextBox(scene.chatLog); //대화내역 렌더링
+    ui.updateTextBox(scene.chatLog); //대화내역 렌더링
   });
 }
 
 // function mousePressed(){
 //   testTTS();
 // }
-
-//엔터 누르면 테스트 가능
-function keyPressed() {
-  if (keyCode === ENTER) {
-    testGPT();
-  }
-}
