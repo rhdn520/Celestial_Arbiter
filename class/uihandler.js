@@ -1,19 +1,21 @@
 class UIHandler {
-  constructor() {
-    // this.gptStatus = "ready";
+  constructor(_scene) {
+    this.scene = _scene;
     this.chatLogBox = null;
     this.textInput = null;
     this.submitBtn = null;
   }
 
-  loadUI(scene) {
-    switch (scene.conversationStatus) {
+  loadUI() { 
+    //HTML tags를 로드하기 위한 함수로 loadUI 역할을 재정의했습니다.
+    //Canvas 내에서 다루어지지 않는 interaction 들은 모두 loadUI를 경유하면 될 것 같아요.
+    switch (this.scene.conversationStatus) {
       case "before":
         this.loadUI_before();
         break;
 
       case "during":
-        this.loadUI_during(scene.chatLog);
+        this.loadUI_during(this.scene.chatLog);
         break;
 
       case "after":
@@ -23,22 +25,24 @@ class UIHandler {
   }
 
   loadUI_before() {
-
+    let clickButton = new Button("Enter", width / 2 - 50, height - 50, ()=>{this.onClickChangeSceneBtn('during')}); //버튼
   }
 
   loadUI_during(chatLog) {
-    let clickButton = new Button("CLICK", width / 2 - 50, height - 50, () => {
-      console.log("button clicked!");
-    }); //버튼
+    let clickButton = new Button("Main", width / 2 - 50, height - 50, ()=>{this.onClickChangeSceneBtn('before')}); //버튼
 
     this.createGptInput();
     this.initTextBox(chatLog);
   }
 
   loadUI_after() {
-
+    let clickButton = new Button("Main", width / 2 - 50, height - 50, ()=>{this.onClickChangeSceneBtn('before')}); //버튼
   }
 
+  onClickChangeSceneBtn(sceneToGo){
+    scene.changeScene(sceneToGo);
+    this.loadUI(); 
+  }
 
   //맨처음 chatLog 렌더링
   initTextBox(chatLog) {

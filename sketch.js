@@ -12,7 +12,7 @@ function setup() {
   scene = new SceneManager();
   tts = new TTSHandler();
   gpt = new GPTHandler();
-  ui = new UIHandler();
+  ui = new UIHandler(scene);//과연 이건 괜찮은 패턴인가!?
 
   // ui.createGptInput();
   // ui.initTextBox();
