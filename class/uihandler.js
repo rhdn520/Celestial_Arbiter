@@ -39,8 +39,20 @@ class UIHandler {
   }
 
   onClickChangeSceneBtn(sceneToGo){
-    scene.changeScene(sceneToGo);
+    this.scene.changeScene(sceneToGo);
     this.loadUI(); 
+  }
+
+  onKeyPressed(){
+    if(this.scene.conversationStatus === "before"){
+      this.scene.changeScene("during")
+    }
+    if(this.scene.conversationStatus === "during"){
+
+    }
+    if(this.scene.conversationStatus === "after"){
+
+    }
   }
 
   //맨처음 chatLog 렌더링
@@ -108,8 +120,8 @@ class UIHandler {
   }
 
   enableGptInput() {
-    this.textInput.removeAttribute("disabled");
-    this.submitBtn.removeAttribute("disabled");
+    if(this.textInput != null) this.textInput.removeAttribute("disabled");
+    if(this.submitBtn != null) this.submitBtn.removeAttribute("disabled");
   }
 
 

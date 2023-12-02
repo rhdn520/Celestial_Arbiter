@@ -66,4 +66,5 @@ function testGPT(text) {
 //   testTTS();
 // }
 function keyPressed() {
+  ui.onKeyPressed();
 }

@@ -31,8 +31,20 @@ class SceneManager {
     }
 
     loadScene_before() {
-        text("This is BEFORE Scene", width / 2, height / 2);
-        image(mainDummyImg, 0,0,width, height);
+        rectMode(CENTER);
+        imageMode(CENTER);
+        image(mainDummyImg, width/2,height/2);
+        mainDummyImg.resize(width,mainDummyImg.height*(width/mainDummyImg.width));
+
+        fill(255);
+        textSize(25);
+        text("Life Receipt", width/2, height/4);
+        textSize(20);
+        text("PRESS ANY KEY TO START", width/2, height*4/5)
+
+        fill(0);
+        textSize(15);
+        text("당신의 인생을\n결산해보세요", width / 2, height / 2);
     }
 
     loadScene_during() {
