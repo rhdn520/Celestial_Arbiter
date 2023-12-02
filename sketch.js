@@ -22,7 +22,7 @@ let globalVar = {
         "어서와. 기억이 날지는 모르겠지만 넌 방금 죽었어. 나는 너를 심판할 존재이고. 지금부터 너에게 질문을 할거야. 잘 생각해서 대답해야 해. 아니면 넌 영원히 새 삶을 시작하지 못할 거니까. 준비됐겠지?",
     },
   ],
-  'conversationStatus': "before",
+  'conversationStatus': "during",
   'gptHavingError':false,
   'gptIsRequestPending':false
 };
@@ -84,5 +84,5 @@ function testGPT(text) {
 //   testTTS();
 // }
 function keyPressed() {
-  ui.onKeyPressed();
+  ui.onKeyPressed(keyCode);
 }

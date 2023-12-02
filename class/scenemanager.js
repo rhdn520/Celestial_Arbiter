@@ -42,9 +42,12 @@ class SceneManager {
     }
 
     loadScene_during() {
-        text("This is DURING Scene", width / 2, height / 2);
+        rectMode(CENTER);
+        imageMode(CENTER);
+        image(talkingDummyImg, width/2,height/2);
+        talkingDummyImg.resize(width,mainDummyImg.height*(width/mainDummyImg.width));
         // this.handleResponseStatus();
-        let judge = new Judge(); //심판관
+        
     }
 
     loadScene_after() {
