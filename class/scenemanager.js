@@ -1,21 +1,13 @@
 class SceneManager {
-    constructor() {
-        this.chatLog = [
-            {
-                role: "assistant",
-                content:
-                    "어서와. 기억이 날지는 모르겠지만 넌 방금 죽었어. 나는 너를 심판할 존재이고. 지금부터 너에게 질문을 할거야. 잘 생각해서 대답해야 해. 아니면 넌 영원히 새 삶을 시작하지 못할 거니까. 준비됐겠지?",
-            },
-        ];
-        this.conversationStatus = "before"; //'before', 'during', 'after' 3가지. Load Scene과 연계된 변수
-        this.nextLifeImg = null;
+    constructor(_globalVar) {
+        this.globarVar = _globalVar;
     }
 
     loadScene() {
         background(0);
         fill(255);
         textAlign(CENTER);
-        switch (this.conversationStatus) {
+        switch (this.globarVar.conversationStatus) {
             case "before":
                 this.loadScene_before();
                 break;
@@ -38,10 +30,12 @@ class SceneManager {
 
         fill(255);
         textSize(25);
+        textFont(typewriterFont);
         text("Life Receipt", width/2, height/4);
-        textSize(20);
-        text("PRESS ANY KEY TO START", width/2, height*4/5)
 
+        textFont(pretendardFont);
+        textSize(20);
+        text("Press Any Key to Start", width/2, height*4/5)
         fill(0);
         textSize(15);
         text("당신의 인생을\n결산해보세요", width / 2, height / 2);
@@ -59,24 +53,23 @@ class SceneManager {
 
     changeScene(newConvStatus) {
         removeElements();
-        this.conversationStatus = newConvStatus;
+        this.globarVar.conversationStatus = newConvStatus;
         console.log("Conversation Status Changed");
     }
 
     updateChatLog(newChat) {
-        this.chatLog.push(newChat);
+        this.globarVar.chatLog.push(newChat);
         console.log("Chatting Log Updated");
     }
 
     updateNextLifeImg(nextLifeImg) {
-        this.nextLifeImg = nextLifeImg;
+        this.globarVar.nextLifeImg = nextLifeImg;
         console.log("Next Life Image Updated");
     }
 
     resetVariables() {
-        this.chatLog = [];
-        this.conversationStatus = "before";
-        this.nextLifeImg = null;
+        this.globarVar.chatLog = [];
+        this.globarVar.conversationStatus = "before";
         console.log("Variables Reset");
     }
 
