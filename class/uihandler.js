@@ -25,12 +25,11 @@ class UIHandler {
   }
 
   loadUI_before() {
-    let clickButton = new Button("Enter", width / 2 - 50, height - 50, ()=>{this.onClickChangeSceneBtn('during')}); //버튼
+
+  
   }
 
   loadUI_during(chatLog) {
-    let clickButton = new Button("Main", width / 2 - 50, height - 50, ()=>{this.onClickChangeSceneBtn('before')}); //버튼
-
     this.createGptInput();
     this.initTextBox(chatLog);
   }
@@ -142,5 +141,21 @@ class Chat {
       (chat.role === "assistant" ? "심판자 : " : "당신 : ") + chat.content
     );
     this.chatDiv.addClass("gpt-chatlog-chat");
+  }
+}
+
+class Button {
+  constructor(label, x, y, w=100, h=100, callback) {
+    this.element = createButton(label); //버튼 이름
+    this.element.position(x, y); //버튼 위치
+    this.element.size(w,h);
+    this.element.mousePressed(callback);
+  }
+  disable() { //비활성화
+    this.element.attribute('disabled', true);
+  }
+
+  enable() { //활성화
+    this.element.removeAttribute('disabled');
   }
 }

@@ -32,6 +32,7 @@ class SceneManager {
 
     loadScene_before() {
         text("This is BEFORE Scene", width / 2, height / 2);
+        image(mainDummyImg, 0,0,width, height);
     }
 
     loadScene_during() {

@@ -6,6 +6,18 @@ let ui;
 let button; //버튼 선언
 let judge; //심판관 선언
 
+let mainDummyImg;
+let receiptDummyImg;
+let talkingDummyImg;
+let listeningDummyImg;
+
+function preload(){
+  mainDummyImg = loadImage('assets/main_dummy.png');
+  receiptDummyImg = loadImage('assets/receipt_dummy.png');
+  talkingDummyImg = loadImage('assets/talking_dummy.png');
+  listeningDummyImg = loadImage('assets/listening_dummy.png');
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
@@ -13,6 +25,7 @@ function setup() {
   tts = new TTSHandler();
   gpt = new GPTHandler();
   ui = new UIHandler(scene);//과연 이건 괜찮은 패턴인가!?
+  rectMode(CENTER);
 
   // ui.createGptInput();
   // ui.initTextBox();
@@ -52,3 +65,5 @@ function testGPT(text) {
 // function mousePressed(){
 //   testTTS();
 // }
+function keyPressed() {
+}
