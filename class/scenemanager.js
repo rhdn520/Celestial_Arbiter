@@ -1,13 +1,13 @@
 class SceneManager {
     constructor(_globalVar) {
-        this.globarVar = _globalVar;
+        this.globalVar = _globalVar;
     }
 
     loadScene() {
         background(0);
         fill(255);
         textAlign(CENTER);
-        switch (this.globarVar.conversationStatus) {
+        switch (this.globalVar.conversationStatus) {
             case "before":
                 this.loadScene_before();
                 break;
@@ -43,7 +43,7 @@ class SceneManager {
 
     loadScene_during() {
         text("This is DURING Scene", width / 2, height / 2);
-        this.handleResponseStatus();
+        // this.handleResponseStatus();
         let judge = new Judge(); //심판관
     }
 
@@ -53,38 +53,23 @@ class SceneManager {
 
     changeScene(newConvStatus) {
         removeElements();
-        this.globarVar.conversationStatus = newConvStatus;
+        this.globalVar.conversationStatus = newConvStatus;
         console.log("Conversation Status Changed");
     }
 
     updateChatLog(newChat) {
-        this.globarVar.chatLog.push(newChat);
+        this.globalVar.chatLog.push(newChat);
         console.log("Chatting Log Updated");
     }
 
     updateNextLifeImg(nextLifeImg) {
-        this.globarVar.nextLifeImg = nextLifeImg;
+        this.globalVar.nextLifeImg = nextLifeImg;
         console.log("Next Life Image Updated");
     }
 
     resetVariables() {
-        this.globarVar.chatLog = [];
-        this.globarVar.conversationStatus = "before";
+        this.globalVar.chatLog = [];
+        this.globalVar.conversationStatus = "before";
         console.log("Variables Reset");
-    }
-
-    //이미 응답을 보내고 있으면 인풋창 disable하는 함수
-    handleResponseStatus() {
-        if (gpt.havingError) {
-            ui.chatLogBox.handleStatus("⚠️ error");
-        } else {
-            if (gpt.isRequestPending) {
-                ui.disableGptInput();
-                ui.chatLogBox.handleStatus("pending...");
-            } else {
-                ui.enableGptInput();
-                ui.chatLogBox.handleStatus("ready");
-            }
-        }
     }
 }

@@ -1,21 +1,26 @@
 class UIHandler {
-  constructor(_scene) {
-    this.scene = _scene;
+  constructor(_globalVar) {
+    this.globalVar = _globalVar;
+    this.beforeVar = {
+      'conversationStatus': this.globalVar.conversationStatus,
+      'gptStatus': this.globalVar.gptStatus
+    };
     this.chatLogBox = null;
     this.textInput = null;
     this.submitBtn = null;
   }
 
-  loadUI() { 
+  loadUI() {
     //HTML tags를 로드하기 위한 함수로 loadUI 역할을 재정의했습니다.
     //Canvas 내에서 다루어지지 않는 interaction 들은 모두 loadUI를 경유하면 될 것 같아요.
-    switch (this.scene.conversationStatus) {
+    removeElements();
+    switch (this.globalVar.conversationStatus) {
       case "before":
         this.loadUI_before();
         break;
 
       case "during":
-        this.loadUI_during(this.scene.chatLog);
+        this.loadUI_during(this.globalVar.chatLog);
         break;
 
       case "after":
@@ -26,7 +31,7 @@ class UIHandler {
 
   loadUI_before() {
 
-  
+
   }
 
   loadUI_during(chatLog) {
@@ -35,22 +40,22 @@ class UIHandler {
   }
 
   loadUI_after() {
-    let clickButton = new Button("Main", width / 2 - 50, height - 50, ()=>{this.onClickChangeSceneBtn('before')}); //버튼
+    let clickButton = new Button("Main", width / 2 - 50, height - 50, () => { this.onClickChangeSceneBtn('before') }); //버튼
   }
 
-  onClickChangeSceneBtn(sceneToGo){
-    this.scene.changeScene(sceneToGo);
-    this.loadUI(); 
+  onClickChangeSceneBtn(sceneToGo) {
+    this.globalVar.conversationStatus = sceneToGo;
+    this.loadUI();
   }
 
-  onKeyPressed(){
-    if(this.scene.conversationStatus === "before"){
-      this.scene.changeScene("during")
+  onKeyPressed() {
+    if (this.globalVar.conversationStatus === "before") {
+      this.globalVar.conversationStatus = 'during'
     }
-    if(this.scene.conversationStatus === "during"){
+    if (this.globalVar.conversationStatus === "during") {
 
     }
-    if(this.scene.conversationStatus === "after"){
+    if (this.globalVar.conversationStatus === "after") {
 
     }
   }
@@ -120,8 +125,31 @@ class UIHandler {
   }
 
   enableGptInput() {
-    if(this.textInput != null) this.textInput.removeAttribute("disabled");
-    if(this.submitBtn != null) this.submitBtn.removeAttribute("disabled");
+    if (this.textInput != null) this.textInput.removeAttribute("disabled");
+    if (this.submitBtn != null) this.submitBtn.removeAttribute("disabled");
+  }
+
+  trackStatusChange() { //Track change of UI-related variables
+    if (this.beforeVar.conversationStatus !== this.globalVar.conversationStatus) {
+      console.log('conversation status changed to ' + this.globalVar.conversationStatus);
+      this.loadUI(this.globalVar.conversationStatus);
+      this.beforeVar.conversationStatus = this.globalVar.conversationStatus;
+    }
+
+    if(this.globalVar.conversationStatus === 'during'){
+      if (this.globalVar.gptHavingError) {
+        this.chatLogBox.handleStatus("⚠️ error");
+      } else {
+        if (this.globalVar.gptIsRequestPending) {
+          this.disableGptInput();
+          this.chatLogBox.handleStatus("pending...");
+        } else {
+          this.enableGptInput();
+          this.chatLogBox.handleStatus("ready");
+        }
+      }
+    }
+
   }
 
 
@@ -157,12 +185,13 @@ class Chat {
 }
 
 class Button {
-  constructor(label, x, y, w=100, h=100, callback) {
+  constructor(label, x, y, w = 100, h = 100, callback) {
     this.element = createButton(label); //버튼 이름
     this.element.position(x, y); //버튼 위치
-    this.element.size(w,h);
+    this.element.size(w, h);
     this.element.mousePressed(callback);
   }
+
   disable() { //비활성화
     this.element.attribute('disabled', true);
   }
