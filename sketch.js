@@ -24,7 +24,8 @@ let globalVar = {
   ],
   'conversationStatus': "before",
   'gptHavingError':false,
-  'gptIsRequestPending':false
+  'gptIsRequestPending':false,
+  "devLevel":'debug'
 };
 
 

@@ -57,7 +57,7 @@ class GPTHandler {
     } catch (error) {
       this.globalVar.gptHavingError = true;
       console.error("Error sending message to GPT:", error);
-      if(!alert('심판자가 졸리다고 합니다.\n다음에 오시죠.')){window.location.reload();}
+      if(this.globalVar.prodLevel==='production'){if(!alert('심판자가 졸리다고 합니다.\n다음에 오시죠.')){window.location.reload();}}
     }
   }
 }
