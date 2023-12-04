@@ -59,10 +59,10 @@ class SceneManager {
         receiptDummyImg.resize(width,receiptDummyImg.height*(width/receiptDummyImg.width));
         if(this.afterSceneLoadMillis === null){
             this.afterSceneLoadMillis = millis();
-            text(`Press any key to restart (${10}s)`, width/2, height - 60)
+            text(`Press ESC to restart (${10}s)`, width/2, height - 60)
         }else{
-            let countdown = int(11 + (this.afterSceneLoadMillis - millis())/1000)
-            text(`Press any key to restart (${countdown}s)`, width/2, height - 60)
+            let countdown = int(31 + (this.afterSceneLoadMillis - millis())/1000)
+            text(`Press ESC to restart (${countdown}s)`, width/2, height - 60)
             if(countdown === 0){
                 this.afterSceneLoadMillis = null;
                 this.globalVar.conversationStatus = 'before';

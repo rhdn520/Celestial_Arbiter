@@ -53,7 +53,7 @@ class UIHandler {
     if (this.globalVar.conversationStatus === "before") {
       this.globalVar.conversationStatus = 'during'
     }
-    if (this.globalVar.conversationStatus === "during") {
+    else if (this.globalVar.conversationStatus === "during") {
       if (keyCode === ENTER) {
         let userInput = this.textInput.value();
         if (userInput === "") {
@@ -64,8 +64,11 @@ class UIHandler {
       }
 
     }
-    if (this.globalVar.conversationStatus === "after") {
-      this.globalVar.conversationStatus = 'before';
+    else if (this.globalVar.conversationStatus === "after") {
+      if(keyCode === ESCAPE){
+
+        this.globalVar.conversationStatus = 'before';
+      }
     }
   }
 
@@ -126,6 +129,7 @@ class UIHandler {
     this.submitBtn.mouseClicked(() => {
       let userInput = this.textInput.value();
       if (userInput === "") {
+        console.log("user submitted emply string");
         return;
       }
       testGPT(userInput);
