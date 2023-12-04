@@ -33,6 +33,7 @@ function preload() {
   mainDummyImg = loadImage('assets/main_dummy.png');
   receiptDummyImg = loadImage('assets/receipt_dummy.png');
   talkingDummyImg = loadImage('assets/talking_dummy.png');
+  thinkingDummyImg = loadImage('assets/thinking_dummy.png')
   listeningDummyImg = loadImage('assets/listening_dummy.png');
   typewriterFont = loadFont('assets/Typewriter-Bold.otf');
   pretendardFont = loadFont('assets/Pretendard-Medium.otf');
