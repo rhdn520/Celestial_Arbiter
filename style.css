@@ -1,14 +1,15 @@
 @font-face {
-  font-family: 'pretendard';
-  src: url('assets/Pretendard-Medium.otf');
+  font-family: "pretendard";
+  src: url("assets/Pretendard-Medium.otf");
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family: pretendard, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: pretendard, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
 }
 
 canvas {
@@ -28,15 +29,13 @@ div {
   word-break: break-all;
   padding: 16px;
   border-radius: 4px;
-  background-color: rgba(216, 213, 213, 0.3);
-  transform:translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateX(-50%);
 }
 
-.gpt-status{
-  transform:translateX(-50%);
+.gpt-status {
+  transform: translateX(-50%);
 }
-
-
 
 ::-webkit-scrollbar {
   width: 6px;
@@ -67,23 +66,36 @@ div {
   transform: translateX(-50%);
 }
 
-
-.gpt-text-input{
+.gpt-text-input {
   display: flex;
   width: 500px;
   background-color: inherit;
-  border:none;
+  border: none;
   outline: none;
 }
 
-
 .gpt-text-submit {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   background-color: inherit;
-  border:#000;
+  border: #000;
 }
 
 .gpt-text-submit:hover {
   cursor: pointer;
+}
+
+.nextBtn {
+  padding: 6px;
+  background-color: white;
+  transform: translateX(-50%);
+}
+
+.nextBtn:hover {
+  cursor: pointer;
+  background-color: rgb(232, 232, 232);
+}
+
+.hidden {
+  display: none;
 }

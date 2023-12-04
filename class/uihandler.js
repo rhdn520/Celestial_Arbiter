@@ -2,12 +2,13 @@ class UIHandler {
   constructor(_globalVar) {
     this.globalVar = _globalVar;
     this.beforeVar = {
-      'conversationStatus': this.globalVar.conversationStatus,
-      'gptStatus': this.globalVar.gptStatus
+      conversationStatus: this.globalVar.conversationStatus,
+      gptStatus: this.globalVar.gptStatus,
     };
     this.chatLogBox = null;
     this.textInput = null;
     this.submitBtn = null;
+    this.inputWrapper = null;
   }
 
   loadUI() {
@@ -29,20 +30,14 @@ class UIHandler {
     }
   }
 
-  loadUI_before() {
-
-
-  }
+  loadUI_before() {}
 
   loadUI_during(chatLog) {
     this.createGptInput();
     this.initTextBox(chatLog);
   }
 
-  loadUI_after() {
-
-
-  }
+  loadUI_after() {}
 
   onClickChangeSceneBtn(sceneToGo) {
     this.globalVar.conversationStatus = sceneToGo;
@@ -51,9 +46,8 @@ class UIHandler {
 
   onKeyPressed(keyCode) {
     if (this.globalVar.conversationStatus === "before") {
-      this.globalVar.conversationStatus = 'during'
-    }
-    else if (this.globalVar.conversationStatus === "during") {
+      this.globalVar.conversationStatus = "during";
+    } else if (this.globalVar.conversationStatus === "during") {
       if (keyCode === ENTER) {
         let userInput = this.textInput.value();
         if (userInput === "") {
@@ -62,19 +56,16 @@ class UIHandler {
         testGPT(userInput);
         this.textInput.value("");
       }
-
-    }
-    else if (this.globalVar.conversationStatus === "after") {
-      if(keyCode === ESCAPE){
-
-        this.globalVar.conversationStatus = 'before';
+    } else if (this.globalVar.conversationStatus === "after") {
+      if (keyCode === ESCAPE) {
+        this.globalVar.conversationStatus = "before";
       }
     }
   }
 
   //맨처음 chatLog 렌더링
   initTextBox(chatLog) {
-    this.chatLogBox = new ChatLogBox(width / 2, 100, 600, 100);
+    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 100);
     let initChat = new Chat(chatLog[0]);
     initChat.chatDiv.parent(this.chatLogBox.wrapper);
   }
@@ -87,42 +78,47 @@ class UIHandler {
     }
 
     //새로운 chatLogBox에 업데이트된 chatLog 렌더링 가장 (최근 대화일수록 위)
-    this.chatLogBox = new ChatLogBox(width/2, 100, 600, 100);
-    if (chatLog[chatLog.length - 1] !== undefined) {
-      let updatedChat = new Chat(chatLog[chatLog.length - 1]);
-      updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
-      updatedChat.chatDiv.style(
-        "color", "white"
-      );
-    }
-    // for (let i = chatLog.length - 1; 0 <= i; i--) {
-    //   if (chatLog[i] !== undefined) {
-    //     let updatedChat = new Chat(chatLog[i]);
-    //     updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
-    //     updatedChat.chatDiv.style(
-    //       "color",
-    //       i === chatLog.length - 1 ? "white" : "rgb(128,128,128)"
-    //     );
-    //   }
+    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 100);
+    // if (chatLog[chatLog.length - 1] !== undefined) {
+    //   let updatedChat = new Chat(chatLog[chatLog.length - 1]);
+    //   updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
+    //   updatedChat.chatDiv.style("color", "white");
     // }
-  }
 
+    for (let i = chatLog.length - 1; 0 <= i; i--) {
+      if (chatLog[i] !== undefined) {
+        const chat = chatLog[i];
+        //<대화종료 인식>
+        if (chat.role === "assistant" && chat.content.includes("<대화 종료>")) {
+          // chat.content.replace("<대화 종료>", "");
+          this.duringJudgement();
+          console.log("대화종료");
+        }
+        let updatedChat = new Chat(chat);
+        updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
+        updatedChat.chatDiv.style(
+          "color",
+          i === chatLog.length - 1 ? "white" : "rgb(128,128,128)"
+        );
+      }
+    }
+  }
 
   createGptInput() {
     //텍스트 인풋 + 보내기 버튼 wrapper
-    let inputWrapper = createDiv();
-    inputWrapper.addClass("gpt-text-wrapper");
-    inputWrapper.position(width / 2, height - 100);
+    this.inputWrapper = createDiv();
+    this.inputWrapper.addClass("gpt-text-wrapper");
+    this.inputWrapper.position(width / 2, height - 120);
 
     //텍스트 인풋
     this.textInput = createInput("");
     this.textInput.addClass("gpt-text-input");
-    this.textInput.parent(inputWrapper);
+    this.textInput.parent(this.inputWrapper);
     this.textInput.attribute("disabled", true);
     //보내기 버튼
     this.submitBtn = createInput("ENTER", "button");
     this.submitBtn.addClass("gpt-text-submit");
-    this.submitBtn.parent(inputWrapper);
+    this.submitBtn.parent(this.inputWrapper);
     this.submitBtn.attribute("disabled", true);
 
     //사용자인풋 보내기
@@ -137,7 +133,6 @@ class UIHandler {
     });
   }
 
-
   //인풋
   disableGptInput() {
     this.textInput.attribute("disabled", true);
@@ -149,14 +144,33 @@ class UIHandler {
     if (this.submitBtn != null) this.submitBtn.removeAttribute("disabled");
   }
 
-  trackStatusChange() { //Track change of UI-related variables
-    if (this.beforeVar.conversationStatus !== this.globalVar.conversationStatus) {
-      console.log('conversation status changed to ' + this.globalVar.conversationStatus);
+  //판결문 나올 때
+  duringJudgement() {
+    this.inputWrapper.addClass("hidden");
+    let nextBtn = createDiv("내 인생 영수증 받기 >");
+    nextBtn.addClass("nextBtn");
+    nextBtn.position(width / 2, 400);
+    nextBtn.mousePressed(() => this.changeStatusToAfter());
+  }
+
+  //after로 넘어가기
+  changeStatusToAfter() {
+    this.globalVar.conversationStatus = "after";
+  }
+
+  trackStatusChange() {
+    //Track change of UI-related variables
+    if (
+      this.beforeVar.conversationStatus !== this.globalVar.conversationStatus
+    ) {
+      console.log(
+        "conversation status changed to " + this.globalVar.conversationStatus
+      );
       this.loadUI(this.globalVar.conversationStatus);
       this.beforeVar.conversationStatus = this.globalVar.conversationStatus;
     }
 
-    if (this.globalVar.conversationStatus === 'during') {
+    if (this.globalVar.conversationStatus === "during") {
       if (this.globalVar.gptHavingError) {
         this.chatLogBox.handleStatus("⚠️ error");
       } else {
@@ -169,10 +183,7 @@ class UIHandler {
         }
       }
     }
-
   }
-
-
 }
 
 //chatLog를 담는 wrapper div
@@ -186,7 +197,7 @@ class ChatLogBox {
     //gpt상태
     this.status = createDiv("ready");
     this.status.addClass("gpt-status");
-    this.status.position(x, y + h + 40);
+    this.status.position(x, y + h + 100);
     this.status.style("color", "rgba(255, 255, 255, 0.5)");
   }
 
@@ -213,11 +224,13 @@ class Button {
     this.element.mousePressed(callback);
   }
 
-  disable() { //비활성화
-    this.element.attribute('disabled', true);
+  disable() {
+    //비활성화
+    this.element.attribute("disabled", true);
   }
 
-  enable() { //활성화
-    this.element.removeAttribute('disabled');
+  enable() {
+    //활성화
+    this.element.removeAttribute("disabled");
   }
 }
