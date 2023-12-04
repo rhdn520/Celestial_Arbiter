@@ -1,6 +1,7 @@
 class SceneManager {
     constructor(_globalVar) {
         this.globalVar = _globalVar;
+        this.afterSceneLoadMillis = null;
     }
 
     loadScene() {
@@ -51,7 +52,27 @@ class SceneManager {
     }
 
     loadScene_after() {
-        text("This is AFTER Scene", width / 2, height / 2);
+        rectMode(CENTER);
+        imageMode(CENTER);
+        background('#010101');
+        image(receiptDummyImg, width/2,height/2);
+        receiptDummyImg.resize(width,receiptDummyImg.height*(width/receiptDummyImg.width));
+        if(this.afterSceneLoadMillis === null){
+            this.afterSceneLoadMillis = millis();
+            text(`Press any key to restart (${10}s)`, width/2, height - 60)
+        }else{
+            let countdown = int(11 + (this.afterSceneLoadMillis - millis())/1000)
+            text(`Press any key to restart (${countdown}s)`, width/2, height - 60)
+            if(countdown === 0){
+                this.afterSceneLoadMillis = null;
+                this.globalVar.conversationStatus = 'before';
+            }
+        }
+        // setTimeout(()=>{
+        //     this.loadMainCountdown--;
+        // },1000)
+
+        textSize(20);
     }
 
     changeScene(newConvStatus) {
@@ -63,11 +84,6 @@ class SceneManager {
     updateChatLog(newChat) {
         this.globalVar.chatLog.push(newChat);
         console.log("Chatting Log Updated");
-    }
-
-    updateNextLifeImg(nextLifeImg) {
-        this.globalVar.nextLifeImg = nextLifeImg;
-        console.log("Next Life Image Updated");
     }
 
     resetVariables() {

@@ -40,7 +40,8 @@ class UIHandler {
   }
 
   loadUI_after() {
-    let clickButton = new Button("Main", width / 2 - 50, height - 50, () => { this.onClickChangeSceneBtn('before') }); //버튼
+
+
   }
 
   onClickChangeSceneBtn(sceneToGo) {
@@ -64,7 +65,7 @@ class UIHandler {
 
     }
     if (this.globalVar.conversationStatus === "after") {
-
+      this.globalVar.conversationStatus = 'before';
     }
   }
 
