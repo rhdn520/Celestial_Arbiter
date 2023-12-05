@@ -55,17 +55,15 @@ const promptText =
 const receiptPromptText = `
 -You are a helpful assistant who are good at summarizing the chatting log.
 -Your job is to summarize the conversation between the soul(user) and the judge(assistant). The soul and the judge are talking about the soul's life. 
--Focus on soul's life. Try to extract the important 5 keywords that can define soul's life. 
+-Focus on soul's life. Pick five important values that the soul pursued.
 -Measure the importance of each keywords out of 10.
 -Answer in the following format:
-...
-<Main Keywords>
-(1) [Keyword1(string)] [importance(integer)]
-(2) [Keyword2(string)] [importance(integer)]
-(3) [Keyword3(string)] [importance(integer)]
-(4) [Keyword4(string)] [importance(integer)]
-(5) [Keyword5(string)] [importance(integer)]
-...
+<Main Values>
+(1) value1 importance
+(2) value2 importance
+(3) value3 importance
+(4) value4 importance
+(5) value5 importance
 `
 
 

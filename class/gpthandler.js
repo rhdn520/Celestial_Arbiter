@@ -81,8 +81,8 @@ class GPTHandler {
         body: JSON.stringify({
           model: "gpt-4-1106-preview",
           messages: [
-            { role: "system", content: this.prompt }, //프롬프트 넣는 곳
-            ...chatLog,
+            { role: "system", content: this.receiptPrompt}, //프롬프트 넣는 곳
+            { role: "user", content: this.makeChatLogText(exampleChatLog)},
           ],
         }),
       });
@@ -90,6 +90,7 @@ class GPTHandler {
       const data = await response.json();
 
       if (response.ok) {
+        console.log(data.choices[0].message.content);
         return data.choices[0].message.content;
       } else {
         this.globalVar.gptHavingError = true;
@@ -104,7 +105,7 @@ class GPTHandler {
 
   async getGPTReceipt(chatLog) {
     try {
-      const botResponse = await this.sendMessage(this.globalVar.chatLog);
+      const botResponse = await this.sendRcptMessage(this.globalVar.chatLog);
       return { role: "assistant", content: botResponse }; //대화마다 고유 id나 인덱스가 필요하면 추가하기
     } catch (error) {
       this.globalVar.gptHavingError = true;
@@ -113,12 +114,13 @@ class GPTHandler {
     }
   }
 
-  async makeChatLogText(chatLog){
+  makeChatLogText(chatLog){
     let chatText = ''
     for(let i = 0; i<chatLog.length; i++){
       chatText += `\n${chatLog[i].role}: ${chatLog[i].content}`
     }
     console.log(chatText);
+    return chatText
   }
 
 }

@@ -53,7 +53,9 @@ function setup() {
 
   ui.loadUI(scene);
 
-  gpt.makeChatLogText(exampleChatLog);
+  // gpt.makeChatLogText(exampleChatLog);
+
+  // gpt.sendRcptMessage(exampleChatLog)
 }
 
 function draw() {
