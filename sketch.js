@@ -42,7 +42,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
-  gpt = new GPTHandler(globalVar);
+  gpt = new GPTHandler(globalVar,promptText, receiptPromptText);
   ui = new UIHandler(globalVar);
   scene = new SceneManager(globalVar);
   rectMode(CENTER);
@@ -52,6 +52,8 @@ function setup() {
   // ui.initTextBox();
 
   ui.loadUI(scene);
+
+  gpt.makeChatLogText(exampleChatLog);
 }
 
 function draw() {
