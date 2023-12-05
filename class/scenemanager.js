@@ -47,11 +47,11 @@ class SceneManager {
         imageMode(CENTER);
         if(this.globalVar.gptIsRequestPending){
             image(thinkingDummyImg, width/2,height/2);
-            thinkingDummyImg.resize(width,thinkingDummyImg.height*(width/mainDummyImg.width));    
+            thinkingDummyImg.resize(width,thinkingDummyImg.height*(width/thinkingDummyImg.width));    
 
         }else{
             image(talkingDummyImg, width/2,height/2);
-            talkingDummyImg.resize(width,thinkingDummyImg.height*(width/mainDummyImg.width));    
+            talkingDummyImg.resize(width,thinkingDummyImg.height*(width/thinkingDummyImg.width));    
         }
         // this.handleResponseStatus();
         
