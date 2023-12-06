@@ -50,3 +50,125 @@ const promptText =
  User: 여섯 살 때요. 가장 편안하고 행복했거든요.
  Assistance: 어린 아이처럼 사는 것은 모든 인간의 목표라고 할 수 있지. 인간다운 답변이었다.
  ...`
+
+
+const receiptPromptText = `
+-You are a helpful assistant who are good at summarizing the chatting log.
+-Your job is to summarize the conversation between the soul(user) and the judge(assistant). The soul and the judge are talking about the soul's life. 
+-Get 
+-Focus on soul's life. Pick five important values that the soul pursued. Don't add additional description.
+-Score the importance of each values out of 10.
+-Answer in english.
+`
+
+
+const exampleChatLog = [
+    {
+        "role": "assistant",
+        "content": "어서와. 기억이 날지는 모르겠지만 넌 방금 죽었어. 나는 너를 심판할 존재이고. 지금부터 너에게 질문을 할거야. 잘 생각해서 대답해야 해. 아니면 넌 영원히 새 삶을 시작하지 못할 거니까. 준비됐겠지?"
+    },
+    {
+        "role": "user",
+        "content": "응"
+    },
+    {
+        "role": "assistant",
+        "content": "좋아. 살아있을 때 네가 가장 자랑스러웠던 일은 뭐야?"
+    },
+    {
+        "role": "user",
+        "content": "대학에 입학한 거야"
+    },
+    {
+        "role": "assistant",
+        "content": "흥, 공부벌레였구나. 이번에는 가장 후회하는 일이 뭔지 말해봐."
+    },
+    {
+        "role": "user",
+        "content": "공부를 너무 열심히 한 거야"
+    },
+    {
+        "role": "assistant",
+        "content": "공부하는 거 자랑하더니 이제 와서 후회한다고? 아이러니하군. 가족이나 친구에게 행해진 네 행동 중 잊을 수 없는 게 있어?"
+    },
+    {
+        "role": "user",
+        "content": "글쎄. 딱히 없는걸?"
+    },
+    {
+        "role": "assistant",
+        "content": "응? 가족이나 친구한테 생각나는 게 없다니 뭘 하루 종일 했던 거야? 사랑한 사람이 있었나? 있었다면 그 사람과의 추억을 말해봐."
+    },
+    {
+        "role": "user",
+        "content": "여자친구가 있었어. 같이 pc방에 가서 오버워치라는 게임을 했어"
+    },
+    {
+        "role": "assistant",
+        "content": "게임에 빠져서 연애도 그런 식으로 했군. 참 특이하다. 평소에 네가 도움을 줬던 사람은 있었어?"
+    },
+    {
+        "role": "user",
+        "content": "글쎄. 딱히 없던 것 같아"
+    },
+    {
+        "role": "assistant",
+        "content": "하하, 친절하진 않았나 보네. 네가 살면서 받은 가장 큰 도움은 뭔가?"
+    },
+    {
+        "role": "user",
+        "content": "글쎄... 부모님한테 받은 게 가장 많지."
+    },
+    {
+        "role": "assistant",
+        "content": "물론이지. 부모 은혜는 크지. 그래도 넌 받기만 했군. 역경을 겪었을 때 가장 의지했던 것은 뭐였어?"
+    },
+    {
+        "role": "user",
+        "content": "글쎄. 딱히 무언가에 의지하진 않았던 것 같아. 그냥 나 스스로 견뎠어."
+    },
+    {
+        "role": "assistant",
+        "content": "자기 자신만 믿고 살아왔다고? 쿨한 척도 정도껏 하라고. 살아있는 동안 가장 중요하게 생각했던 가치는 뭔가?"
+    },
+    {
+        "role": "user",
+        "content": "음... 잘 모르겠어. "
+    },
+    {
+        "role": "assistant",
+        "content": "생각이 없었나? 이런. 삶에서 특별히 중요하게 생각한 건 없었구나. 살면서 너를 가장 화나게 했던 일은 무엇이었어?"
+    },
+    {
+        "role": "user",
+        "content": "돈이 가끔 부족했어. 그게 너무 화가 났어"
+    },
+    {
+        "role": "assistant",
+        "content": "돈에 허덕이며 화내고 살았구나. 이해는 가. 유흥으로 돈을 날린 적은?"
+    },
+    {
+        "role": "user",
+        "content": "그런 적은 없지."
+    },
+    {
+        "role": "assistant",
+        "content": "그래도 절제는 있었네. 살면서 어떤 일을 가장 큰 즐거움으로 여겼어?"
+    },
+    {
+        "role": "user",
+        "content": "음. 그냥 푹 자는거?"
+    },
+    {
+        "role": "assistant",
+        "content": "자는 걸 즐거움으로 여긴다니 참... 심심한 인생이었구나. 마지막 질문이다. 영혼아, 네가 이 세상에서 이루고 싶었던 꿈은 뭐였어?"
+    },
+    {
+        "role": "user",
+        "content": "없어. 그냥 편하게 사는게 유일한 인생 목표였지."
+    },
+    {
+        "role": "assistant",
+        "content": "편하게 사는 게 전부였다고? 그러니까 기억에 남는 것도 없고, 큰 꿈도 없었구만. 아주 평범하게 사는 걸 추구했어. 자, 심판을 내릴 시간이군.\n\n네 삶을 바탕으로 널 심판해보자. 넌 남들에게 도움을 주지 않았고, 특별한 관계나 큰 행복, 강렬한 꿈 따위도 없이 그저 편하게 사는 걸 원했어. 적당히 행복하고 적당히 불행했으며, 적당히 받고 적당히 줬지. 그래서 네 영혼에게 는 삶의 중요한 가치나 뜨거운 열정을 배우길 바라. 넌 다음 생에서 실패와 성공을 모두 경험하며 삶의 진정한 의미를 찾아나설 독수리로 환생하게 될 거야. 날카로운 눈으로 세상을 바라보게 될 테고, 높은 하늘을 날며 넓은 시야를 가진 존재가 될 것이다. 삶과 죽음의 굴레에서 자유롭게, 그리고 스스로 힘을 갖고 살아가라.\n\n네 판결은 이렇게 내려졌어. 기회를 잘 살려 새 삶을 살아. 이제 가보렴. <대화 종료>"
+    }
+]
