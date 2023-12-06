@@ -134,13 +134,21 @@ class GPTHandler {
   }
 
   async getGPTReceipt(chatLog) {
-    try {
-      const botResponse = await this.sendRcptMessage(this.globalVar.chatLog);
-      return { role: "assistant", content: botResponse }; //대화마다 고유 id나 인덱스가 필요하면 추가하기
-    } catch (error) {
-      this.globalVar.gptHavingError = true;
-      console.error("Error sending message to GPT:", error);
-      if (!this.globalVar.debugMode) { if (!alert('심판자가 졸리다고 합니다.\n다음에 오시죠.')) { window.location.reload(); } }
+    // try {
+    //   const botResponse = await this.sendRcptMessage(this.globalVar.chatLog);
+    //   return { role: "assistant", content: botResponse }; //대화마다 고유 id나 인덱스가 필요하면 추가하기
+    // } catch (error) {
+    //   this.globalVar.gptHavingError = true;
+    //   console.error("Error sending message to GPT:", error);
+    //   if (!this.globalVar.debugMode) { if (!alert('심판자가 졸리다고 합니다.\n다음에 오시죠.')) { window.location.reload(); } }
+    // }
+    return {
+      "judge_summary": "You didn't help others and didn't have any special relationships, big happiness, or intense dreams. You just wanted to live comfortably, being moderately happy and moderately unhappy, giving and receiving moderately. So I hope that your soul can learn the important values and intense passion of life. In your next life, you will be reborn as an eagle, experiencing both failure and success, and finding the true meaning of life. You will have sharp eyes to see the world, fly in the high sky, and have a broad perspective. Live freely from the constraints of life and death, and live with your own strength.",
+      "value1": "Values",
+      "value2": "Passion",
+      "value3": "Success",
+      "value4": "Freedom",
+      "value5": "Strength"
     }
   }
 
