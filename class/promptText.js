@@ -58,7 +58,6 @@ const receiptPromptText = `
 -Get 
 -Focus on soul's life. Pick five important values that the soul pursued. Don't add additional description.
 -Score the importance of each values out of 10.
--Answer both in english and korean. 
 `
 
 
