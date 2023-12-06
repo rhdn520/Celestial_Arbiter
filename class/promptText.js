@@ -57,37 +57,8 @@ const receiptPromptText = `
 -Your job is to summarize the conversation between the soul(user) and the judge(assistant). The soul and the judge are talking about the soul's life. 
 -Get 
 -Focus on soul's life. Pick five important values that the soul pursued. Don't add additional description.
--Measure the importance of each keywords out of 10. Sort the values by its importance. 
+-Score the importance of each values out of 10.
 -Answer both in english and korean. 
--Answer in the following format:
-
-<JUDGMENT>
-You will be : [what will be the soul in his next life]
-[the summarize of the last sentence of thd judge]
-
-<Main Values>
-(1) [value1]  [importance]
-(2) [value2]  [importance]
-(3) [value3]  [importance]
-(4) [value4]  [importance]
-(5) [value5]  [importance]
-
--Below are example response:
-<JUDGMENT>
-You will be : EAGLE
-
-You didn't help others, and you just wanted to live comfortably without any special relationships, big happiness, or intense dreams. 
-You were moderately happy and moderately unhappy, and you were moderately received and moderately given. 
-So, I hope your soul will learn the important value and passion of life. 
-You will be reincarnated as an eagle that will experience both failure and success in your next life and find the true meaning of life. 
-You will see the world with sharp eyes, and you will fly high in the sky and have a broad view. 
-
-<Main Values>
-(1) Education   7
-(2) Autonomy    9
-(3) Comfort 10
-(4) Financial Security  8
-(5) Rest    6
 `
 
 

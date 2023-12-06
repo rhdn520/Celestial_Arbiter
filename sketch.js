@@ -55,7 +55,7 @@ function setup() {
 
   // gpt.makeChatLogText(exampleChatLog);
 
-  gpt.sendRcptMessage(exampleChatLog)
+  // gpt.sendRcptMessage(exampleChatLog)
 }
 
 function draw() {
