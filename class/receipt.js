@@ -114,7 +114,7 @@ async function setup() {
   }
 
 
-async function(getText(){
+async function getText(){
   try{
     const response=await getGPTReceipt(chatlog);
 
