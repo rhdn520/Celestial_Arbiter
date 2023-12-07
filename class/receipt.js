@@ -123,7 +123,7 @@ async function getText(){
     secondDivText.textContent=summaryText;
     secondDivText.classList.add('font1');
     secondDivText.style.fontSize='11px';
-    document.getElementByID('secondDiv').appendChild(secondDivText);
+    document.getElementById('secondDiv').appendChild(secondDivText);
 
     let values=Object.values(response).slice(1).join(', ');
     let thirdDivText=document.createElement('p');
