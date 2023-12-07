@@ -1,4 +1,4 @@
-function setup() {
+async function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
   
@@ -109,7 +109,32 @@ function setup() {
       xPos += sixthDivWidth;
     }
     yPos += sixthDivHeight;
+
+    await getText();
   }
+
+
+async function(getText(){
+  try{
+    const response=await getGPTReceipt(chatlog);
+
+    let summaryText=response.judge_summary;
+    let secondDivText=document.createElement('p');
+    secondDivText.textContent=summaryText;
+    secondDivText.classList.add('font1');
+    secondDivText.style.fontSize='11px';
+    document.getElementByID('secondDiv').appendChild(secondDivText);
+
+    let values=Object.values(response).slice(1).join(', ');
+    let thirdDivText=document.createElement('p');
+    thirdDivText.textContent=values;
+    thirdDivText.classList.add('font1');
+    thirdDivText.style.fontSize='12px';
+    document.getElementById('thirdDiv').appendChild(thirdDivText);}
+  catch(error){
+    console.error("Error getting GPT receipt:",error);
+  }
+}
   
 
 function createCustomDiv(x, y, w, h) {
