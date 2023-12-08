@@ -66,7 +66,7 @@ class Receipt {
     }
     
     
-    let div3 = createDiv("Values");
+    let div3 = createDiv(div3Text);
     div3.position(this.xPos, this.yPos + this.div1Height + this.div2Height);
     div3.size(this.divWidth, this.div2Height);
     div3.style("background-color", "rgba(255,255,255,0.8)");
