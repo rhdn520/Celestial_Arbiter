@@ -75,7 +75,7 @@ class Receipt {
     div3.style("padding", "25px")
     div3.style("background-color", "rgba(255,255,255,0.8)");
     div3.style("text-align", "center");
-    div3.style("font-family", "typewr_b");
+    div3.style("font-family", "myfontrunes");
     div3.style("font-size", "11px");
     div3.style("display", "flex");
     div3.style("justify-content", "center");
