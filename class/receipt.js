@@ -49,24 +49,16 @@ class Receipt {
     let div2 = createDiv(this.globalVar.receiptData.judge_summary);
     div2.position(this.xPos, this.yPos + this.div1Height);
     div2.size(this.divWidth, this.div2Height);
-    div2.style("background-color", "rgba(255,255,255,0.8)");
-    div2.style("text-align", "center");
-    div2.style("font-family", "myfontrunes");
-    div2.style("font-size", "16px");
-    div2.style("display", "flex");
-    div2.style("justify-content", "center");
-    div2.style("align-items", "center");
-    div2.style("border", "1px dotted#000");
-
+    div2.addClass('judge_summary');
     //Div3
-    
-    let div3Text="";
+
+    let div3Text = "";
     div3Text += `Value1<br>${this.globalVar.receiptData.value1}<br>`;
     div3Text += `Value2<br>${this.globalVar.receiptData.value2}<br>`;
     div3Text += `Value3<br>${this.globalVar.receiptData.value3}<br>`;
     div3Text += `Value4<br>${this.globalVar.receiptData.value4}<br>`;
     div3Text += `Value5<br>${this.globalVar.receiptData.value5}<br>`;
-    
+
     let div3 = createDiv(div3Text);
     div3.position(this.xPos, this.yPos + this.div1Height + this.div2Height);
     div3.size(this.divWidth, this.div2Height);
@@ -77,7 +69,7 @@ class Receipt {
     div3.style("display", "flex");
     div3.style("justify-content", "center");
     div3.style("align-items", "center");
-    div3.style("border", "1px dotted#000");
+    // div3.style("border", "1px dotted#000");
 
     //Div4
     let div4 = createDiv(
@@ -112,11 +104,11 @@ class Receipt {
     div5.style("justify-content", "center");
     div5.style("align-items", "center");
     div5.style("border", "1px dotted#000");
-    
+
     //Div6
-        let div6 = createDiv("SCAN THIS QR CODE");
+    let div6 = createDiv("SCAN THIS QR CODE");
     div6.position(
-      this.xPos + this.div4Width*2,
+      this.xPos + this.div4Width * 2,
       this.yPos + this.div1Height + this.div2Height + this.div3Height
     );
     div6.size(this.div4Width, this.div6Height);
@@ -128,12 +120,12 @@ class Receipt {
     div6.style("justify-content", "center");
     div6.style("align-items", "center");
     div6.style("border", "1px dotted#000");
-    
+
     //Div7
-            let div7 = createDiv('20231219');
+    let div7 = createDiv('20231219');
     div7.position(
       this.xPos,
-      this.yPos + this.div1Height + this.div2Height + this.div3Height+this.div4Height
+      this.yPos + this.div1Height + this.div2Height + this.div3Height + this.div4Height
     );
     div7.size(this.div4Width, this.div7Height);
     div7.style("background-color", "rgba(255,255,255,0.8)");
@@ -144,12 +136,12 @@ class Receipt {
     div7.style("justify-content", "center");
     div7.style("align-items", "center");
     div7.style("border", "1px none#000");
-    
+
     //Div8
-                let div8 = createDiv('');
+    let div8 = createDiv('');
     div8.position(
-      this.xPos+this.div4Width,
-      this.yPos + this.div1Height + this.div2Height + this.div3Height+this.div4Height
+      this.xPos + this.div4Width,
+      this.yPos + this.div1Height + this.div2Height + this.div3Height + this.div4Height
     );
     div8.size(this.div4Width, this.div8Height);
     div8.style("background-color", "rgba(255,255,255,0.8)");
@@ -157,15 +149,15 @@ class Receipt {
     div8.style("justify-content", "center");
     div8.style("align-items", "center");
     div8.style("border", "1px none#000");
-    
+
     //let imgElement;
     //imgElement=createImg('')
-    
+
     //Div9
     let div9 = createDiv('');
     div9.position(
-      this.xPos+this.div4Width*2,
-      this.yPos + this.div1Height + this.div2Height + this.div3Height+this.div4Height
+      this.xPos + this.div4Width * 2,
+      this.yPos + this.div1Height + this.div2Height + this.div3Height + this.div4Height
     );
     div9.size(this.div4Width, this.div9Height);
     div9.style("background-color", "rgba(255,255,255,0.8)");
@@ -173,6 +165,6 @@ class Receipt {
     div9.style("justify-content", "center");
     div9.style("align-items", "center");
     div9.style("border", "1px none#000");
-    
+
   }
 }
