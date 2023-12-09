@@ -10,6 +10,7 @@ let mainDummyImg;
 let receiptDummyImg;
 let talkingDummyImg;
 let listeningDummyImg;
+let thinkingDummyImg;
 
 let typewriterFont;
 let pretendardFont;
