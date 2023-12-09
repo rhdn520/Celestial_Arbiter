@@ -61,8 +61,9 @@ class SceneManager {
         rectMode(CENTER);
         imageMode(CENTER);
         background('#010101');
-        image(receiptDummyImg, width/2,height/2);
-        receiptDummyImg.resize(width,receiptDummyImg.height*(width/receiptDummyImg.width));
+        // image(receiptDummyImg, width/2,height/2);
+        // receiptDummyImg.resize(width,receiptDummyImg.height*(width/receiptDummyImg.width));
+
         if(this.afterSceneLoadMillis === null){
             this.afterSceneLoadMillis = millis();
             text(`Press ESC to restart (${30}s)`, width/2, height - 30)

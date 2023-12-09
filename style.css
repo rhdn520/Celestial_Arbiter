@@ -3,6 +3,21 @@
   src: url("assets/Pretendard-Medium.otf");
 }
 
+@font-face {
+  font-family: "typewr_b";
+  src: url("assets/TYPEWR_B.TTF");
+}
+
+@font-face {
+  font-family: "myfontrunes";
+  src: url("assets/Myfontrunes-Regular.ttf");
+}
+
+@font-face {
+  font-family: "barcord";
+  src: url("assets/BarcodeFont.ttf");
+}
+
 html,
 body {
   margin: 0;

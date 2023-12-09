@@ -82,7 +82,7 @@ class GPTHandler {
     }
   }
 
-  async sendRcptMessage(chatLog) {
+  async sendRcptRequest(chatLog) {
     if (this.globalVar.gptIsRequestPending) {
       console.log("Request is already pending. Wait for the request");
     }
@@ -133,9 +133,9 @@ class GPTHandler {
     }
   }
 
-  async getGPTReceipt(chatLog) {
+  async getGPTReceipt() {
     // try {
-    //   const botResponse = await this.sendRcptMessage(this.globalVar.chatLog);
+    //   const botResponse = await this.sendRcptRequest(this.globalVar.chatLog);
     //   return { role: "assistant", content: botResponse }; //대화마다 고유 id나 인덱스가 필요하면 추가하기
     // } catch (error) {
     //   this.globalVar.gptHavingError = true;

@@ -37,7 +37,9 @@ class UIHandler {
     this.initTextBox(chatLog);
   }
 
-  loadUI_after() {}
+  loadUI_after() {
+    receipt.display();
+  }
 
   onClickChangeSceneBtn(sceneToGo) {
     this.globalVar.conversationStatus = sceneToGo;
@@ -150,11 +152,12 @@ class UIHandler {
     let nextBtn = createDiv("내 인생 영수증 받기 >");
     nextBtn.addClass("nextBtn");
     nextBtn.position(width / 2, 400);
-    nextBtn.mousePressed(() => this.changeStatusToAfter());
+    nextBtn.mousePressed(async() => await this.changeStatusToAfter());
   }
 
   //after로 넘어가기
-  changeStatusToAfter() {
+  async changeStatusToAfter() {
+    this.globalVar.receiptData = await gpt.getGPTReceipt();
     this.globalVar.conversationStatus = "after";
   }
 
