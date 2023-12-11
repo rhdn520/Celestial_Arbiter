@@ -49,7 +49,7 @@ class UIHandler {
   focusInput(){
     // let el = select("#text-input")
     // el.focus();
-    // console.log(document.getElementById("text-input"));
+    console.log(document.getElementById("text-input"));
     document.getElementById("text-input").focus();
   }
 
@@ -89,7 +89,7 @@ class UIHandler {
     }
 
     //새로운 chatLogBox에 업데이트된 chatLog 렌더링 가장 (최근 대화일수록 위)
-    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 100);
+    this.chatLogBox = new ChatLogBox(width / 2, 80, 800, 200);
     // if (chatLog[chatLog.length - 1] !== undefined) {
     //   let updatedChat = new Chat(chatLog[chatLog.length - 1]);
     //   updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
@@ -154,6 +154,7 @@ class UIHandler {
   enableGptInput() {
     if (this.textInput != null) this.textInput.removeAttribute("disabled");
     if (this.submitBtn != null) this.submitBtn.removeAttribute("disabled");
+    this.focusInput();
   }
 
   //판결문 나올 때
