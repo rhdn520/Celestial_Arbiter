@@ -1,8 +1,8 @@
 class ParticleHandler {
   constructor() {
     this.particles = [];
-    this.pixelSteps = 4;
-    this.drawAsPoints = true;
+    this.pixelSteps = 4; // 숫자가 클수록 덜 촘촘
+    this.drawAsPoints = true; // 점 또는 원으로 그릴 수 있음
     this.bgColor = color(0);
     // this.fontName = "script";
     this.pg = createGraphics(width, height);
@@ -13,7 +13,7 @@ class ParticleHandler {
     this.pg.background(0);
     this.pg.push();
     this.pg.scale(0.25);
-    judge.display();
+    judge.display(); //그리는 그림 제어는 judgehandler에서
     this.pg.pop();
     this.pg.loadPixels();
     // console.log(this.pg.pixels);

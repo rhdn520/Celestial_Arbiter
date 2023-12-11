@@ -27,6 +27,7 @@ class SceneManager {
 
   loadScene_before() {
     ptcl.draw();
+    noStroke();
     rectMode(CENTER);
     fill(255);
     textSize(25);
@@ -38,6 +39,8 @@ class SceneManager {
     text("Press ENTER to Start", width / 2, (height * 4) / 5);
     fill(255);
     textSize(15);
+    stroke(0);
+    strokeWeight(4);
     text("당신의 인생을\n결산해보세요", width / 2, height / 2);
   }
 

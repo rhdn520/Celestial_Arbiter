@@ -1,8 +1,8 @@
 class Receipt {
   constructor(_globalVar) {
     this.globalVar = _globalVar;
-    this.receiptX = width /2;
-    this.receiptY = height /2 ;
+    this.receiptX = width / 2;
+    this.receiptY = height / 2;
     // this.receiptX = (windowWidth - this.width) / 2;
     // this.receiptY = (windowHeight - this.height) / 2;
 
@@ -24,7 +24,6 @@ class Receipt {
   }
 
   display() {
-
     //draw receipt background
     fill(255);
     rectMode(CORNER);
@@ -34,16 +33,16 @@ class Receipt {
     let receiptContainer = createDiv();
     receiptContainer.position(this.xPos, this.yPos);
     receiptContainer.size(this.divWidth);
-    receiptContainer.addClass('receipt-container');
+    receiptContainer.addClass("receipt-container");
 
-    //Div1
+    //Div1 : title
     let div1 = createDiv("LIFE RECEIPT");
     receiptContainer.child(div1);
     div1.style("height", "fit-content");
-    div1.style("padding", "20px 0px")
+    div1.style("padding", "20px 0px");
     div1.style("background-color", "rgba(255,255,255,0.8)");
     div1.style("text-align", "center");
-    div1.style("font-family", "typewr_b");
+    div1.style("font-family", "Typewriter-Bold");
     div1.style("font-size", "30px");
     div1.style("display", "flex");
     div1.style("justify-content", "center");
@@ -55,7 +54,7 @@ class Receipt {
     receiptContainer.child(div2);
     // div2.position(this.xPos, this.yPos + this.div1Height);
     // div2.size(this.divWidth, this.div2Height);
-    div2.addClass('judge-summary');
+    div2.addClass("judge-summary");
 
     //Div3
 
@@ -67,7 +66,7 @@ class Receipt {
     div3Text += `5. ${this.globalVar.receiptData.value5} : ${this.globalVar.receiptData.value5_score}<br></p>`;
 
     let div3 = createDiv(div3Text);
-    div3.style("width","100%");
+    div3.style("width", "100%");
     div3.style("height", "fit-content");
     div3.style("padding", "0 20px");
     div3.style("text-align", "left");
@@ -77,44 +76,43 @@ class Receipt {
     div3.style("flex-flow", "row nowrap");
     div3.style("justify-content", "flex-start");
     div3.style("align-items", "center");
-    div3.style("border-bottom","1px dotted black");
+    div3.style("border-bottom", "1px dotted black");
     receiptContainer.child(div3);
 
     let receiptBottom = createDiv();
-    receiptBottom.addClass('receipt-bottom');
-    
+    receiptBottom.addClass("receipt-bottom");
+
     //Div4
     let div4 = createDiv(
       "<span>Life Receipt\nINTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY</span>"
     );
-    div4.addClass('receipt-bottom-element');
+    div4.addClass("receipt-bottom-element");
 
     //Div5
     let div5 = createDiv("<span>2023-2\nTEAM F</span>");
-    div5.addClass('receipt-bottom-element');
+    div5.addClass("receipt-bottom-element");
 
     //Div6
     let div6 = createDiv("<span>SCAN THIS QR CODE<br><br>⬇</span>");
-    div6.addClass('receipt-bottom-element');
+    div6.addClass("receipt-bottom-element");
 
     //Div7
     let div7 = createDiv(`<span>${Date.now()}</span>`);
-    div7.addClass('receipt-bottom-element');
-    div7.style("font-family", "barcord");  
+    div7.addClass("receipt-bottom-element");
+    div7.style("font-family", "barcord");
     div7.style("font-size", "36px");
-    div7.style("font-stretch","expanded");
-    div7.style("align-items","center")
+    div7.style("font-stretch", "expanded");
+    div7.style("align-items", "center");
 
     //Div8
-    let div8 = createDiv('');
-    div8.addClass('receipt-bottom-element');
-    div8.style("background-image", "url(\"assets/antelope.png\")");
-
+    let div8 = createDiv("");
+    div8.addClass("receipt-bottom-element");
+    div8.style("background-image", 'url("assets/antelope.png")');
 
     //Div9
-    let div9 = createDiv('');
-    div9.addClass('receipt-bottom-element');
-    div9.style("background-image", "url(\"assets/qr_dummy.png\")")
+    let div9 = createDiv("");
+    div9.addClass("receipt-bottom-element");
+    div9.style("background-image", 'url("assets/qr_dummy.png")');
 
     receiptBottom.child(div4);
     receiptBottom.child(div5);

@@ -22,7 +22,8 @@ class Judge {
   }
 
   displayThinking() {
-    ptcl.pg.ellipse(width / 2, height / 2, 200, 200);
+    ptcl.pg.ellipse(width / 2, height / 2 + 5, 200, 200);
+    // this.judgeThinking.draw(ptcl.pg);
   }
 
   displayTalking() {

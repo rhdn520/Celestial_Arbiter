@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "pretendard";
+  font-family: "pretendard_m";
   src: url("assets/Pretendard-Medium.otf");
 }
 
@@ -39,9 +39,9 @@ div {
   display: flex;
   flex-direction: column;
   width: 700px;
-  height: 300px;
+  /* height: 300px; */
   margin: 0;
-  gap: 10px;
+  gap: 6px;
   overflow-y: auto;
   word-break: break-all;
   padding: 16px;
@@ -52,6 +52,7 @@ div {
 
 .gpt-status {
   transform: translateX(-50%);
+  color: white;
 }
 
 ::-webkit-scrollbar {
@@ -59,12 +60,16 @@ div {
   height: 100%;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0);
+  border: rgba(255, 255, 255, 0.3) solid 1px;
   border-radius: 3px;
 }
 
 .gpt-chatlog-chat {
   color: white;
+  font-size: 0.85rem;
+  line-height: 140%;
+  letter-spacing: 0.05rem;
 }
 
 .prev {
@@ -117,30 +122,29 @@ div {
   display: none;
 }
 
-.receipt-container{
+.receipt-container {
   position: absolute;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  margin:0;
+  margin: 0;
   padding: 10px 5px;
-  transform: translate3d(-50%, -50%,0);
+  transform: translate3d(-50%, -50%, 0);
   width: calc(100vw / 3);
   height: calc(100vh * 3) / 4;
   min-width: 200px;
   max-width: 350px;
-  height:min-content;
+  height: min-content;
   background-color: #fff;
   text-align: center;
-  border: 1px dotted black;;
+  border: 1px dotted black;
   overflow-y: auto;
 }
 
-
-.judge-summary{
+.judge-summary {
   position: relative;
   display: flex;
-  margin:0;
+  margin: 0;
   padding: 30px 20px;
   flex-flow: column nowrap;
   justify-content: center;
@@ -150,56 +154,55 @@ div {
   text-align: justify;
   font-family: "myfontrunes";
   font-size: 20px;
+  line-height: 90%;
   /* border-left: 1px dotted black;*/
   border-bottom: 1px dotted black;
 }
 
-.receipt-keywords{
-  width:100%;
+.receipt-keywords {
+  width: 100%;
   height: fit-content;
   padding: 0 20px;
-  text-align:left;
+  text-align: left;
   font-family: "myfontrunes";
-  font-size:20px;
-  display:flex;
- flex-flow:row nowrap;
- justify-content: flex-start;
- align-items: center;
- border-bottom: 1px dotted black;
+  font-size: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
 }
 
-.receipt-bottom{
+.receipt-bottom {
   width: 100%;
   display: grid;
-  padding: 20px;
+  padding: 20px 10px;
   background-color: inherit;
   gap: 5px;
   grid-template-columns: 1.5fr 1fr 1fr;
   grid-template-rows: 1fr 3fr;
 }
 
-
-.receipt-bottom-element{
+.receipt-bottom-element {
   display: flex;
-  flex-flow:row nowrap;
+  flex-flow: row nowrap;
   align-items: flex-start;
   justify-content: center;
-  border:none;
-  padding:0;
-  margin:0;
+  border: none;
+  padding: 0;
+  margin: 0;
   /* text-align: center; */
   font-family: "typewr_b";
   font-size: 7px;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size:contain;
+  background-size: contain;
 }
 
-.values{
+.values {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   height: fit-content;
 }
-

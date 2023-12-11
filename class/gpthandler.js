@@ -126,6 +126,36 @@ class GPTHandler {
     }
   }
 
+  //test code for GPT
+  getGPTResponse(text) {
+    if (text === "") {
+      return;
+    }
+
+    const userMessage = { role: "user", content: text };
+    scene.updateChatLog(userMessage); //대화로그 업데이트(유저인풋)
+    ui.updateTextBox(globalVar.chatLog);
+
+    gpt.sendToGPT().then((response) => {
+      let re = /\(\d\)/i;
+      let matches = response.content.match(re);
+      console.log(response);
+
+      if (matches !== null) {
+        //감정 점수 업데이트를 위한 부분
+        let match = matches[matches.length - 1];
+        let newNegEmoLv = match.substring(1, match.length - 1);
+        globalVar.judgeNegativeEmotion = parseInt(newNegEmoLv);
+      }
+
+      response.content = response.content.replace(re, "");
+
+      scene.updateChatLog(response); //대화로그 업데이트(GPT대답)
+      console.log(globalVar.chatLog);
+      ui.updateTextBox(globalVar.chatLog); //대화내역 렌더링
+    });
+  }
+
   async sendRcptRequest(chatLog) {
     if (this.globalVar.gptIsRequestPending) {
       console.log("Request is already pending. Wait for the request");

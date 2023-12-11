@@ -13,7 +13,7 @@ class Particle {
     this.targetColor = color(0);
     this.colorWeight = 0;
     this.colorBlendRate = 0.01;
-    this.randomColor = random(50, 255);
+    this.randomColor = random(100, 255);
     // this.randomSize = random(1.5, 2);
   }
 

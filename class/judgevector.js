@@ -1,3 +1,5 @@
+//particle로 만들 Judge Vector Class
+
 class JudgeVector {
   constructor() {}
   display(pg) {
