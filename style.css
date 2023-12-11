@@ -172,8 +172,9 @@ div {
   background-color: inherit;
   gap: 5px;
   grid-template-columns: 1.5fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
 }
+
 
 .receipt-bottom-element{
   display: flex;

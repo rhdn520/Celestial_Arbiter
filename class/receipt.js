@@ -103,6 +103,7 @@ class Receipt {
     div7.style("font-family", "barcord");  
     div7.style("font-size", "36px");
     div7.style("font-stretch","expanded");
+    div7.style("align-items","center")
 
     //Div8
     let div8 = createDiv('');
