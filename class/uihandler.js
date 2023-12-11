@@ -55,7 +55,9 @@ class UIHandler {
 
   onKeyPressed(keyCode) {
     if (this.globalVar.conversationStatus === "before") {
-      this.globalVar.conversationStatus = "during";
+      if (keyCode === ENTER){
+        this.globalVar.conversationStatus = "during";
+      }
     } else if (this.globalVar.conversationStatus === "during") {
       if (keyCode === ENTER) {
         let userInput = this.textInput.value();
@@ -165,7 +167,7 @@ class UIHandler {
 
   //after로 넘어가기
   async changeStatusToAfter() {
-    this.globalVar.receiptData = await gpt.getGPTReceipt();
+    await gpt.getGPTReceipt();
     this.globalVar.conversationStatus = "after";
   }
 

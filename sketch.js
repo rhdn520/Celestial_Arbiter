@@ -98,7 +98,7 @@ function testGPT(text) {
   // console.log(scene.chatLog);
   ui.focusInput();
 
-  gpt.sendToGPT(globalVar.chatLog).then((response) => {
+  gpt.sendToGPT().then((response) => {
     let re = /\(\d\)/i;
     let matches = response.content.match(re);
     console.log(response);
@@ -114,7 +114,6 @@ function testGPT(text) {
     console.log(globalVar.chatLog);
     ui.updateTextBox(globalVar.chatLog); //대화내역 렌더링
     ui.focusInput();
-
   });
 }
 

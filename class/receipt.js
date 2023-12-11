@@ -60,11 +60,11 @@ class Receipt {
     //Div3
 
     let div3Text = "<p>";
-    div3Text += `1 ${this.globalVar.receiptData.value1}<br>`;
-    div3Text += `2 ${this.globalVar.receiptData.value2}<br>`;
-    div3Text += `3 ${this.globalVar.receiptData.value3}<br>`;
-    div3Text += `4 ${this.globalVar.receiptData.value4}<br>`;
-    div3Text += `5 ${this.globalVar.receiptData.value5}<br></p>`;
+    div3Text += `1 ${this.globalVar.receiptData.value1} : ${this.globalVar.receiptData.value1_score}<br>`;
+    div3Text += `2 ${this.globalVar.receiptData.value2} : ${this.globalVar.receiptData.value2_score}<br>`;
+    div3Text += `3 ${this.globalVar.receiptData.value3} : ${this.globalVar.receiptData.value3_score}<br>`;
+    div3Text += `4 ${this.globalVar.receiptData.value4} : ${this.globalVar.receiptData.value4_score}<br>`;
+    div3Text += `5 ${this.globalVar.receiptData.value5} : ${this.globalVar.receiptData.value5_score}<br></p>`;
 
     let div3 = createDiv(div3Text);
     div3.style("width","100%");
@@ -98,7 +98,7 @@ class Receipt {
     div6.addClass('receipt-bottom-element');
 
     //Div7
-    let div7 = createDiv('<span>20231219</span>');
+    let div7 = createDiv(`<span>${Date.now()}</span>`);
     div7.addClass('receipt-bottom-element');
     div7.style("font-family", "barcord");  
     div7.style("font-size", "36px");

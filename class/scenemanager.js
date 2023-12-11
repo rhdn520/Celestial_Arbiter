@@ -36,7 +36,7 @@ class SceneManager {
 
         textFont(pretendardFont);
         textSize(20);
-        text("Press Any Key to Start", width/2, height*4/5)
+        text("Press ENTER to Start", width/2, height*4/5)
         fill(0);
         textSize(15);
         text("당신의 인생을\n결산해보세요", width / 2, height / 2);
