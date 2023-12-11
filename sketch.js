@@ -92,6 +92,7 @@ function testGPT(text) {
   }
   const userMessage = { role: "user", content: text };
   scene.updateChatLog(userMessage); //대화로그 업데이트(유저인풋)
+  ui.updateTextBox(globalVar.chatLog);
   // console.log(scene.chatLog);
   gpt.sendToGPT(globalVar.chatLog).then((response) => {
     scene.updateChatLog(response); //대화로그 업데이트(GPT대답)
