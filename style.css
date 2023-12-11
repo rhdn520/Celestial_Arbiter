@@ -117,13 +117,17 @@ div {
 
 .receipt-container{
   position: absolute;
-  background-color: rgba(255,255,255,0.8);
-  text-align: center;
   display: flex;
   flex-flow: column nowrap;
-  height:min-content;
   justify-content: flex-start;
-
+  transform: translate3d(-50%, -50%,0);
+  width: calc(100vw / 3);
+  height: calc(100vh * 3) / 4;
+  min-width: 300px;
+  max-width: 500px;
+  height:min-content;
+  background-color: rgba(255,255,255,0.8);
+  text-align: center;
 }
 
 

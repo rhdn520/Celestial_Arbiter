@@ -1,28 +1,26 @@
 class Receipt {
   constructor(_globalVar) {
     this.globalVar = _globalVar;
-    // console.log(this.receiptData);
-    this.width = windowWidth / 3;
-    this.height = (windowHeight * 3) / 4;
+    this.receiptX = width /2;
+    this.receiptY = height /2 ;
+    // this.receiptX = (windowWidth - this.width) / 2;
+    // this.receiptY = (windowHeight - this.height) / 2;
 
-    this.receiptX = (windowWidth - this.width) / 2;
-    this.receiptY = (windowHeight - this.height) / 2;
+    // this.divWidth = this.width * 0.9;
+    // this.div4Width = this.divWidth / 3;
 
-    this.divWidth = this.width * 0.9;
-    this.div4Width = this.divWidth / 3;
+    // this.div1Height = this.height / 10;
+    // this.div2Height = (this.height * 3) / 10;
+    // this.div3Height = this.div2Height;
+    // this.div4Height = (this.height * 3) / 20;
+    // this.div5Height = this.div4Height;
+    // this.div6Height = this.div4Height;
+    // this.div7Height = this.div4Height;
+    // this.div8Height = this.div4Height;
+    // this.div9Height = this.div4Heights;
 
-    this.div1Height = this.height / 10;
-    this.div2Height = (this.height * 3) / 10;
-    this.div3Height = this.div2Height;
-    this.div4Height = (this.height * 3) / 20;
-    this.div5Height = this.div4Height;
-    this.div6Height = this.div4Height;
-    this.div7Height = this.div4Height;
-    this.div8Height = this.div4Height;
-    this.div9Height = this.div4Height;
-
-    this.xPos = (this.width - this.divWidth) / 2 + this.receiptX;
-    this.yPos = this.receiptY;
+    this.xPos = width / 2;
+    this.yPos = height / 2;
   }
 
   display() {
