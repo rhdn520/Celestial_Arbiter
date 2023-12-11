@@ -5,6 +5,7 @@ let gpt;
 let ui;
 let button; //버튼 선언
 let judge; //심판관 선언
+let ptcl; //파티클 그리는 클래스 선언
 
 let mainDummyImg;
 let receiptDummyImg;
@@ -16,38 +17,38 @@ let typewriterFont;
 let pretendardFont;
 
 let globalVar = {
-  'chatLog': [
+  chatLog: [
     {
       role: "assistant",
       content:
         "어서와. 기억이 날지는 모르겠지만 넌 방금 죽었어. 나는 너를 심판할 존재이고. 지금부터 너에게 질문을 할거야. 잘 생각해서 대답해야 해. 아니면 넌 영원히 새 삶을 시작하지 못할 거니까. 준비됐겠지?",
     },
   ],
-  'receiptData':{
-    "judge_summary": "You didn't help others and didn't have any special relationships, big happiness, or intense dreams. You just wanted to live comfortably, being moderately happy and moderately unhappy, giving and receiving moderately. So I hope that your soul can learn the important values and intense passion of life. In your next life, you will be reborn as an eagle, experiencing both failure and success, and finding the true meaning of life. You will have sharp eyes to see the world, fly in the high sky, and have a broad perspective. Live freely from the constraints of life and death, and live with your own strength.",
-    "value1": "Values",
-    "value2": "Passion",
-    "value3": "Success",
-    "value4": "Freedom",
-    "value5": "Strength"
+  receiptData: {
+    judge_summary:
+      "You didn't help others and didn't have any special relationships, big happiness, or intense dreams. You just wanted to live comfortably, being moderately happy and moderately unhappy, giving and receiving moderately. So I hope that your soul can learn the important values and intense passion of life. In your next life, you will be reborn as an eagle, experiencing both failure and success, and finding the true meaning of life. You will have sharp eyes to see the world, fly in the high sky, and have a broad perspective. Live freely from the constraints of life and death, and live with your own strength.",
+    value1: "Values",
+    value2: "Passion",
+    value3: "Success",
+    value4: "Freedom",
+    value5: "Strength",
   },
-  'conversationStatus': "during",
-  'gptHavingError':false,
-  'gptIsRequestPending':false,
-  'debugMode':true,
-  'judgeNegativeEmotion': 0,
-  'isDecisionMade': false
+  conversationStatus: "during",
+  gptHavingError: false,
+  gptIsRequestPending: false,
+  debugMode: true,
+  judgeNegativeEmotion: 0,
+  isDecisionMade: false,
 };
 
-
 function preload() {
-  mainDummyImg = loadImage('assets/main_dummy.png');
-  receiptDummyImg = loadImage('assets/receipt_dummy.png');
-  talkingDummyImg = loadImage('assets/talking_dummy.png');
-  thinkingDummyImg = loadImage('assets/thinking_dummy.png')
-  listeningDummyImg = loadImage('assets/listening_dummy.png');
-  typewriterFont = loadFont('assets/Typewriter-Bold.otf');
-  pretendardFont = loadFont('assets/Pretendard-Medium.otf');
+  mainDummyImg = loadImage("assets/main_dummy.png");
+  receiptDummyImg = loadImage("assets/receipt_dummy.png");
+  talkingDummyImg = loadImage("assets/talking_dummy.png");
+  thinkingDummyImg = loadImage("assets/thinking_dummy.png");
+  listeningDummyImg = loadImage("assets/listening_dummy.png");
+  typewriterFont = loadFont("assets/Typewriter-Bold.otf");
+  pretendardFont = loadFont("assets/Pretendard-Medium.otf");
 }
 
 function setup() {
@@ -57,6 +58,8 @@ function setup() {
   ui = new UIHandler(globalVar);
   scene = new SceneManager(globalVar);
   receipt = new Receipt(globalVar);
+  ptcl = new ParticleHandler();
+  ptcl.nextWord("pending");
   rectMode(CENTER);
   imageMode(CENTER);
 
@@ -102,13 +105,14 @@ function testGPT(text) {
     let matches = response.content.match(re);
     console.log(response);
 
-    if(matches !== null){ //감정 점수 업데이트를 위한 부분
+    if (matches !== null) {
+      //감정 점수 업데이트를 위한 부분
       let match = matches[matches.length - 1];
       let newNegEmoLv = match.substring(1, match.length - 1);
       globalVar.judgeNegativeEmotion = parseInt(newNegEmoLv);
     }
 
-    response.content = response.content.replace(re, '');
+    response.content = response.content.replace(re, "");
 
     scene.updateChatLog(response); //대화로그 업데이트(GPT대답)
     console.log(globalVar.chatLog);
