@@ -49,7 +49,7 @@ class UIHandler {
   focusInput(){
     // let el = select("#text-input")
     // el.focus();
-    console.log(document.getElementById("text-input"));
+    // console.log(document.getElementById("text-input"));
     document.getElementById("text-input").focus();
   }
 
@@ -101,7 +101,7 @@ class UIHandler {
         const chat = chatLog[i];
         //<대화종료 인식>
         if (chat.role === "assistant" && chat.content.includes("<대화 종료>")) {
-          // chat.content.replace("<대화 종료>", "");
+          this.globalVar.isDecisionMade = true;
           this.duringJudgement();
           console.log("대화종료");
         }
@@ -168,6 +168,7 @@ class UIHandler {
 
   //after로 넘어가기
   async changeStatusToAfter() {
+    scene.progresstargetWidth = width;
     await gpt.getGPTReceipt();
     this.globalVar.conversationStatus = "after";
   }

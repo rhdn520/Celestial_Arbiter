@@ -31,11 +31,12 @@ let globalVar = {
     "value4": "Freedom",
     "value5": "Strength"
   },
-  'conversationStatus': "before",
+  'conversationStatus': "during",
   'gptHavingError':false,
   'gptIsRequestPending':false,
   'debugMode':true,
-  'judgeNegativeEmotion': 0
+  'judgeNegativeEmotion': 0,
+  'isDecisionMade': false
 };
 
 

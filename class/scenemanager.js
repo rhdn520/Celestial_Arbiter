@@ -2,6 +2,8 @@ class SceneManager {
     constructor(_globalVar) {
         this.globalVar = _globalVar;
         this.afterSceneLoadMillis = null;
+        this.progressRealWidth = 0;
+        this.progresstargetWidth = 0;
     }
 
     loadScene() {
@@ -53,8 +55,27 @@ class SceneManager {
             image(talkingDummyImg, width/2,height/2);
             talkingDummyImg.resize(width,thinkingDummyImg.height*(width/thinkingDummyImg.width));    
         }
-        // this.handleResponseStatus();
         
+        //stage bar
+        rectMode(CORNERS);
+        fill('#b2b2b2');
+        rect(width,0, width, 7);
+        fill('#fff');
+        if(this.globalVar.isDecisionMade){
+            this.progressTargetWidth = width;
+        }else{
+            let progressLevel = int(this.globalVar.chatLog.length);
+            this.progressTargetWidth = (width/24) * progressLevel;
+        }
+
+        if(this.progressRealWidth < this.progressTargetWidth){
+            this.progressRealWidth += 0.6;
+        }else{
+            this.progressRealWidth = this.progressTargetWidth ;
+        }
+        rect(0,0,this.progressRealWidth,7);
+        rectMode(CENTER);
+
     }
 
     loadScene_after() {
@@ -64,20 +85,20 @@ class SceneManager {
         // image(receiptDummyImg, width/2,height/2);
         // receiptDummyImg.resize(width,receiptDummyImg.height*(width/receiptDummyImg.width));
 
-        // if(this.afterSceneLoadMillis === null){
-        //     this.afterSceneLoadMillis = millis();
-        //     text(`Press ESC to restart (${30}s)`, width/2, height - 30)
-        // }else{
-        //     let countdown = int(31 + (this.afterSceneLoadMillis - millis())/1000)
-        //     text(`Press ESC to restart (${countdown}s)`, width/2, height - 30)
-        //     if(countdown === 0){
-        //         this.afterSceneLoadMillis = null;
-        //         this.globalVar.conversationStatus = 'before';
-        //     }
-        // }
-        // setTimeout(()=>{
-        //     this.loadMainCountdown--;
-        // },1000)
+        if(this.afterSceneLoadMillis === null){
+            this.afterSceneLoadMillis = millis();
+            text(`Press ESC to restart (${30}s)`, width/2, height - 30)
+        }else{
+            let countdown = int(31 + (this.afterSceneLoadMillis - millis())/1000)
+            text(`Press ESC to restart (${countdown}s)`, width/2, height - 30)
+            if(countdown === 0){
+                this.afterSceneLoadMillis = null;
+                this.changeScene('before');
+            }
+        }
+        setTimeout(()=>{
+            this.loadMainCountdown--;
+        },1000)
 
         textSize(20);
     }
@@ -86,6 +107,9 @@ class SceneManager {
         removeElements();
         this.globalVar.conversationStatus = newConvStatus;
         console.log("Conversation Status Changed");
+        if(this.globalVar.isDecisionMade && newConvStatus=="before"){
+            this.resetVariables();
+        }
     }
 
     updateChatLog(newChat) {
@@ -94,8 +118,6 @@ class SceneManager {
     }
 
     resetVariables() {
-        this.globalVar.chatLog = [];
-        this.globalVar.conversationStatus = "before";
-        console.log("Variables Reset");
+        location.reload();
     }
 }
