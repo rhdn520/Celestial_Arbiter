@@ -34,7 +34,8 @@ let globalVar = {
   'conversationStatus': "before",
   'gptHavingError':false,
   'gptIsRequestPending':false,
-  'debugMode':true
+  'debugMode':true,
+  'judgeNegativeEmotion': 0
 };
 
 
@@ -90,14 +91,30 @@ function testGPT(text) {
   if (text === "") {
     return;
   }
+
   const userMessage = { role: "user", content: text };
   scene.updateChatLog(userMessage); //대화로그 업데이트(유저인풋)
   ui.updateTextBox(globalVar.chatLog);
   // console.log(scene.chatLog);
+  ui.focusInput();
+
   gpt.sendToGPT(globalVar.chatLog).then((response) => {
+    let re = /\(\d\)/i;
+    let matches = response.content.match(re);
+    console.log(response);
+    if(matches !== null){ //감정 점수 업데이트를 위한 부분
+      let match = matches[matches.length - 1];
+      let newNegEmoLv = match.substring(1, match.length - 1);
+      globalVar.judgeNegativeEmotion = parseInt(newNegEmoLv);
+    }
+
+    response.content = response.content.replace(re, '');
+
     scene.updateChatLog(response); //대화로그 업데이트(GPT대답)
     console.log(globalVar.chatLog);
     ui.updateTextBox(globalVar.chatLog); //대화내역 렌더링
+    ui.focusInput();
+
   });
 }
 

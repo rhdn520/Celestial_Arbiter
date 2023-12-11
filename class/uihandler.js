@@ -46,6 +46,13 @@ class UIHandler {
     this.loadUI();
   }
 
+  focusInput(){
+    // let el = select("#text-input")
+    // el.focus();
+    // console.log(document.getElementById("text-input"));
+    document.getElementById("text-input").focus();
+  }
+
   onKeyPressed(keyCode) {
     if (this.globalVar.conversationStatus === "before") {
       this.globalVar.conversationStatus = "during";
@@ -114,6 +121,7 @@ class UIHandler {
 
     //텍스트 인풋
     this.textInput = createInput("");
+    this.textInput.id("text-input");
     this.textInput.addClass("gpt-text-input");
     this.textInput.parent(this.inputWrapper);
     this.textInput.attribute("disabled", true);
