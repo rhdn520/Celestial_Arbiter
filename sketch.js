@@ -33,7 +33,7 @@ let globalVar = {
     value4: "Freedom",
     value5: "Strength",
   },
-  conversationStatus: "during",
+  conversationStatus: "before",
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,
@@ -58,14 +58,15 @@ function setup() {
   ui = new UIHandler(globalVar);
   scene = new SceneManager(globalVar);
   receipt = new Receipt(globalVar);
+  judge = new Judge(globalVar);
   ptcl = new ParticleHandler();
-  ptcl.nextWord("pending");
   rectMode(CENTER);
   imageMode(CENTER);
 
   // ui.createGptInput();
   // ui.initTextBox();
 
+  ptcl.updateParticles();
   ui.loadUI(scene);
 
   // gpt.makeChatLogText(exampleChatLog);

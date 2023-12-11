@@ -3,29 +3,17 @@ class ParticleHandler {
     this.particles = [];
     this.pixelSteps = 2;
     this.drawAsPoints = true;
-    this.words = ["talking", "pending"];
-    this.wordIndex = 0;
     this.bgColor = color(0);
     // this.fontName = "script";
     this.pg = createGraphics(width, height);
-    this.judge = null;
   }
-  nextWord(word) {
+  updateParticles() {
     this.pg.pixelDensity(1);
     this.pg.clear();
-    // this.pg.show();
     this.pg.background(0);
     this.pg.push();
-    if (word === "talking") {
-      console.log("talking");
-      this.pg.scale(0.25);
-      this.judge = new JudgeVector();
-      this.judge.display(this.pg);
-    } else if (word === "pending") {
-      console.log("pending");
-      this.pg.scale(0.25);
-      this.pg.ellipse(width / 2, height / 2, 200, 200);
-    }
+    this.pg.scale(0.25);
+    judge.display();
     this.pg.pop();
     this.pg.loadPixels();
     // console.log(this.pg.pixels);
@@ -82,7 +70,6 @@ class ParticleHandler {
           newParticle.colorBlendRate = random(0.0025, 0.03);
 
           this.particles.push(newParticle);
-          // console.log("new");
         }
 
         newParticle.startColor = lerpColor(
@@ -101,7 +88,6 @@ class ParticleHandler {
     if (particleIndex < particleCount) {
       for (let i = particleIndex; i < particleCount; i++) {
         this.particles[i].kill();
-        console.log("kill");
       }
     }
 
@@ -109,17 +95,13 @@ class ParticleHandler {
   }
 
   draw() {
-    // fill(this.bgColor);
     noStroke();
-    // rect(0, 0, width * 4, height * 4);
     background(0);
 
     for (let x = this.particles.length - 1; x > -1; x--) {
       let particle = this.particles[x];
       particle.move();
-      // console.log(1);
       particle.draw();
-      // console.log(particle);
       if (particle.isKilled) {
         if (
           particle.pos.x < 0 ||
@@ -131,7 +113,7 @@ class ParticleHandler {
         }
       }
     }
-    this.update();
+    // this.update();
   }
 
   generateRandomPos(x, y, mag) {
@@ -144,16 +126,6 @@ class ParticleHandler {
     sourcePos.add(direction);
 
     return sourcePos;
-  }
-
-  update() {
-    if (frameCount % 480 === 0) {
-      this.wordIndex += 1;
-      if (this.wordIndex > this.words.length - 1) {
-        this.wordIndex = 0;
-      }
-      this.nextWord(this.words[this.wordIndex]);
-    }
   }
 }
 

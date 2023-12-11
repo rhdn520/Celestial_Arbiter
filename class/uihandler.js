@@ -46,7 +46,7 @@ class UIHandler {
     this.loadUI();
   }
 
-  focusInput(){
+  focusInput() {
     // let el = select("#text-input")
     // el.focus();
     // console.log(document.getElementById("text-input"));
@@ -55,8 +55,9 @@ class UIHandler {
 
   onKeyPressed(keyCode) {
     if (this.globalVar.conversationStatus === "before") {
-      if (keyCode === ENTER){
+      if (keyCode === ENTER) {
         this.globalVar.conversationStatus = "during";
+        scene.updateParticleScene();
       }
     } else if (this.globalVar.conversationStatus === "during") {
       if (keyCode === ENTER) {
@@ -163,7 +164,7 @@ class UIHandler {
     let nextBtn = createDiv("내 인생 영수증 받기 >");
     nextBtn.addClass("nextBtn");
     nextBtn.position(width / 2, 400);
-    nextBtn.mousePressed(async() => await this.changeStatusToAfter());
+    nextBtn.mousePressed(async () => await this.changeStatusToAfter());
   }
 
   //after로 넘어가기

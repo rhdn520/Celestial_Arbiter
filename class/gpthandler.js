@@ -10,24 +10,61 @@ class GPTHandler {
     this.globalVar.gptHavingError = false;
 
     this.judgment_schema = {
-      "type": "object",
-      "description":"Judgement summary and user's important values.",
-      "properties": {
-        "judge_summary": { "type": "string", "description": "The summary of a judge's sentence in english." },
-        "value1": { "type": "string", "description": "The first element of the list of five important values that the soul pursued in english." },
-        "value2": { "type": "string", "description": "The second element of the list of five important values that the soul pursued in english." },
-        "value3": { "type": "string", "description": "The third element of the list of five important values that the soul pursued in english." },
-        "value4": { "type": "string", "description": "The fourth element of the list of five important values that the soul pursued in english." },
-        "value5": { "type": "string", "description": "The fifth element of the list of five important values that the soul pursued in english." },
-        "value1_score": { "type": "string", "description": "The score of the importance of 'value1' out of 10." },
-        "value2_score": { "type": "string", "description": "The score of the importance of 'value2' out of 10." },
-        "value3_score": { "type": "string", "description": "The score of the importance of 'value3' out of 10." },
-        "value4_score": { "type": "string", "description": "The score of the importance of 'value4' out of 10." },
-        "value5_score": { "type": "string", "description": "The score of the importance of 'value5' out of 10." },
-      }
-    }
+      type: "object",
+      description: "Judgement summary and user's important values.",
+      properties: {
+        judge_summary: {
+          type: "string",
+          description: "The summary of a judge's sentence in english.",
+        },
+        value1: {
+          type: "string",
+          description:
+            "The first element of the list of five important values that the soul pursued in english.",
+        },
+        value2: {
+          type: "string",
+          description:
+            "The second element of the list of five important values that the soul pursued in english.",
+        },
+        value3: {
+          type: "string",
+          description:
+            "The third element of the list of five important values that the soul pursued in english.",
+        },
+        value4: {
+          type: "string",
+          description:
+            "The fourth element of the list of five important values that the soul pursued in english.",
+        },
+        value5: {
+          type: "string",
+          description:
+            "The fifth element of the list of five important values that the soul pursued in english.",
+        },
+        value1_score: {
+          type: "string",
+          description: "The score of the importance of 'value1' out of 10.",
+        },
+        value2_score: {
+          type: "string",
+          description: "The score of the importance of 'value2' out of 10.",
+        },
+        value3_score: {
+          type: "string",
+          description: "The score of the importance of 'value3' out of 10.",
+        },
+        value4_score: {
+          type: "string",
+          description: "The score of the importance of 'value4' out of 10.",
+        },
+        value5_score: {
+          type: "string",
+          description: "The score of the importance of 'value5' out of 10.",
+        },
+      },
+    };
   }
-
 
   async sendMessage(chatLog) {
     //2000ms 딜레이 : 테스트 할 때는 생략하고 진행해도 ok
@@ -38,6 +75,7 @@ class GPTHandler {
     }
 
     this.globalVar.gptIsRequestPending = true;
+    scene.updateParticleScene();
 
     try {
       //에러 시 다시 시도하는 로직 추가 필요
@@ -69,6 +107,7 @@ class GPTHandler {
       }
     } finally {
       this.globalVar.gptIsRequestPending = false;
+      scene.updateParticleScene();
     }
   }
 
@@ -79,7 +118,11 @@ class GPTHandler {
     } catch (error) {
       this.globalVar.gptHavingError = true;
       console.error("Error sending message to GPT:", error);
-      if (!this.globalVar.debugMode) { if (!alert('심판자가 졸리다고 합니다.\n다음에 오시죠.')) { window.location.reload(); } }
+      if (!this.globalVar.debugMode) {
+        if (!alert("심판자가 졸리다고 합니다.\n다음에 오시죠.")) {
+          window.location.reload();
+        }
+      }
     }
   }
 
@@ -89,6 +132,7 @@ class GPTHandler {
     }
 
     this.globalVar.gptIsRequestPending = true;
+    scene.updateParticleScene();
 
     try {
       //에러 시 다시 시도하는 로직 추가 필요
@@ -106,13 +150,16 @@ class GPTHandler {
             { role: "user", content: this.makeChatLogText(chatLog) },
           ],
           // response_format: { type: "json" },
-          functions: [{
-            "name": "getJudgment",
-            "description": "Get the summary of the judgment and the important values of the soul",
-            "parameters": this.judgment_schema
-          }],
+          functions: [
+            {
+              name: "getJudgment",
+              description:
+                "Get the summary of the judgment and the important values of the soul",
+              parameters: this.judgment_schema,
+            },
+          ],
           function_call: {
-            "name": "getJudgment"
+            name: "getJudgment",
           },
         }),
       });
@@ -120,9 +167,11 @@ class GPTHandler {
       const data = await response.json();
 
       if (response.ok) {
-        console.log(data["choices"][0]["message"]["function_call"]["arguments"]);
+        console.log(
+          data["choices"][0]["message"]["function_call"]["arguments"]
+        );
         // return data.choices[0].message.content;
-        return data["choices"][0]["message"]["function_call"]["arguments"]
+        return data["choices"][0]["message"]["function_call"]["arguments"];
       } else {
         this.globalVar.gptHavingError = true;
         throw new Error(
@@ -131,6 +180,7 @@ class GPTHandler {
       }
     } finally {
       this.globalVar.gptIsRequestPending = false;
+      scene.updateParticleScene();
     }
   }
 
@@ -143,24 +193,26 @@ class GPTHandler {
     } catch (error) {
       this.globalVar.gptHavingError = true;
       console.error("Error sending message to GPT:", error);
-      if (!this.globalVar.debugMode) { if (!alert('심판자가 졸리다고 합니다.\n다음에 오시죠.')) { window.location.reload(); } }
+      if (!this.globalVar.debugMode) {
+        if (!alert("심판자가 졸리다고 합니다.\n다음에 오시죠.")) {
+          window.location.reload();
+        }
+      }
     }
   }
 
   makeChatLogText(chatLog) {
-    let chatText = ''
+    let chatText = "";
     for (let i = 0; i < chatLog.length; i++) {
-      chatText += `\n${chatLog[i].role}: ${chatLog[i].content}`
+      chatText += `\n${chatLog[i].role}: ${chatLog[i].content}`;
     }
     console.log(chatText);
-    return chatText
+    return chatText;
   }
-
 
   getJudgment(message) {
     console.log(message);
 
     return message;
   }
-
 }

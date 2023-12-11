@@ -26,14 +26,8 @@ class SceneManager {
   }
 
   loadScene_before() {
+    ptcl.draw();
     rectMode(CENTER);
-    imageMode(CENTER);
-    image(mainDummyImg, width / 2, height / 2);
-    mainDummyImg.resize(
-      width,
-      mainDummyImg.height * (width / mainDummyImg.width)
-    );
-
     fill(255);
     textSize(25);
     textFont(typewriterFont);
@@ -42,7 +36,7 @@ class SceneManager {
     textFont(pretendardFont);
     textSize(20);
     text("Press ENTER to Start", width / 2, (height * 4) / 5);
-    fill(0);
+    fill(255);
     textSize(15);
     text("당신의 인생을\n결산해보세요", width / 2, height / 2);
   }
@@ -50,20 +44,7 @@ class SceneManager {
   loadScene_during() {
     rectMode(CENTER);
     imageMode(CENTER);
-    if (this.globalVar.gptIsRequestPending) {
-      //   ptcl.nextWord("pending");
-      ptcl.draw();
-      // image(thinkingDummyImg, width/2,height/2);
-      // thinkingDummyImg.resize(width,thinkingDummyImg.height*(width/thinkingDummyImg.width));
-    } else {
-      //   ptcl.nextWord("talking");
-      ptcl.draw();
-      //   image(talkingDummyImg, width / 2, height / 2);
-      //   talkingDummyImg.resize(
-      //     width,
-      //     thinkingDummyImg.height * (width / thinkingDummyImg.width)
-      //   );
-    }
+    ptcl.draw();
 
     //stage bar
     rectMode(CORNERS);
@@ -127,5 +108,10 @@ class SceneManager {
 
   resetVariables() {
     location.reload();
+  }
+
+  updateParticleScene() {
+    console.log(judge.status);
+    ptcl.updateParticles();
   }
 }

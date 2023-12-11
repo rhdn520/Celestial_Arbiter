@@ -2,7 +2,7 @@ class JudgeVector {
   constructor() {}
   display(pg) {
     pg.push();
-    pg.translate(windowWidth / 2 - 508, 0);
+    pg.translate(windowWidth / 2 - 508, 100);
     pg.noStroke();
     pg.beginShape();
     pg.fill(255);
