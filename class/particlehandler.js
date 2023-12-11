@@ -1,7 +1,7 @@
 class ParticleHandler {
   constructor() {
     this.particles = [];
-    this.pixelSteps = 2;
+    this.pixelSteps = 4;
     this.drawAsPoints = true;
     this.bgColor = color(0);
     // this.fontName = "script";

@@ -14,7 +14,7 @@ class Particle {
     this.colorWeight = 0;
     this.colorBlendRate = 0.01;
     this.randomColor = random(50, 255);
-    this.randomSize = random(1.5, 2);
+    // this.randomSize = random(1.5, 2);
   }
 
   move() {
@@ -47,8 +47,10 @@ class Particle {
       this.colorWeight
     );
     if (ptcl.drawAsPoints) {
+      // stroke(255);
+      strokeWeight(2);
       stroke(this.randomColor);
-      strokeWeight(this.randomSize);
+      // strokeWeight(this.randomSize);
       point(this.pos.x, this.pos.y);
     } else {
       noStroke();
