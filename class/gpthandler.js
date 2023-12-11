@@ -1,7 +1,7 @@
 class GPTHandler {
   constructor(_globalVar, _promptText, _receiptPromptText) {
-    this.apiKey = "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";
-    // this.apiKey = "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"; //승우
+    // this.apiKey = "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";
+    this.apiKey = "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"; //승우
     this.apiUrl = "https://api.openai.com/v1/chat/completions";
     this.prompt = _promptText;
     this.receiptPrompt = _receiptPromptText;
@@ -86,8 +86,8 @@ class GPTHandler {
           Authorization: `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({
-          // model: "gpt-4-1106-preview",
-          model: "gpt-3.5-turbo-0613",
+          model: "gpt-4-1106-preview",
+          // model: "gpt-3.5-turbo-0613",
           messages: [
             { role: "system", content: this.prompt }, //프롬프트 넣는 곳
             ...chatLog,

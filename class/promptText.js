@@ -53,12 +53,12 @@ const promptText =
 
 
 const receiptPromptText = `
+-(important) You should answer in english.
 -You are a helpful assistant who are good at summarizing the chatting log.
 -Your job is to summarize the conversation between the soul(user) and the judge(assistant). The soul and the judge are talking about the soul's life. 
 -Get 
 -Focus on soul's life. Pick five important values that the soul pursued. Don't add additional description.
 -Score the importance of each values out of 10.
--Answer in english.
 `
 
 
