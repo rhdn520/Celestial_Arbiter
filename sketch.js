@@ -16,6 +16,8 @@ let thinkingDummyImg;
 let typewriterFont;
 let pretendardFont;
 
+let templeBGM;
+
 let globalVar = {
   chatLog: [
     {
@@ -49,6 +51,7 @@ function preload() {
   listeningDummyImg = loadImage("assets/listening_dummy.png");
   typewriterFont = loadFont("assets/Typewriter-Bold.otf");
   pretendardFont = loadFont("assets/Pretendard-Medium.otf");
+  templeBGM = loadSound("assets/ancient_temple.mp3");
 }
 
 function setup() {
@@ -68,6 +71,8 @@ function setup() {
 
   ptcl.updateParticles();
   ui.loadUI(scene);
+
+  templeBGM.loop();
 
   // gpt.makeChatLogText(exampleChatLog);
 
@@ -122,7 +127,6 @@ function testGPT(text) {
 }
 
 // function mousePressed(){
-//   testTTS();
 // }
 function keyPressed() {
   ui.onKeyPressed(keyCode);

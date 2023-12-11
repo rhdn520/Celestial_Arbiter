@@ -56,6 +56,7 @@ class UIHandler {
   onKeyPressed(keyCode) {
     if (this.globalVar.conversationStatus === "before") {
       if (keyCode === ENTER) {
+        userStartAudio();
         this.globalVar.conversationStatus = "during";
         scene.updateParticleScene();
       }
