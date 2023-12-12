@@ -71,7 +71,8 @@ class UIHandler {
       }
     } else if (this.globalVar.conversationStatus === "after") {
       if (keyCode === ESCAPE) {
-        this.globalVar.conversationStatus = "before";
+        location.reload();
+        // this.globalVar.conversationStatus = "before";
       }
     }
   }
