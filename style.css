@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "pretendard_m";
+  font-family: "pretendard";
   src: url("assets/Pretendard-Medium.otf");
 }
 
@@ -159,6 +159,12 @@ div {
   border-bottom: 1px dotted black;
 }
 
+.judge-summary:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 120%;
+}
+
 .receipt-keywords {
   width: 100%;
   height: fit-content;
@@ -171,6 +177,13 @@ div {
   justify-content: flex-start;
   align-items: center;
   border-bottom: 1px dotted black;
+}
+
+.receipt-keywords p:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 130%;
+  padding: 10px 0;
 }
 
 .receipt-bottom {

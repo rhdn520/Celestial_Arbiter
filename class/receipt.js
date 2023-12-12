@@ -66,17 +66,19 @@ class Receipt {
     div3Text += `5. ${this.globalVar.receiptData.value5} : ${this.globalVar.receiptData.value5_score}<br></p>`;
 
     let div3 = createDiv(div3Text);
+
     div3.style("width", "100%");
-    div3.style("height", "fit-content");
-    div3.style("padding", "0 20px");
-    div3.style("text-align", "left");
-    div3.style("font-family", "myfontrunes");
-    div3.style("font-size", "20px");
-    div3.style("display", "flex");
-    div3.style("flex-flow", "row nowrap");
-    div3.style("justify-content", "flex-start");
-    div3.style("align-items", "center");
-    div3.style("border-bottom", "1px dotted black");
+    div3.addClass("receipt-keywords");
+    // div3.style("height", "fit-content");
+    // div3.style("padding", "0 20px");
+    // div3.style("text-align", "left");
+    // div3.style("font-family", "myfontrunes");
+    // div3.style("font-size", "20px");
+    // div3.style("display", "flex");
+    // div3.style("flex-flow", "row nowrap");
+    // div3.style("justify-content", "flex-start");
+    // div3.style("align-items", "center");
+    // div3.style("border-bottom", "1px dotted black");
     receiptContainer.child(div3);
 
     let receiptBottom = createDiv();
