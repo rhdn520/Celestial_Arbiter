@@ -1,7 +1,7 @@
 class ParticleHandler {
   constructor() {
     this.particles = [];
-    this.pixelSteps = 4; // 숫자가 클수록 덜 촘촘
+    this.pixelSteps = 6; // 숫자가 클수록 덜 촘촘
     this.drawAsPoints = true; // 점 또는 원으로 그릴 수 있음
     this.bgColor = color(0);
     // this.fontName = "script";

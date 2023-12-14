@@ -48,7 +48,7 @@ class Particle {
     );
     if (ptcl.drawAsPoints) {
       // stroke(255);
-      strokeWeight(2);
+      strokeWeight(3);
       stroke(this.randomColor);
       // strokeWeight(this.randomSize);
       point(this.pos.x, this.pos.y);
