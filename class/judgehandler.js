@@ -8,6 +8,8 @@ class Judge {
   display() {
     if (this.globalVar.conversationStatus !== "before") {
       this.status = this.globalVar.gptIsRequestPending ? "think" : "talk";
+    }else{
+      this.status = "think"
     }
 
     switch (this.status) {
