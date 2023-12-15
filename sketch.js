@@ -35,7 +35,7 @@ let globalVar = {
     value4: "Freedom",
     value5: "Strength",
   },
-  conversationStatus: "after",
+  conversationStatus: "before",
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,
@@ -72,11 +72,12 @@ function setup() {
   ptcl.updateParticles();
   ui.loadUI(scene);
 
-  // templeBGM.loop();
+  templeBGM.loop();
 
   // gpt.makeChatLogText(exampleChatLog);
 
   // gpt.sendRcptMessage(exampleChatLog);
+  gpt.sendRcptRequest(exampleChatLog)
 }
 
 function draw() {

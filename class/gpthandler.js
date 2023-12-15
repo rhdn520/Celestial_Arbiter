@@ -1,7 +1,7 @@
 class GPTHandler {
   constructor(_globalVar, _promptText, _receiptPromptText) {
-    // this.apiKey = "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";
-    this.apiKey = "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"; //승우
+    this.apiKey = "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";
+    // this.apiKey = "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"; //승우
     this.apiUrl = "https://api.openai.com/v1/chat/completions";
     this.prompt = _promptText;
     this.receiptPrompt = _receiptPromptText;
@@ -11,12 +11,19 @@ class GPTHandler {
 
     this.judgment_schema = {
       type: "object",
-      description: "Judgement summary and user's important values.",
+      description: "판결문과 긍정적인 키워드 목록과 부정적인 키워드 목록",
       properties: {
-        judge_summary: {
+        judge_sentence: {
           type: "string",
-          description: "The summary of a judge's sentence in english.",
+          description: "sentencing",
         },
+        positive_values: {
+          type: "array",
+
+          positive_value: {
+
+          }
+      },
         value1: {
           type: "string",
           description:
@@ -64,6 +71,51 @@ class GPTHandler {
         },
       },
     };
+
+    this.judgment_schema = {
+      type: "object",
+      properties: {
+        sentencing: {
+          type: "string",
+          description: "Sentencing inferred from the conversation log."
+        },
+        PositiveKeywords: {
+          type: "array",
+          description: "Positive keywords and its relevance from the conversation",
+          items: {
+            type: "object",
+            properties: {
+              keyword: {
+                type: "string",
+                description:"Positive keyword"
+              },
+              relevance: {
+                type: "number",
+                description:"Relevance of the keyword"
+              }
+            }
+          }
+        },
+        NegativeKeywords: {
+          type: "array",
+          description: "Negative keywords and its relevance from the conversation",
+          items: {
+            type: "object",
+            properties: {
+              keyword: {
+                type: "string",
+                description:"Negative keyword"
+              },
+              relevance: {
+                type: "number",
+                description:"Relevance of the keyword"
+              }
+            }
+          }
+        }
+      },
+      required:["sentencing","PositiveKeywords","NegativeKeywords"]
+    }
   }
 
   async sendMessage(chatLog) {
@@ -86,8 +138,8 @@ class GPTHandler {
           Authorization: `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({
-          model: "gpt-4-1106-preview",
-          // model: "gpt-3.5-turbo-0613",
+          // model: "gpt-4-1106-preview",
+          model: "gpt-3.5-turbo-0613",
           messages: [
             { role: "system", content: this.prompt }, //프롬프트 넣는 곳
             ...chatLog,
@@ -184,7 +236,7 @@ class GPTHandler {
             {
               name: "getJudgment",
               description:
-                "Get the summary of the judgment and the important values of the soul",
+                "Get the sentencing of the judge and keywords",
               parameters: this.judgment_schema,
             },
           ],
@@ -234,7 +286,7 @@ class GPTHandler {
   makeChatLogText(chatLog) {
     let chatText = "";
     for (let i = 0; i < chatLog.length; i++) {
-      chatText += `\n${chatLog[i].role}: ${chatLog[i].content}`;
+      chatText += `\n-${chatLog[i].role=="assistant" ? '심판관' : '영혼'}: ${chatLog[i].content.replace('\n','')}`;
     }
     console.log(chatText);
     return chatText;
