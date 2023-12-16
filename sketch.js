@@ -77,7 +77,7 @@ function setup() {
   // gpt.makeChatLogText(exampleChatLog);
 
   // gpt.sendRcptMessage(exampleChatLog);
-  gpt.sendRcptRequest(exampleChatLog)
+  // gpt.sendRcptRequest(exampleChatLog)
 }
 
 function draw() {
