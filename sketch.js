@@ -35,7 +35,7 @@ let globalVar = {
     value4: "Freedom",
     value5: "Strength",
   },
-  conversationStatus: "before",
+  conversationStatus: "after",
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,

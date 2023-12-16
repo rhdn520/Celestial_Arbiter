@@ -31,6 +31,7 @@ class Receipt {
 
     //Container
     let receiptContainer = createDiv();
+    receiptContainer.id('ReceiptContainer');
     receiptContainer.position(this.xPos, this.yPos);
     receiptContainer.size(this.divWidth);
     receiptContainer.addClass("receipt-container");

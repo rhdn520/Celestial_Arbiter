@@ -39,6 +39,17 @@ class UIHandler {
 
   loadUI_after() {
     receipt.display();
+    let printButton = new Button('print',width/3, height/2, 50,30, this.printReceipt);
+  }
+
+  printReceipt(){
+    console.log('print button pressed!');
+    console.log(document.getElementById("ReceiptContainer").outerHTML);
+    let printContent = document.getElementById("ReceiptContainer").outerHTML;
+    let originalContent = document.body.innerHTML;
+    document.body.innerHTML = printContent;
+      window.print();
+      document.body.innerHTML = originalContent;    
   }
 
   onClickChangeSceneBtn(sceneToGo) {
