@@ -39,17 +39,143 @@ class UIHandler {
 
   loadUI_after() {
     receipt.display();
-    let printButton = new Button('print',width/3, height/2, 50,30, this.printReceipt);
+    new Button('print',width/3, height/2, 50,30, this.printReceipt);
   }
 
   printReceipt(){
     console.log('print button pressed!');
-    console.log(document.getElementById("ReceiptContainer").outerHTML);
-    let printContent = document.getElementById("ReceiptContainer").outerHTML;
-    let originalContent = document.body.innerHTML;
-    document.body.innerHTML = printContent;
-      window.print();
-      document.body.innerHTML = originalContent;    
+    // console.log(document.getElementById("ReceiptContainer").outerHTML);
+    let printContent = document.getElementById("ReceiptContainer").innerHTML;
+    let printContentStyle = `<style>
+    @font-face {
+      font-family: "pretendard";
+      src: url("assets/Pretendard-Medium.otf");
+    }
+    
+    @font-face {
+      font-family: "typewr_b";
+      src: url("assets/TYPEWR_B.TTF");
+    }
+    
+    @font-face {
+      font-family: "myfontrunes";
+      src: url("assets/Myfontrunes-Regular.ttf");
+    }
+    
+    @font-face {
+      font-family: "barcord";
+      src: url("assets/BarcodeFont.ttf");
+    } 
+    body{
+      // display:flex;
+      // flex-flow: column nowrap;
+      // justify-content: flex-start;
+      // align-items: center;
+    }
+
+    div{
+      box-sizing: border-box;
+    }
+.receipt-container {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 10px 5px;
+  width: 100%;
+  height: min-content;
+  background-color: #fff;
+  text-align: center;
+  border: 1px dotted black;
+  overflow-y: auto;
+}
+
+.judge-summary {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 30px 20px;
+  flex-flow: column nowrap;
+  justify-content: center;
+  height: min-content;
+  align-items: center;
+  /* background-color: rgba(255,255,255,0.8); */
+  text-align: justify;
+  font-family: "myfontrunes";
+  font-size: 20px;
+  line-height: 90%;
+  /* border-left: 1px dotted black;*/
+  border-bottom: 1px dotted black;
+}
+
+.judge-summary:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.receipt-keywords {
+  width: 100%;
+  height: fit-content;
+  padding: 0 20px;
+  text-align: left;
+  font-family: "myfontrunes";
+  font-size: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}
+
+.receipt-keywords p:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 130%;
+  padding: 10px 0;
+}
+
+.receipt-bottom {
+  width: 100%;
+  display: grid;
+  padding: 20px 10px;
+  background-color: inherit;
+  gap: 5px;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+}
+
+.receipt-bottom-element {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+  /* text-align: center; */
+  font-family: "typewr_b";
+  font-size: 7px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.values {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+</style>
+`
+
+    let printWindow = window.open("");
+    printWindow.document.write(printContentStyle);
+    printWindow.document.write("<div class=\"receipt-container\">"+printContent+"</div>");
+    // printWindow.print(); 
   }
 
   onClickChangeSceneBtn(sceneToGo) {

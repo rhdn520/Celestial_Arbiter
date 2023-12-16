@@ -72,7 +72,7 @@ function setup() {
   ptcl.updateParticles();
   ui.loadUI(scene);
 
-  templeBGM.loop();
+  // templeBGM.loop();
 
   // gpt.makeChatLogText(exampleChatLog);
 

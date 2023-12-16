@@ -48,7 +48,7 @@ class Receipt {
     div1.style("display", "flex");
     div1.style("justify-content", "center");
     div1.style("align-items", "center");
-    div1.style("border-bottom", "1px dotted#000");
+    div1.style("border-bottom", "1px dotted #000");
 
     //Div2
     let div2 = createDiv(this.globalVar.receiptData.judge_summary);
