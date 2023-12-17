@@ -18,6 +18,11 @@
   src: url("assets/BarcodeFont.ttf");
 }
 
+@font-face {
+  font-family: "maruburi";
+  src: url("assets/MaruBuri-Regular.ttf");
+}
+
 html,
 body {
   margin: 0;
@@ -141,6 +146,19 @@ div {
   overflow-y: auto;
 }
 
+.receipt-title{
+  height : fit-content;
+  padding: 20px 0px;
+  background-color: rgba(255,255,255,0.8);
+  text-align:center;
+  font-family: "typewr_b";
+  font-size : 30px;
+  display: flex;
+  justify-content: center;
+  align-items : center;
+  border-bottom : 1px dotted #000;
+}
+
 .judge-summary {
   position: relative;
   display: flex;
@@ -152,8 +170,8 @@ div {
   align-items: center;
   /* background-color: rgba(255,255,255,0.8); */
   text-align: justify;
-  font-family: "myfontrunes";
-  font-size: 20px;
+  font-family: "maruburi";
+  font-size: 14px;
   line-height: 90%;
   /* border-left: 1px dotted black;*/
   border-bottom: 1px dotted black;
@@ -170,8 +188,8 @@ div {
   height: fit-content;
   padding: 0 20px;
   text-align: left;
-  font-family: "myfontrunes";
-  font-size: 20px;
+  font-family: "maruburi";
+  font-size: 14px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
@@ -185,6 +203,35 @@ div {
   line-height: 130%;
   padding: 10px 0;
 }
+
+.total-amount{
+  width: 100%;
+  height: fit-content;
+  padding: 0 20px;
+  text-align: right;
+  font-family: "maruburi";
+  font-size: 14px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}
+
+.receipt-date{
+  width: 100%;
+  height: fit-content;
+  padding: 0 20px;
+  text-align: right;
+  font-family: "maruburi";
+  font-size: 14px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}
+
 
 .receipt-bottom {
   width: 100%;
@@ -206,7 +253,7 @@ div {
   margin: 0;
   /* text-align: center; */
   font-family: "typewr_b";
-  font-size: 7px;
+  font-size: 12px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
