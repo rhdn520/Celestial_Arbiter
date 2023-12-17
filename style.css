@@ -3,6 +3,26 @@
   src: url("assets/Pretendard-Medium.otf");
 }
 
+@font-face {
+  font-family: "typewr_b";
+  src: url("assets/TYPEWR_B.TTF");
+}
+
+@font-face {
+  font-family: "myfontrunes";
+  src: url("assets/Myfontrunes-Regular.ttf");
+}
+
+@font-face {
+  font-family: "barcord";
+  src: url("assets/BarcodeFont.ttf");
+}
+
+@font-face {
+  font-family: "maruburi";
+  src: url("assets/MaruBuri-Regular.ttf");
+}
+
 html,
 body {
   margin: 0;
@@ -17,14 +37,16 @@ canvas {
 }
 
 div {
-  font-size: small;
+  box-sizing: border-box;
 }
 
 .gpt-chatlog-wrapper {
-  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  width: 700px;
+  /* height: 300px; */
+  margin: 0;
+  gap: 6px;
   overflow-y: auto;
   word-break: break-all;
   padding: 16px;
@@ -35,6 +57,7 @@ div {
 
 .gpt-status {
   transform: translateX(-50%);
+  color: white;
 }
 
 ::-webkit-scrollbar {
@@ -42,12 +65,16 @@ div {
   height: 100%;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0);
+  border: rgba(255, 255, 255, 0.3) solid 1px;
   border-radius: 3px;
 }
 
 .gpt-chatlog-chat {
   color: white;
+  font-size: 0.85rem;
+  line-height: 140%;
+  letter-spacing: 0.05rem;
 }
 
 .prev {
@@ -98,4 +125,144 @@ div {
 
 .hidden {
   display: none;
+}
+
+.receipt-container {
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 10px 5px;
+  transform: translate3d(-50%, -50%, 0);
+  width: calc(100vw / 3);
+  height: calc(100vh * 3) / 4;
+  min-width: 200px;
+  max-width: 350px;
+  height: min-content;
+  background-color: #fff;
+  text-align: center;
+  border: 1px dotted black;
+  overflow-y: auto;
+}
+
+.receipt-title{
+  height : fit-content;
+  padding: 20px 0px;
+  background-color: rgba(255,255,255,0.8);
+  text-align:center;
+  font-family: "typewr_b";
+  font-size : 30px;
+  display: flex;
+  justify-content: center;
+  align-items : center;
+  border-bottom : 1px dotted #000;
+}
+
+.judge-summary {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 30px 20px;
+  flex-flow: column nowrap;
+  justify-content: center;
+  height: min-content;
+  align-items: center;
+  /* background-color: rgba(255,255,255,0.8); */
+  text-align: justify;
+  font-family: "maruburi";
+  font-size: 14px;
+  line-height: 90%;
+  /* border-left: 1px dotted black;*/
+  border-bottom: 1px dotted black;
+}
+
+.judge-summary:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.receipt-keywords {
+  width: 100%;
+  height: fit-content;
+  padding: 0 20px;
+  text-align: left;
+  font-family: "maruburi";
+  font-size: 14px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}
+
+.receipt-keywords p:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 130%;
+  padding: 10px 0;
+}
+
+.total-amount{
+  width: 100%;
+  height: fit-content;
+  padding: 0 20px;
+  text-align: right;
+  font-family: "maruburi";
+  font-size: 14px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}
+
+.receipt-date{
+  width: 100%;
+  height: fit-content;
+  padding: 0 20px;
+  text-align: right;
+  font-family: "maruburi";
+  font-size: 14px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}
+
+
+.receipt-bottom {
+  width: 100%;
+  display: grid;
+  padding: 20px 10px;
+  background-color: inherit;
+  gap: 5px;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+}
+
+.receipt-bottom-element {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+  /* text-align: center; */
+  font-family: "typewr_b";
+  font-size: 7px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.values {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
 }

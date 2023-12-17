@@ -30,42 +30,197 @@ class UIHandler {
     }
   }
 
-  loadUI_before() {}
+  loadUI_before() { }
 
   loadUI_during(chatLog) {
     this.createGptInput();
     this.initTextBox(chatLog);
   }
 
-  loadUI_after() {}
+  loadUI_after() {
+    receipt.display();
+    let printButton = new Button('print', width / 3, height / 2, 50, 30, this.printReceipt);
+  }
+
+  printReceipt() {
+    console.log('print button pressed!');
+    console.log(document.getElementById("ReceiptContainer").outerHTML);
+
+    let receiptEl = document.getElementById("ReceiptContainer");
+    let printWindow = window.open("");
+    printWindow.document.write(`<style>
+    @font-face {
+      font-family: "pretendard";
+      src: url("assets/Pretendard-Medium.otf");
+    }
+    
+    @font-face {
+      font-family: "typewr_b";
+      src: url("assets/TYPEWR_B.TTF");
+    }
+    
+    @font-face {
+      font-family: "myfontrunes";
+      src: url("assets/Myfontrunes-Regular.ttf");
+    }
+    
+    @font-face {
+      font-family: "barcord";
+      src: url("assets/BarcodeFont.ttf");
+    }
+
+    div{
+      box-sizing:border-box;
+    }
+    body{
+      width: fit-content;
+    }
+.receipt-container {
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 10px 5px;
+  transform: translate3d(-50%, -50%, 0);
+  width: ${width/3};
+  height: calc(100vh * 3) / 4;
+  min-width: 200px;
+  max-width: 350px;
+  height: min-content;
+  background-color: #fff;
+  text-align: center;
+  border: 1px dotted black;
+  overflow-y: auto;
+}
+
+.judge-summary {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 30px 20px;
+  flex-flow: column nowrap;
+  justify-content: center;
+  height: min-content;
+  align-items: center;
+  /* background-color: rgba(255,255,255,0.8); */
+  text-align: justify;
+  font-family: "myfontrunes";
+  font-size: 20px;
+  line-height: 90%;
+  /* border-left: 1px dotted black;*/
+  border-bottom: 1px dotted black;
+}
+
+.judge-summary:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.receipt-keywords {
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+  padding: 0 20px;
+  text-align: left;
+  font-family: "myfontrunes";
+  font-size: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dotted black;
+}
+
+.receipt-keywords p:hover {
+  font-family: "typewr_b";
+  font-size: 14px;
+  line-height: 130%;
+  padding: 10px 0;
+}
+
+.receipt-bottom {
+  width: 100%;
+  display: grid;
+  padding: 20px 10px;
+  background-color: inherit;
+  gap: 5px;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
+}
+
+.receipt-bottom-element {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+  /* text-align: center; */
+  font-family: "typewr_b";
+  font-size: 7px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.values {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+</style>`)
+    printWindow.document.write(receiptEl.outerHTML);
+    printWindow.resizeTo(350,receiptEl.offsetHeight+30);
+
+    printWindow.print();
+  }
 
   onClickChangeSceneBtn(sceneToGo) {
     this.globalVar.conversationStatus = sceneToGo;
     this.loadUI();
   }
 
+  focusInput() {
+    // let el = select("#text-input")
+    // el.focus();
+    // console.log(document.getElementById("text-input"));
+    document.getElementById("text-input").focus();
+  }
+
   onKeyPressed(keyCode) {
     if (this.globalVar.conversationStatus === "before") {
-      this.globalVar.conversationStatus = "during";
+      if (keyCode === ENTER) {
+        userStartAudio();
+        this.globalVar.conversationStatus = "during";
+        scene.updateParticleScene();
+      }
     } else if (this.globalVar.conversationStatus === "during") {
       if (keyCode === ENTER) {
         let userInput = this.textInput.value();
         if (userInput === "") {
           return;
         }
-        testGPT(userInput);
+        gpt.getGPTResponse(userInput);
         this.textInput.value("");
       }
     } else if (this.globalVar.conversationStatus === "after") {
       if (keyCode === ESCAPE) {
-        this.globalVar.conversationStatus = "before";
+        console.log('escape!')
+        // location.reload();
+        scene.changeScene('before');
+        // this.globalVar.conversationStatus = "before";
       }
     }
   }
 
   //맨처음 chatLog 렌더링
   initTextBox(chatLog) {
-    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 100);
+    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 120);
     let initChat = new Chat(chatLog[0]);
     initChat.chatDiv.parent(this.chatLogBox.wrapper);
   }
@@ -78,7 +233,7 @@ class UIHandler {
     }
 
     //새로운 chatLogBox에 업데이트된 chatLog 렌더링 가장 (최근 대화일수록 위)
-    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 100);
+    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 120);
     // if (chatLog[chatLog.length - 1] !== undefined) {
     //   let updatedChat = new Chat(chatLog[chatLog.length - 1]);
     //   updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
@@ -90,7 +245,7 @@ class UIHandler {
         const chat = chatLog[i];
         //<대화종료 인식>
         if (chat.role === "assistant" && chat.content.includes("<대화 종료>")) {
-          // chat.content.replace("<대화 종료>", "");
+          this.globalVar.isDecisionMade = true;
           this.duringJudgement();
           console.log("대화종료");
         }
@@ -112,6 +267,7 @@ class UIHandler {
 
     //텍스트 인풋
     this.textInput = createInput("");
+    this.textInput.id("text-input");
     this.textInput.addClass("gpt-text-input");
     this.textInput.parent(this.inputWrapper);
     this.textInput.attribute("disabled", true);
@@ -128,7 +284,7 @@ class UIHandler {
         console.log("user submitted emply string");
         return;
       }
-      testGPT(userInput);
+      gpt.getGPTResponse(userInput);
       this.textInput.value("");
     });
   }
@@ -142,6 +298,7 @@ class UIHandler {
   enableGptInput() {
     if (this.textInput != null) this.textInput.removeAttribute("disabled");
     if (this.submitBtn != null) this.submitBtn.removeAttribute("disabled");
+    this.focusInput();
   }
 
   //판결문 나올 때
@@ -150,11 +307,13 @@ class UIHandler {
     let nextBtn = createDiv("내 인생 영수증 받기 >");
     nextBtn.addClass("nextBtn");
     nextBtn.position(width / 2, 400);
-    nextBtn.mousePressed(() => this.changeStatusToAfter());
+    nextBtn.mousePressed(async () => await this.changeStatusToAfter());
   }
 
   //after로 넘어가기
-  changeStatusToAfter() {
+  async changeStatusToAfter() {
+    scene.progresstargetWidth = width;
+    await gpt.getGPTReceipt();
     this.globalVar.conversationStatus = "after";
   }
 
@@ -179,7 +338,7 @@ class UIHandler {
           this.chatLogBox.handleStatus("pending...");
         } else {
           this.enableGptInput();
-          this.chatLogBox.handleStatus("ready");
+          this.chatLogBox.handleStatus("");
         }
       }
     }
@@ -197,8 +356,7 @@ class ChatLogBox {
     //gpt상태
     this.status = createDiv("ready");
     this.status.addClass("gpt-status");
-    this.status.position(x, y + h + 100);
-    this.status.style("color", "rgba(255, 255, 255, 0.5)");
+    this.status.position(x, height / 2 - 5);
   }
 
   handleStatus(status) {
