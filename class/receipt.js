@@ -3,21 +3,6 @@ class Receipt {
     this.globalVar = _globalVar;
     this.receiptX = width / 2;
     this.receiptY = height / 2;
-    // this.receiptX = (windowWidth - this.width) / 2;
-    // this.receiptY = (windowHeight - this.height) / 2;
-
-    // this.divWidth = this.width * 0.9;
-    // this.div4Width = this.divWidth / 3;
-
-    // this.div1Height = this.height / 10;
-    // this.div2Height = (this.height * 3) / 10;
-    // this.div3Height = this.div2Height;
-    // this.div4Height = (this.height * 3) / 20;
-    // this.div5Height = this.div4Height;
-    // this.div6Height = this.div4Height;
-    // this.div7Height = this.div4Height;
-    // this.div8Height = this.div4Height;
-    // this.div9Height = this.div4Heights;
 
     this.xPos = width / 2;
     this.yPos = height / 2;
@@ -38,23 +23,14 @@ class Receipt {
 
     //Div1 : title
     let div1 = createDiv("LIFE RECEIPT");
+    div1.addClass("receipt-title");
     receiptContainer.child(div1);
-    div1.style("height", "fit-content");
-    div1.style("padding", "20px 0px");
-    div1.style("background-color", "rgba(255,255,255,0.8)");
-    div1.style("text-align", "center");
-    div1.style("font-family", "Typewriter-Bold");
-    div1.style("font-size", "30px");
-    div1.style("display", "flex");
-    div1.style("justify-content", "center");
-    div1.style("align-items", "center");
-    div1.style("border-bottom", "1px dotted #000");
+
 
     //Div2
     let div2 = createDiv(this.globalVar.receiptData.judge_summary);
+    //let div2=createDiv(this.globalVar.receiptData.sentencing)
     receiptContainer.child(div2);
-    // div2.position(this.xPos, this.yPos + this.div1Height);
-    // div2.size(this.divWidth, this.div2Height);
     div2.addClass("judge-summary");
 
     //Div3
@@ -66,63 +42,101 @@ class Receipt {
     div3Text += `4. ${this.globalVar.receiptData.value4} : ${this.globalVar.receiptData.value4_score}<br>`;
     div3Text += `5. ${this.globalVar.receiptData.value5} : ${this.globalVar.receiptData.value5_score}<br></p>`;
 
+//let positiveKeywords=this.globalVar.receiptData.PositiveKeywords;
+//let negativeKeywords=this.globalVar.receiptData.NegativeKeywords;
+
+//let di3Text="<p>";
+//div3Text += "<strong>Positive Keywords:</strong><br>";
+//positiveKeywords.forEach((keyword) => {
+  //div3Text += `${keyword.keyword}: ${keyword.relevance}<br>`;
+//});
+//div3Text += "<br><strong>Negative Keywords:</strong><br>";
+//negativeKeywords.forEach((keyword) => {
+  //div3Text += `${keyword.keyword}: ${keyword.relevance}<br>`;
+//});
+//div3Text += "</p>";
+
+
+
+
     let div3 = createDiv(div3Text);
 
     div3.style("width", "100%");
     div3.addClass("receipt-keywords");
-    // div3.style("height", "fit-content");
-    // div3.style("padding", "0 20px");
-    // div3.style("text-align", "left");
-    // div3.style("font-family", "myfontrunes");
-    // div3.style("font-size", "20px");
-    // div3.style("display", "flex");
-    // div3.style("flex-flow", "row nowrap");
-    // div3.style("justify-content", "flex-start");
-    // div3.style("align-items", "center");
-    // div3.style("border-bottom", "1px dotted black");
     receiptContainer.child(div3);
 
-    let receiptBottom = createDiv();
-    receiptBottom.addClass("receipt-bottom");
+    
+    let totalPositiveRelevance = this.globalVar.receiptData.PositiveKeywords.reduce((total, keyword) => {
+      return total + (keyword.relevance * 1000);
+    }, 0);
+    
+    let totalNegativeRelevance = this.globalVar.receiptData.NegativeKeywords.reduce((total, keyword) => {
+      return total + (keyword.relevance * -1000);
+    }, 0);
+    
+    let totalRelevanceSum = totalPositiveRelevance + totalNegativeRelevance;
+
+let div4Text=`합계: ${totalRelevanceSum}`;
+let div4=createDiv(div4Text);
+div4.style("width","100%")
+div4.addClass("total-amount");
+receiptContainer.child(div4);
+
+let div5=createDiv("발행처: 천국");
+div5.style("width","100%")
+div5.addClass("receipt-date");
+receiptContainer.child(div5);
+
+let receiptBottom = createDiv();
+receiptBottom.addClass("receipt-bottom");
 
     //Div4
-    let div4 = createDiv(
-      "<span>Life Receipt\nINTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY</span>"
-    );
-    div4.addClass("receipt-bottom-element");
-
-    //Div5
-    let div5 = createDiv("<span>2023-2\nTEAM F</span>");
-    div5.addClass("receipt-bottom-element");
+    //let div4 = createDiv(
+      //"<span>Life Receipt\nINTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY</span>"
+    //);
+    //div4.addClass("receipt-bottom-element");
 
     //Div6
-    let div6 = createDiv("<span>SCAN THIS QR CODE<br><br>⬇</span>");
+    let div6 = createDiv(`<span>${Date.now()}</span>`);
     div6.addClass("receipt-bottom-element");
+    div6.style("font-family", "barcord");
+    div6.style("font-size", "40px");
+    div6.style("font-stretch", "expanded");
+    div6.style("align-items", "center");
 
     //Div7
-    let div7 = createDiv(`<span>${Date.now()}</span>`);
+    let div7 = createDiv("<span>Life Receipt\nINTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY</span>");
     div7.addClass("receipt-bottom-element");
-    div7.style("font-family", "barcord");
-    div7.style("font-size", "36px");
-    div7.style("font-stretch", "expanded");
-    div7.style("align-items", "center");
 
     //Div8
-    let div8 = createDiv("");
+    let div8 = createDiv(`<span>${Date.now()}</span>`);
     div8.addClass("receipt-bottom-element");
-    div8.style("background-image", 'url("assets/antelope.png")');
+
 
     //Div9
-    let div9 = createDiv("");
-    div9.addClass("receipt-bottom-element");
-    div9.style("background-image", 'url("assets/qr_dummy.png")');
+    //let div9 = createDiv(`<span>${Date.now()}</span>`);
+    //div9.addClass("receipt-bottom-element");
+    //div9.style("font-family", "barcord");
+    //div9.style("font-size", "36px");
+    //div9.style("font-stretch", "expanded");
+    //div9.style("align-items", "center");
 
-    receiptBottom.child(div4);
-    receiptBottom.child(div5);
+    //Div10
+    //let div10 = createDiv("");
+    //div10.addClass("receipt-bottom-element");
+    //div10.style("background-image", 'url("assets/antelope.png")');
+
+    //Div11
+    //let div11 = createDiv("");
+    //div11.addClass("receipt-bottom-element");
+    //div11.style("background-image", 'url("assets/qr_dummy.png")');
+
     receiptBottom.child(div6);
     receiptBottom.child(div7);
     receiptBottom.child(div8);
-    receiptBottom.child(div9);
+    //receiptBottom.child(div9);
+    //receiptBottom.child(div10);
+    //receiptBottom.child(div11);
     receiptContainer.child(receiptBottom);
   }
 }
