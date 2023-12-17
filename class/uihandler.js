@@ -39,16 +39,14 @@ class UIHandler {
 
   loadUI_after() {
     receipt.display();
-    let printButton = new Button('print', width / 3, height / 2, 50, 30, this.printReceipt);
+    new Button('print',width/3, height/2, 50,30, this.printReceipt);
   }
 
   printReceipt() {
     console.log('print button pressed!');
-    console.log(document.getElementById("ReceiptContainer").outerHTML);
-
-    let receiptEl = document.getElementById("ReceiptContainer");
-    let printWindow = window.open("");
-    printWindow.document.write(`<style>
+    // console.log(document.getElementById("ReceiptContainer").outerHTML);
+    let printContent = document.getElementById("ReceiptContainer").innerHTML;
+    let printContentStyle = `<style>
     @font-face {
       font-family: "pretendard";
       src: url("assets/Pretendard-Medium.otf");
@@ -67,26 +65,25 @@ class UIHandler {
     @font-face {
       font-family: "barcord";
       src: url("assets/BarcodeFont.ttf");
+    } 
+    body{
+      // display:flex;
+      // flex-flow: column nowrap;
+      // justify-content: flex-start;
+      // align-items: center;
     }
 
     div{
-      box-sizing:border-box;
-    }
-    body{
-      width: fit-content;
+      box-sizing: border-box;
     }
 .receipt-container {
-  position: absolute;
+  position: relative;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   margin: 0;
   padding: 10px 5px;
-  transform: translate3d(-50%, -50%, 0);
-  width: ${width/3};
-  height: calc(100vh * 3) / 4;
-  min-width: 200px;
-  max-width: 350px;
+  width: 100%;
   height: min-content;
   background-color: #fff;
   text-align: center;
@@ -121,7 +118,6 @@ class UIHandler {
 .receipt-keywords {
   width: 100%;
   height: fit-content;
-  box-sizing: border-box;
   padding: 0 20px;
   text-align: left;
   font-family: "myfontrunes";
@@ -173,11 +169,13 @@ class UIHandler {
   align-items: center;
   height: fit-content;
 }
-</style>`)
-    printWindow.document.write(receiptEl.outerHTML);
-    printWindow.resizeTo(350,receiptEl.offsetHeight+30);
+</style>
+`
 
-    printWindow.print();
+    let printWindow = window.open("");
+    printWindow.document.write(printContentStyle);
+    printWindow.document.write("<div class=\"receipt-container\">"+printContent+"</div>");
+    // printWindow.print(); 
   }
 
   onClickChangeSceneBtn(sceneToGo) {

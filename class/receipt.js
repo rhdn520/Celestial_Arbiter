@@ -41,7 +41,6 @@ class Receipt {
     div1.addClass("receipt-title");
     receiptContainer.child(div1);
 
-
     //Div2
     let div2 = createDiv(this.globalVar.receiptData.judge_summary);
     //let div2=createDiv(this.globalVar.judgment_schema.sentencing)
