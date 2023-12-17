@@ -26,10 +26,9 @@ class Receipt {
     div1.addClass("receipt-title");
     receiptContainer.child(div1);
 
-
     //Div2
     let div2 = createDiv(this.globalVar.receiptData.judge_summary);
-    //let div2=createDiv(this.globalVar.receiptData.sentencing)
+    //let div2=createDiv(this.globalVar.judgment_schema.sentencing)
     receiptContainer.child(div2);
     div2.addClass("judge-summary");
 
@@ -65,7 +64,6 @@ class Receipt {
     div3.addClass("receipt-keywords");
     receiptContainer.child(div3);
 
-    
     let totalPositiveRelevance = this.globalVar.receiptData.PositiveKeywords.reduce((total, keyword) => {
       return total + (keyword.relevance * 1000);
     }, 0);
@@ -87,6 +85,9 @@ div5.style("width","100%")
 div5.addClass("receipt-date");
 receiptContainer.child(div5);
 
+
+
+
 let receiptBottom = createDiv();
 receiptBottom.addClass("receipt-bottom");
 
@@ -105,38 +106,37 @@ receiptBottom.addClass("receipt-bottom");
     div6.style("align-items", "center");
 
     //Div7
-    let div7 = createDiv("<span>Life Receipt\nINTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY</span>");
+    let div7 = createDiv("<span>2023-2\nTEAM F</span>");
     div7.addClass("receipt-bottom-element");
 
     //Div8
-    let div8 = createDiv(`<span>${Date.now()}</span>`);
+    let div8 = createDiv("<span>SCAN THIS QR CODE<br><br>⬇</span>");
     div8.addClass("receipt-bottom-element");
 
-
     //Div9
-    //let div9 = createDiv(`<span>${Date.now()}</span>`);
-    //div9.addClass("receipt-bottom-element");
-    //div9.style("font-family", "barcord");
-    //div9.style("font-size", "36px");
-    //div9.style("font-stretch", "expanded");
-    //div9.style("align-items", "center");
+    let div9 = createDiv(`<span>${Date.now()}</span>`);
+    div9.addClass("receipt-bottom-element");
+    div9.style("font-family", "barcord");
+    div9.style("font-size", "36px");
+    div9.style("font-stretch", "expanded");
+    div9.style("align-items", "center");
 
     //Div10
-    //let div10 = createDiv("");
-    //div10.addClass("receipt-bottom-element");
-    //div10.style("background-image", 'url("assets/antelope.png")');
+    let div10 = createDiv("");
+    div10.addClass("receipt-bottom-element");
+    div10.style("background-image", 'url("assets/antelope.png")');
 
     //Div11
-    //let div11 = createDiv("");
-    //div11.addClass("receipt-bottom-element");
-    //div11.style("background-image", 'url("assets/qr_dummy.png")');
+    let div11 = createDiv("");
+    div11.addClass("receipt-bottom-element");
+    div11.style("background-image", 'url("assets/qr_dummy.png")');
 
     receiptBottom.child(div6);
     receiptBottom.child(div7);
     receiptBottom.child(div8);
-    //receiptBottom.child(div9);
-    //receiptBottom.child(div10);
-    //receiptBottom.child(div11);
+    receiptBottom.child(div9);
+    receiptBottom.child(div10);
+    receiptBottom.child(div11);
     receiptContainer.child(receiptBottom);
   }
 }

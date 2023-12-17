@@ -30,7 +30,7 @@ class UIHandler {
     }
   }
 
-  loadUI_before() {}
+  loadUI_before() { }
 
   loadUI_during(chatLog) {
     this.createGptInput();
@@ -42,7 +42,7 @@ class UIHandler {
     new Button('print',width/3, height/2, 50,30, this.printReceipt);
   }
 
-  printReceipt(){
+  printReceipt() {
     console.log('print button pressed!');
     // console.log(document.getElementById("ReceiptContainer").outerHTML);
     let printContent = document.getElementById("ReceiptContainer").innerHTML;
