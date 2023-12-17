@@ -11,69 +11,6 @@ class GPTHandler {
 
     this.judgment_schema = {
       type: "object",
-      description: "판결문과 긍정적인 키워드 목록과 부정적인 키워드 목록",
-      properties: {
-        judge_sentence: {
-          type: "string",
-          description: "sentencing",
-        },
-        positive_values: {
-          type: "array",
-
-          positive_value: {
-
-          }
-      },
-        value1: {
-          type: "string",
-          description:
-            "The first element of the list of five important values that the soul pursued in english.",
-        },
-        value2: {
-          type: "string",
-          description:
-            "The second element of the list of five important values that the soul pursued in english.",
-        },
-        value3: {
-          type: "string",
-          description:
-            "The third element of the list of five important values that the soul pursued in english.",
-        },
-        value4: {
-          type: "string",
-          description:
-            "The fourth element of the list of five important values that the soul pursued in english.",
-        },
-        value5: {
-          type: "string",
-          description:
-            "The fifth element of the list of five important values that the soul pursued in english.",
-        },
-        value1_score: {
-          type: "string",
-          description: "The score of the importance of 'value1' out of 10.",
-        },
-        value2_score: {
-          type: "string",
-          description: "The score of the importance of 'value2' out of 10.",
-        },
-        value3_score: {
-          type: "string",
-          description: "The score of the importance of 'value3' out of 10.",
-        },
-        value4_score: {
-          type: "string",
-          description: "The score of the importance of 'value4' out of 10.",
-        },
-        value5_score: {
-          type: "string",
-          description: "The score of the importance of 'value5' out of 10.",
-        },
-      },
-    };
-
-    this.judgment_schema = {
-      type: "object",
       properties: {
         sentencing: {
           type: "string",
@@ -212,6 +149,8 @@ class GPTHandler {
     if (this.globalVar.gptIsRequestPending) {
       console.log("Request is already pending. Wait for the request");
     }
+
+    console.log('Pending receipt data');
 
     this.globalVar.gptIsRequestPending = true;
     scene.updateParticleScene();
