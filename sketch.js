@@ -31,7 +31,7 @@ let globalVar = {
     "PositiveKeywords": [
       {
         "keyword": "독수리",
-        "relevance": 5
+        "relevance": 4
       },
       {
         "keyword": "성공",
@@ -57,7 +57,7 @@ let globalVar = {
       }
     ]
   },
-  conversationStatus:"before",
+  conversationStatus:"after",
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,

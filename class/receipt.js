@@ -22,47 +22,54 @@ class Receipt {
     receiptContainer.addClass("receipt-container");
 
     //Div1 : title
-    let div1 = createDiv("LIFE RECEIPT");
-    div1.addClass("receipt-title");
-    receiptContainer.child(div1);
+    let receiptTitle = createDiv("LIFE RECEIPT");
+    receiptTitle.addClass("receipt-title");
+    receiptContainer.child(receiptTitle);
 
     //Div2
-    let div2 = createDiv(this.globalVar.receiptData.judge_summary);
-    //let div2=createDiv(this.globalVar.judgment_schema.sentencing)
-    receiptContainer.child(div2);
-    div2.addClass("judge-summary");
+    //let div2 = createDiv(this.globalVar.receiptData.judge_summary);
+    let receiptSentencing=createDiv(this.globalVar.receiptData.sentencing)
+    receiptContainer.child(receiptSentencing);
+    receiptSentencing.addClass("judge-summary");
 
     //Div3
 
-    let div3Text = "<p>";
-    div3Text += `1. ${this.globalVar.receiptData.value1} : ${this.globalVar.receiptData.value1_score}<br>`;
-    div3Text += `2. ${this.globalVar.receiptData.value2} : ${this.globalVar.receiptData.value2_score}<br>`;
-    div3Text += `3. ${this.globalVar.receiptData.value3} : ${this.globalVar.receiptData.value3_score}<br>`;
-    div3Text += `4. ${this.globalVar.receiptData.value4} : ${this.globalVar.receiptData.value4_score}<br>`;
-    div3Text += `5. ${this.globalVar.receiptData.value5} : ${this.globalVar.receiptData.value5_score}<br></p>`;
+    //let div3Text = "<p>";
+    //div3Text += `1. ${this.globalVar.receiptData.value1} : ${this.globalVar.receiptData.value1_score}<br>`;
+    //div3Text += `2. ${this.globalVar.receiptData.value2} : ${this.globalVar.receiptData.value2_score}<br>`;
+    //div3Text += `3. ${this.globalVar.receiptData.value3} : ${this.globalVar.receiptData.value3_score}<br>`;
+    //div3Text += `4. ${this.globalVar.receiptData.value4} : ${this.globalVar.receiptData.value4_score}<br>`;
+    //div3Text += `5. ${this.globalVar.receiptData.value5} : ${this.globalVar.receiptData.value5_score}<br></p>`;
 
-//let positiveKeywords=this.globalVar.receiptData.PositiveKeywords;
-//let negativeKeywords=this.globalVar.receiptData.NegativeKeywords;
+let positiveKeywords=this.globalVar.receiptData.PositiveKeywords;
+let negativeKeywords=this.globalVar.receiptData.NegativeKeywords;
 
-//let di3Text="<p>";
-//div3Text += "<strong>Positive Keywords:</strong><br>";
-//positiveKeywords.forEach((keyword) => {
-  //div3Text += `${keyword.keyword}: ${keyword.relevance}<br>`;
-//});
-//div3Text += "<br><strong>Negative Keywords:</strong><br>";
-//negativeKeywords.forEach((keyword) => {
-  //div3Text += `${keyword.keyword}: ${keyword.relevance}<br>`;
-//});
-//div3Text += "</p>";
+//let receiptValueHeader=createDiv("<span> 항 목 </span><span>금 액</span>");
+let receiptValueHeaderElement=`<div class="receipt-keyword-element"><span><strong>항 목</strong></span><span><strong>금 액</strong></span></div>`;
+let receiptValueHeader=createDiv(receiptValueHeaderElement)
+receiptValueHeader.addClass('receipt-value-header');
+receiptContainer.child(receiptValueHeader);
 
 
+let receiptValueContents="";
+//receiptValueContents += "<strong>Positive Keywords:</strong><br>";
+positiveKeywords.forEach((keyword) => {
+  receiptValueContents += `<div class="receipt-keyword-element"><span>${keyword.keyword}</span><span>${keyword.relevance*1000}</span></div>`;
+});
+//receiptValueContents += "<br><strong>Negative Keywords:</strong><br>";
+negativeKeywords.forEach((keyword) => {
+  receiptValueContents += `<div class="receipt-keyword-element"><span>${keyword.keyword}</span><span>${keyword.relevance*-1000}</span></div>`;
+});
+//receiptValueContents += "</p>";
 
 
-    let div3 = createDiv(div3Text);
 
-    div3.style("width", "100%");
-    div3.addClass("receipt-keywords");
-    receiptContainer.child(div3);
+
+    let receiptValue = createDiv(receiptValueContents);
+
+    receiptValue.style("width", "100%");
+    receiptValue.addClass("receipt-keywords");
+    receiptContainer.child(receiptValue);
 
     let totalPositiveRelevance = this.globalVar.receiptData.PositiveKeywords.reduce((total, keyword) => {
       return total + (keyword.relevance * 1000);
@@ -74,16 +81,19 @@ class Receipt {
     
     let totalRelevanceSum = totalPositiveRelevance + totalNegativeRelevance;
 
-let div4Text=`합계: ${totalRelevanceSum}`;
-let div4=createDiv(div4Text);
-div4.style("width","100%")
-div4.addClass("total-amount");
-receiptContainer.child(div4);
+//let valueSumElement=`합계: ${totalRelevanceSum}`;
+let valueSumElement = `<div class="receipt-keyword-element"><span>합 계</span><span>${totalRelevanceSum}</span></div>`;
+let valueSum=createDiv(valueSumElement);
+valueSum.style("width","100%")
+valueSum.addClass("total-amount");
+receiptContainer.child(valueSum);
 
-let div5=createDiv("발행처: 천국");
-div5.style("width","100%")
-div5.addClass("receipt-date");
-receiptContainer.child(div5);
+//let receiptPublish=createDiv("발행처: 천국");
+let receiptPublishElement=`<div class="receipt-keyword-element"><span>발 행 처</span><span>천 국</span></div>`;
+let receiptPublish=createDiv(receiptPublishElement);
+receiptPublish.style("width","100%")
+receiptPublish.addClass("receipt-date");
+receiptContainer.child(receiptPublish);
 
 
 
@@ -97,46 +107,67 @@ receiptBottom.addClass("receipt-bottom");
     //);
     //div4.addClass("receipt-bottom-element");
 
-    //Div6
-    let div6 = createDiv(`<span>${Date.now()}</span>`);
-    div6.addClass("receipt-bottom-element");
-    div6.style("font-family", "barcord");
-    div6.style("font-size", "40px");
-    div6.style("font-stretch", "expanded");
-    div6.style("align-items", "center");
+    //barcodeBottom
+    let barcodeBottom = createDiv(`<span>${Date.now()}</span>`);
+    barcodeBottom.addClass("receipt-bottom-element");
+    barcodeBottom.style("font-family", "barcord");
+    barcodeBottom.style("font-size", "65px");
+    barcodeBottom.style("font-stretch", "expanded");
+    barcodeBottom.style("align-items", "center");
+
+    
+
+
+
+//profileBottom
+// let profileBottom=createDiv("LIFE RECEIPT<br>INTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY")
+// profileBottom.addClass("profile-bottom-element");
+
+let profileBottom = createDiv("LIFE RECEIPT");
+profileBottom.child(createElement('br')); // 줄바꿈
+profileBottom.child(createDiv("2023-2"));
+profileBottom.child(createElement('br')); // 줄바꿈
+profileBottom.child(createDiv("TEAM F"));
+profileBottom.child(createElement('br')); // 줄바꿈
+profileBottom.child(createDiv("INTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY"));
+profileBottom.addClass("profile-bottom-element");
+
+
+
 
     //Div7
-    let div7 = createDiv("<span>2023-2\nTEAM F</span>");
-    div7.addClass("receipt-bottom-element");
+    // let div7 = createDiv("<span>2023-2\nTEAM F</span>");
+    // div7.addClass("receipt-bottom-element");
 
     //Div8
-    let div8 = createDiv("<span>SCAN THIS QR CODE<br><br>⬇</span>");
-    div8.addClass("receipt-bottom-element");
+    // let div8 = createDiv("<span>SCAN THIS QR CODE<br><br>⬇</span>");
+    // div8.addClass("receipt-bottom-element");
 
-    //Div9
-    let div9 = createDiv(`<span>${Date.now()}</span>`);
-    div9.addClass("receipt-bottom-element");
-    div9.style("font-family", "barcord");
-    div9.style("font-size", "36px");
-    div9.style("font-stretch", "expanded");
-    div9.style("align-items", "center");
+    // //Div9
+    // let div9 = createDiv(`<span>${Date.now()}</span>`);
+    // div9.addClass("receipt-bottom-element");
+    // div9.style("font-family", "barcord");
+    // div9.style("font-size", "36px");
+    // div9.style("font-stretch", "expanded");
+    // div9.style("align-items", "center");
 
-    //Div10
-    let div10 = createDiv("");
-    div10.addClass("receipt-bottom-element");
-    div10.style("background-image", 'url("assets/antelope.png")');
+    // //Div10
+    // let div10 = createDiv("");
+    // div10.addClass("receipt-bottom-element");
+    // div10.style("background-image", 'url("assets/antelope.png")');
 
-    //Div11
-    let div11 = createDiv("");
-    div11.addClass("receipt-bottom-element");
-    div11.style("background-image", 'url("assets/qr_dummy.png")');
+    // //Div11
+    // let div11 = createDiv("");
+    // div11.addClass("receipt-bottom-element");
+    // div11.style("background-image", 'url("assets/qr_dummy.png")');
 
-    receiptBottom.child(div6);
-    receiptBottom.child(div7);
-    receiptBottom.child(div8);
-    receiptBottom.child(div9);
-    receiptBottom.child(div10);
-    receiptBottom.child(div11);
+    receiptBottom.child(barcodeBottom);
+    receiptBottom.child(profileBottom);
+    // receiptBottom.child(div7);
+    // receiptBottom.child(div8);
+    // receiptBottom.child(div9);
+    // receiptBottom.child(div10);
+    // receiptBottom.child(div11);
     receiptContainer.child(receiptBottom);
   }
 }
