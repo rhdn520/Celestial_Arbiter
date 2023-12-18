@@ -16,7 +16,7 @@ class Receipt {
 
     //Container
     let receiptContainer = createDiv();
-    receiptContainer.id('ReceiptContainer');
+    receiptContainer.id("ReceiptContainer");
     receiptContainer.position(this.xPos, this.yPos);
     receiptContainer.size(this.divWidth);
     receiptContainer.addClass("receipt-container");
@@ -28,7 +28,7 @@ class Receipt {
 
     //Div2
     //let div2 = createDiv(this.globalVar.receiptData.judge_summary);
-    let receiptSentencing=createDiv(this.globalVar.receiptData.sentencing)
+    let receiptSentencing = createDiv(this.globalVar.receiptData.sentencing);
     receiptContainer.child(receiptSentencing);
     receiptSentencing.addClass("judge-summary");
 
@@ -41,29 +41,29 @@ class Receipt {
     //div3Text += `4. ${this.globalVar.receiptData.value4} : ${this.globalVar.receiptData.value4_score}<br>`;
     //div3Text += `5. ${this.globalVar.receiptData.value5} : ${this.globalVar.receiptData.value5_score}<br></p>`;
 
-let positiveKeywords=this.globalVar.receiptData.PositiveKeywords;
-let negativeKeywords=this.globalVar.receiptData.NegativeKeywords;
+    let positiveKeywords = this.globalVar.receiptData.PositiveKeywords;
+    let negativeKeywords = this.globalVar.receiptData.NegativeKeywords;
 
-//let receiptValueHeader=createDiv("<span> 항 목 </span><span>금 액</span>");
-let receiptValueHeaderElement=`<div class="receipt-keyword-element"><span><strong>항 목</strong></span><span><strong>금 액</strong></span></div>`;
-let receiptValueHeader=createDiv(receiptValueHeaderElement)
-receiptValueHeader.addClass('receipt-value-header');
-receiptContainer.child(receiptValueHeader);
+    //let receiptValueHeader=createDiv("<span> 항 목 </span><span>금 액</span>");
+    let receiptValueHeaderElement = `<div class="receipt-keyword-element"><span><strong>항 목</strong></span><span><strong>금 액</strong></span></div>`;
+    let receiptValueHeader = createDiv(receiptValueHeaderElement);
+    receiptValueHeader.addClass("receipt-value-header");
+    receiptContainer.child(receiptValueHeader);
 
-
-let receiptValueContents="";
-//receiptValueContents += "<strong>Positive Keywords:</strong><br>";
-positiveKeywords.forEach((keyword) => {
-  receiptValueContents += `<div class="receipt-keyword-element"><span>${keyword.keyword}</span><span>${keyword.relevance*1000}</span></div>`;
-});
-//receiptValueContents += "<br><strong>Negative Keywords:</strong><br>";
-negativeKeywords.forEach((keyword) => {
-  receiptValueContents += `<div class="receipt-keyword-element"><span>${keyword.keyword}</span><span>${keyword.relevance*-1000}</span></div>`;
-});
-//receiptValueContents += "</p>";
-
-
-
+    let receiptValueContents = "";
+    //receiptValueContents += "<strong>Positive Keywords:</strong><br>";
+    positiveKeywords.forEach((keyword) => {
+      receiptValueContents += `<div class="receipt-keyword-element"><span>${
+        keyword.keyword
+      }</span><span>${keyword.relevance * 1000}</span></div>`;
+    });
+    //receiptValueContents += "<br><strong>Negative Keywords:</strong><br>";
+    negativeKeywords.forEach((keyword) => {
+      receiptValueContents += `<div class="receipt-keyword-element"><span>${
+        keyword.keyword
+      }</span><span>${keyword.relevance * -1000}</span></div>`;
+    });
+    //receiptValueContents += "</p>";
 
     let receiptValue = createDiv(receiptValueContents);
 
@@ -71,43 +71,41 @@ negativeKeywords.forEach((keyword) => {
     receiptValue.addClass("receipt-keywords");
     receiptContainer.child(receiptValue);
 
-    let totalPositiveRelevance = this.globalVar.receiptData.PositiveKeywords.reduce((total, keyword) => {
-      return total + (keyword.relevance * 1000);
-    }, 0);
-    
-    let totalNegativeRelevance = this.globalVar.receiptData.NegativeKeywords.reduce((total, keyword) => {
-      return total + (keyword.relevance * -1000);
-    }, 0);
-    
+    let totalPositiveRelevance =
+      this.globalVar.receiptData.PositiveKeywords.reduce((total, keyword) => {
+        return total + keyword.relevance * 1000;
+      }, 0);
+
+    let totalNegativeRelevance =
+      this.globalVar.receiptData.NegativeKeywords.reduce((total, keyword) => {
+        return total + keyword.relevance * -1000;
+      }, 0);
+
     let totalRelevanceSum = totalPositiveRelevance + totalNegativeRelevance;
 
-//let valueSumElement=`합계: ${totalRelevanceSum}`;
-let valueSumElement = `<div class="receipt-keyword-element"><span>합 계 :</span><span>${totalRelevanceSum}원</span></div>`;
-let valueSum=createDiv(valueSumElement);
-valueSum.style("width","100%")
-valueSum.addClass("total-amount");
-receiptContainer.child(valueSum);
+    //let valueSumElement=`합계: ${totalRelevanceSum}`;
+    let valueSumElement = `<div class="receipt-keyword-element"><span>합 계 :</span><span>${totalRelevanceSum}원</span></div>`;
+    let valueSum = createDiv(valueSumElement);
+    valueSum.style("width", "100%");
+    valueSum.addClass("total-amount");
+    receiptContainer.child(valueSum);
 
-//let receiptPublish=createDiv("발행처: 천국");
-let receiptPublishElement=`
+    //let receiptPublish=createDiv("발행처: 천국");
+    let receiptPublishElement = `
 <div class="receipt-keyword-element"><span>발 행 일 자 :</span><span>${year()}-${month()}-${day()}</span></div> 
 <div class="receipt-keyword-element"><span>발 행 처 :</span><span>천 국</span></div>
 `;
-let receiptPublish=createDiv(receiptPublishElement);
-receiptPublish.style("width","100%")
-receiptPublish.addClass("receipt-date");
-receiptContainer.child(receiptPublish);
+    let receiptPublish = createDiv(receiptPublishElement);
+    receiptPublish.style("width", "100%");
+    receiptPublish.addClass("receipt-date");
+    receiptContainer.child(receiptPublish);
 
-
-
-
-
-let receiptBottom = createDiv();
-receiptBottom.addClass("receipt-bottom");
+    let receiptBottom = createDiv();
+    receiptBottom.addClass("receipt-bottom");
 
     //Div4
     //let div4 = createDiv(
-      //"<span>Life Receipt\nINTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY</span>"
+    //"<span>Life Receipt\nINTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY</span>"
     //);
     //div4.addClass("receipt-bottom-element");
 
@@ -119,25 +117,30 @@ receiptBottom.addClass("receipt-bottom");
     barcodeBottom.style("font-stretch", "expanded");
     barcodeBottom.style("align-items", "center");
 
-    
+    //profileBottom
+    // let profileBottom=createDiv("LIFE RECEIPT<br>INTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY")
+    // profileBottom.addClass("profile-bottom-element");
 
+    let profileBottom = createDiv("LIFE RECEIPT");
+    profileBottom.child(createElement("br")); // 줄바꿈
+    profileBottom.child(createDiv("2023-2 TEAM F"));
+    // profileBottom.child(createElement("br")); // 줄바꿈
+    // profileBottom.child(createDiv("TEAM F"));
+    // profileBottom.child(createElement("br")); // 줄바꿈
+    profileBottom.addClass("profile-bottom-element");
 
+    //Img : Icon
+    let receiptIcon = createElement("img");
+    receiptIcon.attribute("src", "../assets/receiptIcon.png");
+    receiptIcon.addClass("receipt-icon");
+    profileBottom.child(receiptIcon);
 
-//profileBottom
-// let profileBottom=createDiv("LIFE RECEIPT<br>INTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY")
-// profileBottom.addClass("profile-bottom-element");
-
-let profileBottom = createDiv("LIFE RECEIPT");
-profileBottom.child(createElement('br')); // 줄바꿈
-profileBottom.child(createDiv("2023-2"));
-profileBottom.child(createElement('br')); // 줄바꿈
-profileBottom.child(createDiv("TEAM F"));
-profileBottom.child(createElement('br')); // 줄바꿈
-profileBottom.child(createDiv("INTRODUCTION TO<br>INFORMATION-CULTURE<br>TECHNOLOGY"));
-profileBottom.addClass("profile-bottom-element");
-
-
-
+    let rightBottom = createDiv();
+    rightBottom.child(
+      createDiv("INTRODUCTION TO<br>INFORMATION-CULTURE<br>TECHNOLOGY")
+    );
+    rightBottom.child(barcodeBottom);
+    rightBottom.addClass("receipt-right-bottom");
 
     //Div7
     // let div7 = createDiv("<span>2023-2\nTEAM F</span>");
@@ -165,8 +168,9 @@ profileBottom.addClass("profile-bottom-element");
     // div11.addClass("receipt-bottom-element");
     // div11.style("background-image", 'url("assets/qr_dummy.png")');
 
-    receiptBottom.child(barcodeBottom);
+    // receiptBottom.child(barcodeBottom);
     receiptBottom.child(profileBottom);
+    receiptBottom.child(rightBottom);
     // receiptBottom.child(div7);
     // receiptBottom.child(div8);
     // receiptBottom.child(div9);
