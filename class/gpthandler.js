@@ -1,7 +1,7 @@
 class GPTHandler {
   constructor(_globalVar, _promptText, _receiptPromptText) {
-    this.apiKey = "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";
-    // this.apiKey = "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"; //승우
+    // this.apiKey = "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";
+    this.apiKey = "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"; //승우
     this.apiUrl = "https://api.openai.com/v1/chat/completions";
     this.prompt = _promptText;
     this.receiptPrompt = _receiptPromptText;
@@ -126,18 +126,14 @@ class GPTHandler {
     ui.updateTextBox(globalVar.chatLog);
 
     gpt.sendToGPT().then((response) => {
-      let re = /\(\d\)/i;
-      let matches = response.content.match(re);
-      console.log(response);
 
-      if (matches !== null) {
-        //감정 점수 업데이트를 위한 부분
-        let match = matches[matches.length - 1];
-        let newNegEmoLv = match.substring(1, match.length - 1);
-        globalVar.judgeNegativeEmotion = parseInt(newNegEmoLv);
+      if(response.content.includes("(negative)")){
+        this.globalVar.judgeEmotion = 'negative';
+      }else if(response.content.includes("(positive)")){
+        this.globalVar.judgeEmotion = 'positive';
+      }else{
+        this.globalVar.judgeEmotion = 'neutral';
       }
-
-      response.content = response.content.replace(re, "");
 
       scene.updateChatLog(response); //대화로그 업데이트(GPT대답)
       console.log(globalVar.chatLog);

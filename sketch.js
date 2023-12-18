@@ -61,7 +61,7 @@ let globalVar = {
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,
-  judgeNegativeEmotion: 0,
+  judgeEmotion: "neutral",
   isDecisionMade: false,
 };
 

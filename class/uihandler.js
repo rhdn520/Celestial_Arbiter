@@ -311,13 +311,23 @@ border-bottom: 1px dashed black;
 
     for (let i = chatLog.length - 1; 0 <= i; i--) {
       if (chatLog[i] !== undefined) {
-        const chat = chatLog[i];
+        let chat = chatLog[i];
+        
         //<대화종료 인식>
         if (chat.role === "assistant" && chat.content.includes("<대화 종료>")) {
           this.globalVar.isDecisionMade = true;
           this.duringJudgement();
           console.log("대화종료");
+          chat.content = chat.content.replace("<대화 종료>","");
         }
+
+        //emotion 라벨 지우기
+        chat.content = chat.content.replace('(positive)','');
+        chat.content = chat.content.replace('(negative)','');
+        chat.content = chat.content.replace('(neutral)', '');
+
+        console.log(chat.content);
+
         let updatedChat = new Chat(chat);
         updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
         updatedChat.chatDiv.style(
