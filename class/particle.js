@@ -54,7 +54,7 @@ class Particle {
     // );
     if (ptcl.drawAsPoints) {
       // stroke(255);
-      strokeWeight(2.5);
+      strokeWeight(3);
       console.log(emotion);
       this.changeColor(emotion);
       stroke(this.randomColor);

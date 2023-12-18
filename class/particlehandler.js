@@ -19,7 +19,7 @@ class ParticleHandler {
     this.pg.scale(0.25);
     judge.display(); //그리는 그림 제어는 judgehandler에서
     this.pg.pop();
-    this.pg.show();
+    // this.pg.show();
     this.pg.loadPixels();
     // console.log(this.pg.pixels);
 

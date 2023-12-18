@@ -162,7 +162,7 @@ class UIHandler {
     //텍스트 인풋 + 보내기 버튼 wrapper
     this.inputWrapper = createDiv();
     this.inputWrapper.addClass("gpt-text-wrapper");
-    this.inputWrapper.position(width / 2, height - 130);
+    this.inputWrapper.position(width / 2, 650);
 
     //텍스트 인풋
     this.textInput = createInput("");
