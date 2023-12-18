@@ -39,7 +39,7 @@ class UIHandler {
 
   loadUI_after() {
     receipt.display();
-    new Button('print',width/3, height/2, 50,30, this.printReceipt);
+    new Button('print',width/2-25, height - 100, 50,30, this.printReceipt);
   }
 
   printReceipt() {
@@ -188,7 +188,7 @@ border-bottom: 1px dashed black;
 .receipt-bottom {
   width: 100%;
   display: grid;
-  padding: 20px 10px;
+  padding: 20px 5px;
   background-color: inherit;
   gap: 5px;
   /* grid-template-columns: 1.5fr 1fr 1fr;
@@ -212,22 +212,6 @@ border-bottom: 1px dashed black;
   background-position: center center;
   background-size: contain;
 }
-
-/*.profile-bottom-element{
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: flex-start;
-  justify-content: flex-end;
-  border: none;
-  padding: 0;
-  margin: 0;
-  /* text-align: center; */
-  /* font-family: "typewr_b";
-  font-size: 10px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-} */
 
 .profile-bottom-element {
   display: flex;

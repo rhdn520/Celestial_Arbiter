@@ -115,7 +115,7 @@ receiptBottom.addClass("receipt-bottom");
     let barcodeBottom = createDiv(`<span>${Date.now()}</span>`);
     barcodeBottom.addClass("receipt-bottom-element");
     barcodeBottom.style("font-family", "barcord");
-    barcodeBottom.style("font-size", "65px");
+    barcodeBottom.style("font-size", "50px");
     barcodeBottom.style("font-stretch", "expanded");
     barcodeBottom.style("align-items", "center");
 
@@ -133,7 +133,7 @@ profileBottom.child(createDiv("2023-2"));
 profileBottom.child(createElement('br')); // 줄바꿈
 profileBottom.child(createDiv("TEAM F"));
 profileBottom.child(createElement('br')); // 줄바꿈
-profileBottom.child(createDiv("INTRODUCTION TO INFORMATION-CULTURE TECHNOLOGY"));
+profileBottom.child(createDiv("INTRODUCTION TO<br>INFORMATION-CULTURE<br>TECHNOLOGY"));
 profileBottom.addClass("profile-bottom-element");
 
 
