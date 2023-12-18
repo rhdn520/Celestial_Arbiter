@@ -39,7 +39,7 @@ class UIHandler {
 
   loadUI_after() {
     receipt.display();
-    new Button('print',width/2-25, height - 100, 50,30, this.printReceipt);
+    new Button('print', width / 2 - 25, height - 100, 50, 30, this.printReceipt);
   }
 
   printReceipt() {
@@ -244,8 +244,8 @@ border-bottom: 1px dashed black;
     </style>`
     let printWindow = window.open("");
     printWindow.document.write(printContentStyle);
-    printWindow.document.write("<div class=\"receipt-container\">"+printContent+"</div>");
-    // printWindow.print(); 
+    printWindow.document.write("<div class=\"receipt-container\">" + printContent + "</div>");
+    printWindow.print(); 
   }
 
   onClickChangeSceneBtn(sceneToGo) {
