@@ -245,7 +245,8 @@ border-bottom: 1px dashed black;
     let printWindow = window.open("");
     printWindow.document.write(printContentStyle);
     printWindow.document.write("<div class=\"receipt-container\">" + printContent + "</div>");
-    printWindow.print(); 
+    setTimeout(()=>{printWindow.print()}, 500);
+    // printWindow.print(); 
   }
 
   onClickChangeSceneBtn(sceneToGo) {
