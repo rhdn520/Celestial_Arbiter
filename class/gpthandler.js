@@ -144,69 +144,82 @@ class GPTHandler {
   async sendRcptRequest(chatLog) {
     if (this.globalVar.gptIsRequestPending) {
       console.log("Request is already pending. Wait for the request");
-    }
+      // return;
+    }else{
 
-    console.log('Pending receipt data');
+      console.log('Pending receipt data');
 
-    this.globalVar.gptIsRequestPending = true;
-    scene.updateParticleScene();
-
-    try {
-      //에러 시 다시 시도하는 로직 추가 필요
-      const response = await fetch(this.apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.apiKey}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-4-1106-preview",
-          // model: "gpt-3.5-turbo-0613",
-          messages: [
-            { role: "system", content: this.receiptPrompt }, //프롬프트 넣는 곳
-            { role: "user", content: this.makeChatLogText(chatLog) },
-          ],
-          // response_format: { type: "json" },
-          functions: [
-            {
-              name: "getJudgment",
-              description:
-                "Get the sentencing of the judge and keywords",
-              parameters: this.judgment_schema,
-            },
-          ],
-          function_call: {
-            name: "getJudgment",
-          },
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log(
-          data["choices"][0]["message"]["function_call"]["arguments"]
-        );
-        // return data.choices[0].message.content;
-        return JSON.parse(data["choices"][0]["message"]["function_call"]["arguments"]);
-      } else {
-        this.globalVar.gptHavingError = true;
-        throw new Error(
-          `Failed to get response from GPT: ${data.error.message}`
-        );
-      }
-    } finally {
-      this.globalVar.gptIsRequestPending = false;
+      this.globalVar.gptIsRequestPending = true;
       scene.updateParticleScene();
+  
+      try {
+        //에러 시 다시 시도하는 로직 추가 필요
+        const response = await fetch(this.apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.apiKey}`,
+          },
+          body: JSON.stringify({
+            model: "gpt-4-1106-preview",
+            // model: "gpt-3.5-turbo-0613",
+            messages: [
+              { role: "system", content: this.receiptPrompt }, //프롬프트 넣는 곳
+              { role: "user", content: this.makeChatLogText(chatLog) },
+            ],
+            // response_format: { type: "json" },
+            functions: [
+              {
+                name: "getJudgment",
+                description:
+                  "Get the sentencing of the judge and keywords",
+                parameters: this.judgment_schema,
+              },
+            ],
+            function_call: {
+              name: "getJudgment",
+            },
+          }),
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          console.log(
+            data["choices"][0]["message"]["function_call"]["arguments"]
+          );
+          // return data.choices[0].message.content;
+          return JSON.parse(data["choices"][0]["message"]["function_call"]["arguments"]);
+        } else {
+          this.globalVar.gptHavingError = true;
+          throw new Error(
+            `Failed to get response from GPT: ${data.error.message}`
+          );
+        }
+      } finally {
+        this.globalVar.gptIsRequestPending = false;
+        scene.updateParticleScene();
+      }
+
     }
+
   }
 
   async getGPTReceipt() {
     try {
-      const botResponse = await this.sendRcptRequest(this.globalVar.chatLog);
-      console.log(botResponse);
-      this.globalVar.receiptData =botResponse;
-      return this.globalVar.receiptData; //대화마다 고유 id나 인덱스가 필요하면 추가하기
+      let botResponse;
+      let isValidResponse = false;
+      while(!isValidResponse){
+        botResponse = await this.sendRcptRequest(this.globalVar.chatLog);
+        console.log(botResponse);
+        isValidResponse = this.isRcptValid(botResponse);
+        if(isValidResponse){
+          this.globalVar.receiptData =botResponse;
+          return this.globalVar.receiptData; //대화마다 고유 id나 인덱스가 필요하면 추가하기
+        }else{
+          console.log("Received invalid bot response. Retrying...");
+        }
+      }
     } catch (error) {
       this.globalVar.gptHavingError = true;
       console.error("Error sending message to GPT:", error);
@@ -218,8 +231,50 @@ class GPTHandler {
     }
   }
 
-  checkRcptIntegrity(data){
-    
+  isRcptValid(data){
+        // Validate the type of the main object
+        if (typeof data !== this.judgment_schema.type) {
+          return false;
+      }
+  
+      // Check required properties
+      for (const prop of this.judgment_schema.required) {
+          if (!data.hasOwnProperty(prop)) {
+              return false;
+          }
+      }
+  
+      // Validate sentencing
+      if (typeof data.sentencing !== this.judgment_schema.properties.sentencing.type) {
+          return false;
+      }
+  
+      // Validate keywords arrays (PositiveKeywords and NegativeKeywords)
+      function validateKeywords(keywords) {
+          if (!Array.isArray(keywords)) {
+              return false;
+          }
+          for (const item of keywords) {
+              // Check required properties of keyword items
+              for (const key of ["keyword", "relevance"]) {
+                  if (!item.hasOwnProperty(key)) {
+                      return false;
+                  }
+              }
+              // Validate each property
+              if (typeof item.keyword !== 'string' || typeof item.relevance !== 'number') {
+                  return false;
+              }
+          }
+          return true;
+      }
+  
+      if (!validateKeywords(data.PositiveKeywords) || !validateKeywords(data.NegativeKeywords)) {
+          return false;
+      }
+  
+      // If all checks pass
+      return true;
   }
 
   makeChatLogText(chatLog) {

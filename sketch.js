@@ -58,7 +58,7 @@ let globalVar = {
       },
     ],
   },
-  conversationStatus:"after",
+  conversationStatus:"before",
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,
