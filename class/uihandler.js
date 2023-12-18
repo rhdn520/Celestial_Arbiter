@@ -30,7 +30,7 @@ class UIHandler {
     }
   }
 
-  loadUI_before() { }
+  loadUI_before() {}
 
   loadUI_during(chatLog) {
     this.createGptInput();
@@ -39,11 +39,18 @@ class UIHandler {
 
   loadUI_after() {
     receipt.display();
-    new Button('print', width / 2 - 25, height - 100, 50, 30, this.printReceipt);
+    new Button(
+      "print",
+      width / 2 - 25,
+      height - 100,
+      50,
+      30,
+      this.printReceipt
+    );
   }
 
   printReceipt() {
-    console.log('print button pressed!');
+    console.log("print button pressed!");
     // console.log(document.getElementById("ReceiptContainer").outerHTML);
     let printContent = document.getElementById("ReceiptContainer").innerHTML;
     let printContentStyle = `
@@ -241,12 +248,16 @@ border-bottom: 1px dashed black;
   height: fit-content;
 }
 
-    </style>`
+    </style>`;
     let printWindow = window.open("");
     printWindow.document.write(printContentStyle);
-    printWindow.document.write("<div class=\"receipt-container\">" + printContent + "</div>");
-    setTimeout(()=>{printWindow.print()}, 500);
-    // printWindow.print(); 
+    printWindow.document.write(
+      '<div class="receipt-container">' + printContent + "</div>"
+    );
+    setTimeout(() => {
+      printWindow.print();
+    }, 500);
+    // printWindow.print();
   }
 
   onClickChangeSceneBtn(sceneToGo) {
@@ -279,9 +290,9 @@ border-bottom: 1px dashed black;
       }
     } else if (this.globalVar.conversationStatus === "after") {
       if (keyCode === ESCAPE) {
-        console.log('escape!')
+        console.log("escape!");
         // location.reload();
-        scene.changeScene('before');
+        scene.changeScene("before");
         // this.globalVar.conversationStatus = "before";
       }
     }
@@ -289,27 +300,25 @@ border-bottom: 1px dashed black;
 
   //맨처음 chatLog 렌더링
   initTextBox(chatLog) {
-    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 120);
+    this.chatLogBox = new ChatLogBox(width / 2, 510, 700, 120);
     let initChat = new Chat(chatLog[0]);
     initChat.chatDiv.parent(this.chatLogBox.wrapper);
   }
 
   updateTextBox(chatLog) {
-    //기존 chatLogBox 제거
+    // 기존 chatLogBox 제거
     if (this.chatLogBox) {
       this.chatLogBox.wrapper.remove();
       this.chatLogBox.status.remove();
     }
-
-    //새로운 chatLogBox에 업데이트된 chatLog 렌더링 가장 (최근 대화일수록 위)
-    this.chatLogBox = new ChatLogBox(width / 2, 80, 600, 120);
+    // 새로운 chatLogBox에 업데이트된 chatLog 렌더링 가장 (최근 대화일수록 위)
+    this.chatLogBox = new ChatLogBox(width / 2, 510, 700, 120);
     // if (chatLog[chatLog.length - 1] !== undefined) {
     //   let updatedChat = new Chat(chatLog[chatLog.length - 1]);
     //   updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
     //   updatedChat.chatDiv.style("color", "white");
     // }
-
-    for (let i = chatLog.length - 1; 0 <= i; i--) {
+    for (let i = 0; i < chatLog.length; i++) {
       if (chatLog[i] !== undefined) {
         const chat = chatLog[i];
         //<대화종료 인식>
@@ -326,13 +335,14 @@ border-bottom: 1px dashed black;
         );
       }
     }
+    prepareScroll();
   }
 
   createGptInput() {
     //텍스트 인풋 + 보내기 버튼 wrapper
     this.inputWrapper = createDiv();
     this.inputWrapper.addClass("gpt-text-wrapper");
-    this.inputWrapper.position(width / 2, height - 120);
+    this.inputWrapper.position(width / 2, height - 130);
 
     //텍스트 인풋
     this.textInput = createInput("");
@@ -460,4 +470,17 @@ class Button {
     //활성화
     this.element.removeAttribute("disabled");
   }
+}
+
+function scrollDown() {
+  // window.onload = function () {
+  //   let chatLogWrapper = document.getElementsByClassName("gpt-chatlog-wrapper");
+  //   chatLogWrapper.scrollTop = chatLogWrapper.scrollHeight;
+  // };
+  let chatLogWrapper = document.querySelector(".gpt-chatlog-wrapper");
+  chatLogWrapper.scrollTop = chatLogWrapper.scrollHeight;
+}
+
+function prepareScroll() {
+  window.setTimeout(scrollDown, 50);
 }

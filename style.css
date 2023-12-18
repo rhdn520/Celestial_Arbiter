@@ -72,7 +72,7 @@ div {
 
 .gpt-chatlog-chat {
   color: white;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   line-height: 140%;
   letter-spacing: 0.05rem;
 }
@@ -87,23 +87,26 @@ div {
   justify-content: space-around;
   align-items: center;
   /* gap: 10px; */
-  width: 600px;
-  height: 30px;
+  width: 700px;
+  height: fit-content;
   background-color: white;
   transform: translateX(-50%);
 }
 
 .gpt-text-input {
   display: flex;
-  width: 500px;
+  width: 600px;
   background-color: inherit;
+  padding: 10px;
   border: none;
   outline: none;
+  font-size: 0.9rem;
 }
 
 .gpt-text-submit {
   margin: 0;
-  padding: 0;
+  padding-right: 10px;
+  height: 38.5px;
   background-color: inherit;
   border: #000;
 }
@@ -139,8 +142,8 @@ div {
   height: calc(100vh * 3) / 4;
   min-width: 200px;
   max-width: 350px;
-  height: min-content;
-  max-height: 800px;
+  height: auto;
+  max-height: 750px;
   overflow-y: auto;
   background-color: #fff;
   text-align: center;
@@ -148,17 +151,18 @@ div {
   overflow-y: auto;
 }
 
-.receipt-title{
-  height : fit-content;
-  padding: 20px 0px;
-  background-color: rgba(255,255,255,0.8);
-  text-align:center;
+.receipt-title {
+  height: fit-content;
+  padding: 20px 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
   font-family: "typewr_b";
-  font-size : 30px;
+  font-size: 30px;
+  letter-spacing: 2px;
   display: flex;
   justify-content: center;
-  align-items : center;
-  border-bottom : 1px dashed #000;
+  align-items: center;
+  border-bottom: 1px dashed #000;
 }
 
 .judge-summary {
@@ -181,19 +185,18 @@ div {
   line-height: 1.3;
 }
 
-.receipt-value-header{
+.receipt-value-header {
   width: 100%;
   padding: 5px 20px 10px;
   font-family: "orbit";
   font-size: 14px;
-  display:flex;
-flex-flow: row nowrap;
-justify-content: space-between;
-align-items: center; 
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
 
-border-bottom: 1px dashed black;
+  border-bottom: 1px dashed black;
 }
-
 
 .receipt-keywords {
   width: 100%;
@@ -208,15 +211,15 @@ border-bottom: 1px dashed black;
   align-items: space-between;
   border-bottom: 1px dashed black;
 }
-.receipt-keyword-element{
-  width:100%;
-  display:flex;
+.receipt-keyword-element {
+  width: 100%;
+  display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
 }
 
-.total-amount{
+.total-amount {
   width: 100%;
   height: fit-content;
   padding: 5px 20px;
@@ -230,7 +233,7 @@ border-bottom: 1px dashed black;
   /* border-bottom: 1px dotted black; */
 }
 
-.receipt-date{
+.receipt-date {
   width: 100%;
   height: fit-content;
   padding: 10px 20px;
@@ -243,7 +246,6 @@ border-bottom: 1px dashed black;
   align-items: center;
   border-bottom: 1px dashed black;
 }
-
 
 .receipt-bottom {
   width: 100%;
@@ -258,15 +260,16 @@ border-bottom: 1px dashed black;
 }
 
 .receipt-bottom-element {
-  display: flex;
+  /* display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: center; */
   border: none;
   padding: 0;
-  margin: 0;
+  margin-top: auto;
+  margin-bottom: 5px;
   /* text-align: center; */
-  font-family: "typewr_b";
+  font-family: "orbit";
   font-size: 12px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -282,7 +285,7 @@ border-bottom: 1px dashed black;
   padding: 0;
   margin: 0;
   /* text-align: center; */
-  /* font-family: "typewr_b";
+/* font-family: "typewr_b";
   font-size: 10px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -292,12 +295,12 @@ border-bottom: 1px dashed black;
 .profile-bottom-element {
   display: flex;
   flex-flow: column nowrap; /* 세로로 배열 */
-  align-items: flex-end; /* 오른쪽 정렬 */
+  align-items: flex-start; /* 오른쪽 정렬 */
   border: none;
   padding: 0;
   margin: 0;
   /* text-align: center; */
-  font-family: "typewr_b";
+  font-family: "orbit";
   font-size: 10px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -307,6 +310,20 @@ border-bottom: 1px dashed black;
 .profile-bottom-element div {
   text-align: right; /* 텍스트를 오른쪽 정렬로 표시 */
   margin-bottom: 0px; /* 원하는 여백 값으로 조정 */
+}
+
+.receipt-icon {
+  width: 80%;
+  margin-top: 10px;
+}
+
+.receipt-right-bottom {
+  display: flex;
+  flex-flow: column nowrap; /* 세로로 배열 */
+  align-items: flex-end; /* 오른쪽 정렬 */
+  font-family: "orbit";
+  font-size: 10px;
+  text-align: right;
 }
 
 .values {
