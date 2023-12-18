@@ -75,8 +75,8 @@ class GPTHandler {
           Authorization: `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({
-          // model: "gpt-4-1106-preview",
-          model: "gpt-3.5-turbo-0613",
+          model: "gpt-4-1106-preview",
+          // model: "gpt-3.5-turbo-0613",
           messages: [
             { role: "system", content: this.prompt }, //프롬프트 넣는 곳
             ...chatLog,
@@ -164,8 +164,8 @@ class GPTHandler {
           Authorization: `Bearer ${this.apiKey}`,
         },
         body: JSON.stringify({
-          // model: "gpt-4-1106-preview",
-          model: "gpt-3.5-turbo-0613",
+          model: "gpt-4-1106-preview",
+          // model: "gpt-3.5-turbo-0613",
           messages: [
             { role: "system", content: this.receiptPrompt }, //프롬프트 넣는 곳
             { role: "user", content: this.makeChatLogText(chatLog) },
