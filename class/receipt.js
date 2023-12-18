@@ -82,18 +82,22 @@ negativeKeywords.forEach((keyword) => {
     let totalRelevanceSum = totalPositiveRelevance + totalNegativeRelevance;
 
 //let valueSumElement=`합계: ${totalRelevanceSum}`;
-let valueSumElement = `<div class="receipt-keyword-element"><span>합 계</span><span>${totalRelevanceSum}</span></div>`;
+let valueSumElement = `<div class="receipt-keyword-element"><span>합 계 :</span><span>${totalRelevanceSum}원</span></div>`;
 let valueSum=createDiv(valueSumElement);
 valueSum.style("width","100%")
 valueSum.addClass("total-amount");
 receiptContainer.child(valueSum);
 
 //let receiptPublish=createDiv("발행처: 천국");
-let receiptPublishElement=`<div class="receipt-keyword-element"><span>발 행 처</span><span>천 국</span></div>`;
+let receiptPublishElement=`
+<div class="receipt-keyword-element"><span>발 행 일 자 :</span><span>${year()}-${month()}-${day()}</span></div> 
+<div class="receipt-keyword-element"><span>발 행 처 :</span><span>천 국</span></div>
+`;
 let receiptPublish=createDiv(receiptPublishElement);
 receiptPublish.style("width","100%")
 receiptPublish.addClass("receipt-date");
 receiptContainer.child(receiptPublish);
+
 
 
 

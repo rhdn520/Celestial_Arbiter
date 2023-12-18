@@ -46,36 +46,33 @@ class UIHandler {
     console.log('print button pressed!');
     // console.log(document.getElementById("ReceiptContainer").outerHTML);
     let printContent = document.getElementById("ReceiptContainer").innerHTML;
-    let printContentStyle = `<style>
-    @font-face {
-      font-family: "pretendard";
-      src: url("assets/Pretendard-Medium.otf");
-    }
-    
+    let printContentStyle = `
+    <style>
     @font-face {
       font-family: "typewr_b";
       src: url("assets/TYPEWR_B.TTF");
     }
     
     @font-face {
-      font-family: "myfontrunes";
-      src: url("assets/Myfontrunes-Regular.ttf");
+      font-family: "barcord";
+      src: url("assets/BarcodeFont.ttf");
     }
     
     @font-face {
-      font-family: "barcord";
-      src: url("assets/BarcodeFont.ttf");
-    } 
+      font-family: "orbit";
+      src: url("assets/Orbit-Regular.ttf");
+    }
     body{
-      // display:flex;
-      // flex-flow: column nowrap;
-      // justify-content: flex-start;
-      // align-items: center;
-    }
-
-    div{
       box-sizing: border-box;
+      display:flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items:center;
     }
+    div{
+      box-sizing:border-box;
+    }
+    
 .receipt-container {
   position: relative;
   display: flex;
@@ -84,57 +81,109 @@ class UIHandler {
   margin: 0;
   padding: 10px 5px;
   width: 100%;
-  height: min-content;
+  height: fit-content;
   background-color: #fff;
   text-align: center;
-  border: 1px dotted black;
+  border: 1px dashed black;
   overflow-y: auto;
+}
+
+.receipt-title{
+  height : fit-content;
+  padding: 20px 0px;
+  background-color: rgba(255,255,255,0.8);
+  text-align:center;
+  font-family: "typewr_b";
+  font-size : 30px;
+  display: flex;
+  justify-content: center;
+  align-items : center;
+  border-bottom : 1px dashed #000;
 }
 
 .judge-summary {
   position: relative;
   display: flex;
   margin: 0;
-  padding: 30px 20px;
+  padding: 30px 5px;
+  text-align: center;
   flex-flow: column nowrap;
   justify-content: center;
   height: min-content;
   align-items: center;
   /* background-color: rgba(255,255,255,0.8); */
   text-align: justify;
-  font-family: "myfontrunes";
-  font-size: 20px;
+  font-family: "orbit";
+  font-size: 13px;
   line-height: 90%;
   /* border-left: 1px dotted black;*/
-  border-bottom: 1px dotted black;
+  border-bottom: 1px dashed black;
+  line-height: 1.3;
 }
 
-.judge-summary:hover {
-  font-family: "typewr_b";
+.receipt-value-header{
+  width: 100%;
+  padding: 5px 5px 10px;
+  font-family: "orbit";
   font-size: 14px;
-  line-height: 120%;
+  display:flex;
+flex-flow: row nowrap;
+justify-content: space-between;
+align-items: center; 
+
+border-bottom: 1px dashed black;
 }
+
 
 .receipt-keywords {
   width: 100%;
   height: fit-content;
-  padding: 0 20px;
+  padding: 10px 5px;
   text-align: left;
-  font-family: "myfontrunes";
-  font-size: 20px;
+  font-family: "orbit";
+  font-size: 13px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: space-between;
+  border-bottom: 1px dashed black;
+}
+.receipt-keyword-element{
+  width:100%;
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-amount{
+  width: 100%;
+  height: fit-content;
+  padding: 5px;
+  text-align: right;
+  font-family: "orbit";
+  font-size: 16px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px dotted black;
+  /* border-bottom: 1px dotted black; */
 }
 
-.receipt-keywords p:hover {
-  font-family: "typewr_b";
+.receipt-date{
+  width: 100%;
+  height: fit-content;
+  padding: 10px 5px;
+  text-align: right;
+  font-family: "orbit";
   font-size: 14px;
-  line-height: 130%;
-  padding: 10px 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px dashed black;
 }
+
 
 .receipt-bottom {
   width: 100%;
@@ -142,8 +191,10 @@ class UIHandler {
   padding: 20px 10px;
   background-color: inherit;
   gap: 5px;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  grid-template-rows: 1fr 3fr;
+  /* grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr; */
+  grid-template-columns: 1fr 2fr; /* 두 개의 column 설정 */
+  grid-template-rows: auto; /* 자동으로 row 크기 조정 */
 }
 
 .receipt-bottom-element {
@@ -156,10 +207,46 @@ class UIHandler {
   margin: 0;
   /* text-align: center; */
   font-family: "typewr_b";
-  font-size: 7px;
+  font-size: 12px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+}
+
+/*.profile-bottom-element{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: flex-end;
+  border: none;
+  padding: 0;
+  margin: 0;
+  /* text-align: center; */
+  /* font-family: "typewr_b";
+  font-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+} */
+
+.profile-bottom-element {
+  display: flex;
+  flex-flow: column nowrap; /* 세로로 배열 */
+  align-items: flex-end; /* 오른쪽 정렬 */
+  border: none;
+  padding: 0;
+  margin: 0;
+  /* text-align: center; */
+  font-family: "typewr_b";
+  font-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.profile-bottom-element div {
+  text-align: right; /* 텍스트를 오른쪽 정렬로 표시 */
+  margin-bottom: 0px; /* 원하는 여백 값으로 조정 */
 }
 
 .values {
@@ -169,9 +256,8 @@ class UIHandler {
   align-items: center;
   height: fit-content;
 }
-</style>
-`
 
+    </style>`
     let printWindow = window.open("");
     printWindow.document.write(printContentStyle);
     printWindow.document.write("<div class=\"receipt-container\">"+printContent+"</div>");
