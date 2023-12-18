@@ -4,7 +4,7 @@ class Particle {
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
     this.target = createVector(0, 0);
-    this.closeEnoughTarget = 100;
+    this.closeEnoughTarget = 80;
     this.maxSpeed = 1.0;
     this.maxForce = 0.1;
     this.particleSize = 10;
@@ -12,8 +12,9 @@ class Particle {
     this.startColor = color(0);
     this.targetColor = color(0);
     this.colorWeight = 0;
-    this.colorBlendRate = 0.01;
+    this.colorBlendRate = 1;
     this.randomColor = random(100, 255);
+    this.stopped = false;
     // this.randomSize = random(1.5, 2);
   }
 
@@ -22,6 +23,11 @@ class Particle {
     let distance = dist(this.pos.x, this.pos.y, this.target.x, this.target.y);
     if (distance < this.closeEnoughTarget) {
       proximityMult = distance / this.closeEnoughTarget;
+    }
+    if (distance < 1) {
+      this.stopped = true;
+    } else {
+      this.stopped = false;
     }
 
     let towardsTarget = createVector(this.target.x, this.target.y);
@@ -40,15 +46,17 @@ class Particle {
     this.acc.mult(0);
   }
 
-  draw() {
-    let currentColor = lerpColor(
-      this.startColor,
-      this.targetColor,
-      this.colorWeight
-    );
+  draw(emotion) {
+    // let currentColor = lerpColor(
+    //   this.startColor,
+    //   this.targetColor,
+    //   this.colorWeight
+    // );
     if (ptcl.drawAsPoints) {
       // stroke(255);
-      strokeWeight(3);
+      strokeWeight(2.5);
+      console.log(emotion);
+      this.changeColor(emotion);
       stroke(this.randomColor);
       // strokeWeight(this.randomSize);
       point(this.pos.x, this.pos.y);
@@ -83,6 +91,29 @@ class Particle {
       this.colorWeight = 0;
 
       this.isKilled = true;
+    }
+  }
+
+  jiggle(emotion) {
+    // console.log(0);
+    this.pos.x +=
+      emotion !== "negative" ? random(-0.2, 0.2) : random(-0.5, 0.5);
+    this.pos.y +=
+      emotion !== "negative" ? random(-0.2, 0.2) : random(-0.5, 0.5);
+  }
+
+  changeColor(emotion) {
+    // console.log(emotion);
+    switch (emotion) {
+      case "neutral":
+        this.randomColor = random(100, 255);
+        break;
+      case "positive":
+        this.randomColor = color(255, 255, 0);
+        break;
+      case "negative":
+        this.randomColor = color(255, 0, 0);
+        break;
     }
   }
 }

@@ -1,13 +1,17 @@
 class ParticleHandler {
-  constructor() {
+  constructor(_globalVar) {
+    this.globalVar = _globalVar;
     this.particles = [];
     this.pixelSteps = 6; // 숫자가 클수록 덜 촘촘
     this.drawAsPoints = true; // 점 또는 원으로 그릴 수 있음
     this.bgColor = color(0);
     // this.fontName = "script";
     this.pg = createGraphics(width, height);
+    this.eyePosArr = [];
+    this.current = 0;
   }
   updateParticles() {
+    this.pixelSteps = 6;
     this.pg.pixelDensity(1);
     this.pg.clear();
     this.pg.background(0);
@@ -15,6 +19,7 @@ class ParticleHandler {
     this.pg.scale(0.25);
     judge.display(); //그리는 그림 제어는 judgehandler에서
     this.pg.pop();
+    this.pg.show();
     this.pg.loadPixels();
     // console.log(this.pg.pixels);
 
@@ -90,8 +95,14 @@ class ParticleHandler {
         this.particles[i].kill();
       }
     }
-
+    this.resetParticleStopped();
     // pg.updatePixels();
+  }
+
+  resetParticleStopped() {
+    this.particles.forEach((particle) => {
+      particle.stopped = false;
+    });
   }
 
   draw() {
@@ -100,8 +111,43 @@ class ParticleHandler {
 
     for (let x = this.particles.length - 1; x > -1; x--) {
       let particle = this.particles[x];
-      particle.move();
+      if (!particle.stopped) {
+        particle.move();
+        particle.draw(this.globalVar.judgeEmotion);
+        if (particle.isKilled) {
+          if (
+            particle.pos.x < 0 ||
+            particle.pos.x > width ||
+            particle.pos.y < 0 ||
+            particle.pos.y > height
+          ) {
+            this.particles.splice(x, 1);
+          }
+        }
+      } else {
+        // console.log(4);
+        // this.drawAgain();
+        particle.draw();
+        particle.jiggle(this.globalVar.judgeEmotion);
+        if (frameCount % 180 < 90) {
+          particle.pos.y += 0.2;
+        } else {
+          particle.pos.y -= 0.2;
+        }
+      }
+    }
+    // this.update();
+  }
+
+  drawStatic() {
+    noStroke();
+    background(0);
+
+    for (let x = this.particles.length - 1; x > -1; x--) {
+      let particle = this.particles[x];
+      particle.pos = particle.target;
       particle.draw();
+      particle.jiggle();
       if (particle.isKilled) {
         if (
           particle.pos.x < 0 ||
@@ -113,7 +159,6 @@ class ParticleHandler {
         }
       }
     }
-    // this.update();
   }
 
   generateRandomPos(x, y, mag) {
@@ -126,6 +171,62 @@ class ParticleHandler {
     sourcePos.add(direction);
 
     return sourcePos;
+  }
+
+  makeEyeArr() {
+    for (let i = 0; i < 10; i++) {
+      let ipg = createGraphics(width, height);
+      let eyeInstance = new EyeVector();
+      let instantArr = [];
+      ipg.pixelDensity(1);
+      ipg.push();
+      ipg.scale(0.25);
+      eyeInstance.draw(ipg, i);
+      ipg.pop();
+      ipg.loadPixels();
+
+      let coordsIndexes = [];
+      for (let i = 0; i < ipg.width * ipg.height - 1; i += this.pixelSteps) {
+        coordsIndexes.push(i);
+      }
+
+      for (let i = 0; i < coordsIndexes.length; i++) {
+        let randomIndex = floor(random(0, coordsIndexes.length));
+        let coordIndex = coordsIndexes[randomIndex];
+        coordsIndexes.splice(randomIndex, 1);
+
+        if (ipg.pixels[coordIndex] !== 0) {
+          let x = coordIndex % ipg.width;
+          let y = floor(coordIndex / ipg.width);
+
+          instantArr.push(
+            createVector(x * (width / ipg.width), y * (height / ipg.height))
+          );
+        }
+      }
+      this.eyePosArr.push(instantArr);
+    }
+    console.log(this.eyePosArr);
+  }
+
+  drawEyeParticles(n) {
+    background(0);
+    let eyeArr = this.eyePosArr[n];
+    // stroke(255);
+    for (let i = 0; i < eyeArr.length; i++) {
+      strokeWeight(3);
+      stroke(random(100, 255));
+      // strokeWeight(this.randomSize);
+      point(eyeArr[i].x, eyeArr[i].y);
+    }
+  }
+
+  blink() {
+    if (frameCount % 30 === 0 && this.current < 11) {
+      this.drawEyeParticles(this.current);
+      // this.current = (this.current + 1) % 10; // Increment current and loop back to 0 after reaching 9
+      this.current = this.current + 1; // Increment current and loop back to 0 after reaching 9
+    }
   }
 }
 

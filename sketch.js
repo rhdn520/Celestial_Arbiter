@@ -58,7 +58,7 @@ let globalVar = {
       },
     ],
   },
-  conversationStatus:"before",
+  conversationStatus: "before",
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,
@@ -85,13 +85,15 @@ function setup() {
   scene = new SceneManager(globalVar);
   receipt = new Receipt(globalVar);
   judge = new Judge(globalVar);
-  ptcl = new ParticleHandler();
+  ptcl = new ParticleHandler(globalVar);
+  // ptcl.makeEyeArr();
   rectMode(CENTER);
   imageMode(CENTER);
 
   // ui.createGptInput();
   // ui.initTextBox();
 
+  ptcl.pixelSteps = 4;
   ptcl.updateParticles();
   ui.loadUI(scene);
 
@@ -105,6 +107,8 @@ function setup() {
 function draw() {
   scene.loadScene();
   ui.trackStatusChange();
+  console.log(globalVar.judgeEmotion);
+
   // setTimeout(()=>{
   //   console.log('ddd')
   // },1000)

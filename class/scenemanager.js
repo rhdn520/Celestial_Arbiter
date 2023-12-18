@@ -48,6 +48,7 @@ class SceneManager {
     rectMode(CENTER);
     imageMode(CENTER);
     ptcl.draw();
+    // ptcl.blink();
 
     //stage bar
     rectMode(CORNERS);
@@ -104,7 +105,7 @@ class SceneManager {
     if (newConvStatus == "before") {
       this.resetVariables();
 
-    ptcl.updateParticles();
+      ptcl.updateParticles();
     }
   }
 
@@ -137,7 +138,7 @@ class SceneManager {
       value3_score: 3,
       value4_score: 4,
       value5_score: 5,
-    }
+    };
 
     this.globalVar.chatLog = [
       {
@@ -145,8 +146,7 @@ class SceneManager {
         content:
           "어서와. 기억이 날지는 모르겠지만 넌 방금 죽었어. 나는 너를 심판할 존재이고. 지금부터 너에게 질문을 할거야. 잘 생각해서 대답해야 해. 아니면 넌 영원히 새 삶을 시작하지 못할 거니까. 준비됐겠지?",
       },
-    ]
-
+    ];
 
     this.globalVar.conversationStatus = "before";
     this.globalVar.gptHavingError = false;
@@ -154,7 +154,6 @@ class SceneManager {
     this.globalVar.debugMode = true;
     this.globalVar.judgeNegativeEmotion = 0;
     this.globalVar.isDecisionMade = false;
-
   }
 
   updateParticleScene() {

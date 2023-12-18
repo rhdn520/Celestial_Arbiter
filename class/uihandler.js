@@ -30,7 +30,7 @@ class UIHandler {
     }
   }
 
-  loadUI_before() { }
+  loadUI_before() {}
 
   loadUI_during(chatLog) {
     this.createGptInput();
@@ -61,7 +61,11 @@ class UIHandler {
     );
     setTimeout(() => {
       printWindow.print();
-      printWindow.window.onfocus = function () { setTimeout(function () { printWindow.close(); }, 1000); }
+      printWindow.window.onfocus = function () {
+        setTimeout(function () {
+          printWindow.close();
+        }, 1000);
+      };
     }, 500);
     // printWindow.print();
   }
@@ -137,9 +141,9 @@ class UIHandler {
         }
 
         //emotion 라벨 지우기
-        chat.content = chat.content.replace('(positive)', '');
-        chat.content = chat.content.replace('(negative)', '');
-        chat.content = chat.content.replace('(neutral)', '');
+        // chat.content = chat.content.replace("(positive)", "");
+        // chat.content = chat.content.replace("(negative)", "");
+        // chat.content = chat.content.replace("(neutral)", "");
 
         console.log(chat.content);
 
@@ -230,7 +234,7 @@ class UIHandler {
       } else {
         if (this.globalVar.gptIsRequestPending) {
           this.disableGptInput();
-          this.chatLogBox.handleStatus("pending...");
+          this.chatLogBox.handleStatus("심판자가 생각하고 있습니다...");
         } else {
           this.enableGptInput();
           this.chatLogBox.handleStatus("");
@@ -251,7 +255,7 @@ class ChatLogBox {
     //gpt상태
     this.status = createDiv("ready");
     this.status.addClass("gpt-status");
-    this.status.position(x, height / 2 - 5);
+    this.status.position(x, height / 2 + 35);
   }
 
   handleStatus(status) {
