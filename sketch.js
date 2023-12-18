@@ -107,7 +107,7 @@ function setup() {
 function draw() {
   scene.loadScene();
   ui.trackStatusChange();
-  console.log(globalVar.judgeEmotion);
+  // console.log(globalVar.judgeEmotion);
 
   // setTimeout(()=>{
   //   console.log('ddd')

@@ -55,9 +55,12 @@ class Particle {
     if (ptcl.drawAsPoints) {
       // stroke(255);
       strokeWeight(3);
-      console.log(emotion);
+      if(emotion != undefined){
+        // console.log(emotion);
       this.changeColor(emotion);
+      }
       stroke(this.randomColor);
+      // fill(this.randomColor);
       // strokeWeight(this.randomSize);
       point(this.pos.x, this.pos.y);
     } else {

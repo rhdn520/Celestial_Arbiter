@@ -141,9 +141,9 @@ class UIHandler {
         }
 
         //emotion 라벨 지우기
-        // chat.content = chat.content.replace("(positive)", "");
-        // chat.content = chat.content.replace("(negative)", "");
-        // chat.content = chat.content.replace("(neutral)", "");
+        chat.content = chat.content.replace("(positive)", "");
+        chat.content = chat.content.replace("(negative)", "");
+        chat.content = chat.content.replace("(neutral)", "");
 
         console.log(chat.content);
 
