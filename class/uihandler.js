@@ -30,7 +30,7 @@ class UIHandler {
     }
   }
 
-  loadUI_before() {}
+  loadUI_before() { }
 
   loadUI_during(chatLog) {
     this.createGptInput();
@@ -163,7 +163,7 @@ border-bottom: 1px dashed black;
   align-items: center;
 }
 
-.total-amount{
+.total-amount {
   width: 100%;
   height: fit-content;
   padding: 5px;
@@ -177,7 +177,7 @@ border-bottom: 1px dashed black;
   /* border-bottom: 1px dotted black; */
 }
 
-.receipt-date{
+.receipt-date {
   width: 100%;
   height: fit-content;
   padding: 10px 5px;
@@ -190,7 +190,6 @@ border-bottom: 1px dashed black;
   align-items: center;
   border-bottom: 1px dashed black;
 }
-
 
 .receipt-bottom {
   width: 100%;
@@ -205,30 +204,47 @@ border-bottom: 1px dashed black;
 }
 
 .receipt-bottom-element {
-  display: flex;
+  /* display: flex;
   flex-flow: row nowrap;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: center; */
   border: none;
   padding: 0;
-  margin: 0;
+  margin-top: auto;
+  margin-bottom: 5px;
   /* text-align: center; */
-  font-family: "typewr_b";
+  font-family: "orbit";
   font-size: 12px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
 }
 
-.profile-bottom-element {
+/*.profile-bottom-element{
   display: flex;
-  flex-flow: column nowrap; /* 세로로 배열 */
-  align-items: flex-end; /* 오른쪽 정렬 */
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: flex-end;
   border: none;
   padding: 0;
   margin: 0;
   /* text-align: center; */
-  font-family: "typewr_b";
+/* font-family: "typewr_b";
+  font-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+} */
+
+.profile-bottom-element {
+  display: flex;
+  flex-flow: column nowrap; /* 세로로 배열 */
+  align-items: flex-start; /* 오른쪽 정렬 */
+  border: none;
+  padding: 0;
+  margin: 0;
+  /* text-align: center; */
+  font-family: "orbit";
   font-size: 10px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -240,6 +256,20 @@ border-bottom: 1px dashed black;
   margin-bottom: 0px; /* 원하는 여백 값으로 조정 */
 }
 
+.receipt-icon {
+  width: 80%;
+  margin-top: 10px;
+}
+
+.receipt-right-bottom {
+  display: flex;
+  flex-flow: column nowrap; /* 세로로 배열 */
+  align-items: flex-end; /* 오른쪽 정렬 */
+  font-family: "orbit";
+  font-size: 10px;
+  text-align: right;
+}
+
 .values {
   display: flex;
   flex-flow: column nowrap;
@@ -247,6 +277,7 @@ border-bottom: 1px dashed black;
   align-items: center;
   height: fit-content;
 }
+
 
     </style>`;
     let printWindow = window.open("");
@@ -256,6 +287,7 @@ border-bottom: 1px dashed black;
     );
     setTimeout(() => {
       printWindow.print();
+      printWindow.window.onfocus = function () { setTimeout(function () { printWindow.close(); }, 1000); }
     }, 500);
     // printWindow.print();
   }
@@ -321,18 +353,18 @@ border-bottom: 1px dashed black;
     for (let i = 0; i < chatLog.length; i++) {
       if (chatLog[i] !== undefined) {
         let chat = chatLog[i];
-        
+
         //<대화종료 인식>
         if (chat.role === "assistant" && chat.content.includes("<대화 종료>")) {
           this.globalVar.isDecisionMade = true;
           this.duringJudgement();
           console.log("대화종료");
-          chat.content = chat.content.replace("<대화 종료>","");
+          chat.content = chat.content.replace("<대화 종료>", "");
         }
 
         //emotion 라벨 지우기
-        chat.content = chat.content.replace('(positive)','');
-        chat.content = chat.content.replace('(negative)','');
+        chat.content = chat.content.replace('(positive)', '');
+        chat.content = chat.content.replace('(negative)', '');
         chat.content = chat.content.replace('(neutral)', '');
 
         console.log(chat.content);
