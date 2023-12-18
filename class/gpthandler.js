@@ -188,7 +188,7 @@ class GPTHandler {
           data["choices"][0]["message"]["function_call"]["arguments"]
         );
         // return data.choices[0].message.content;
-        return data["choices"][0]["message"]["function_call"]["arguments"];
+        return JSON.parse(data["choices"][0]["message"]["function_call"]["arguments"]);
       } else {
         this.globalVar.gptHavingError = true;
         throw new Error(
@@ -205,7 +205,7 @@ class GPTHandler {
     try {
       const botResponse = await this.sendRcptRequest(this.globalVar.chatLog);
       console.log(botResponse);
-      this.globalVar.receiptData = JSON.parse(botResponse);
+      this.globalVar.receiptData =botResponse;
       return this.globalVar.receiptData; //대화마다 고유 id나 인덱스가 필요하면 추가하기
     } catch (error) {
       this.globalVar.gptHavingError = true;
@@ -216,6 +216,10 @@ class GPTHandler {
         }
       }
     }
+  }
+
+  checkRcptIntegrity(data){
+    
   }
 
   makeChatLogText(chatLog) {
