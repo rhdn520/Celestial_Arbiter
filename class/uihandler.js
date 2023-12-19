@@ -61,11 +61,11 @@ class UIHandler {
     );
     setTimeout(() => {
       printWindow.print();
-      // printWindow.window.onfocus = function () {
-      //   setTimeout(function () {
-      //     printWindow.close();
-      //   }, 5000);
-      // };
+      printWindow.onfocus = function () {
+        setTimeout(function () {
+          printWindow.close();
+        }, 10000);
+      };
     }, 500);
   }
 
