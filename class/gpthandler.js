@@ -1,7 +1,7 @@
 class GPTHandler {
   constructor(_globalVar, _promptText, _receiptPromptText) {
     // this.apiKey = "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";
-    this.apiKey = "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"; //승우
+    this.apiKey = "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"; //승우
     this.apiUrl = "https://api.openai.com/v1/chat/completions";
     this.prompt = _promptText;
     this.receiptPrompt = _receiptPromptText;
@@ -14,45 +14,47 @@ class GPTHandler {
       properties: {
         sentencing: {
           type: "string",
-          description: "Sentencing inferred from the conversation log."
+          description: "Sentencing inferred from the conversation log.",
         },
         PositiveKeywords: {
           type: "array",
-          description: "Positive keywords and its relevance from the conversation",
+          description:
+            "Positive keywords and its relevance from the conversation",
           items: {
             type: "object",
             properties: {
               keyword: {
                 type: "string",
-                description:"Positive keyword"
+                description: "Positive keyword",
               },
               relevance: {
                 type: "number",
-                description:"Relevance of the keyword"
-              }
-            }
-          }
+                description: "Relevance of the keyword",
+              },
+            },
+          },
         },
         NegativeKeywords: {
           type: "array",
-          description: "Negative keywords and its relevance from the conversation",
+          description:
+            "Negative keywords and its relevance from the conversation",
           items: {
             type: "object",
             properties: {
               keyword: {
                 type: "string",
-                description:"Negative keyword"
+                description: "Negative keyword",
               },
               relevance: {
                 type: "number",
-                description:"Relevance of the keyword"
-              }
-            }
-          }
-        }
+                description: "Relevance of the keyword",
+              },
+            },
+          },
+        },
       },
-      required:["sentencing","PositiveKeywords","NegativeKeywords"]
-    }
+      required: ["sentencing", "PositiveKeywords", "NegativeKeywords"],
+    };
   }
 
   async sendMessage(chatLog) {
@@ -126,13 +128,12 @@ class GPTHandler {
     ui.updateTextBox(globalVar.chatLog);
 
     gpt.sendToGPT().then((response) => {
-
-      if(response.content.includes("(negative)")){
-        this.globalVar.judgeEmotion = 'negative';
-      }else if(response.content.includes("(positive)")){
-        this.globalVar.judgeEmotion = 'positive';
-      }else{
-        this.globalVar.judgeEmotion = 'neutral';
+      if (response.content.includes("(negative)")) {
+        this.globalVar.judgeEmotion = "negative";
+      } else if (response.content.includes("(positive)")) {
+        this.globalVar.judgeEmotion = "positive";
+      } else {
+        this.globalVar.judgeEmotion = "neutral";
       }
 
       scene.updateChatLog(response); //대화로그 업데이트(GPT대답)
@@ -145,13 +146,12 @@ class GPTHandler {
     if (this.globalVar.gptIsRequestPending) {
       console.log("Request is already pending. Wait for the request");
       // return;
-    }else{
-
-      console.log('Pending receipt data');
+    } else {
+      console.log("Pending receipt data");
 
       this.globalVar.gptIsRequestPending = true;
       scene.updateParticleScene();
-  
+
       try {
         //에러 시 다시 시도하는 로직 추가 필요
         const response = await fetch(this.apiUrl, {
@@ -171,8 +171,7 @@ class GPTHandler {
             functions: [
               {
                 name: "getJudgment",
-                description:
-                  "Get the sentencing of the judge and keywords",
+                description: "Get the sentencing of the judge and keywords",
                 parameters: this.judgment_schema,
               },
             ],
@@ -181,15 +180,17 @@ class GPTHandler {
             },
           }),
         });
-  
+
         const data = await response.json();
-  
+
         if (response.ok) {
           console.log(
             data["choices"][0]["message"]["function_call"]["arguments"]
           );
           // return data.choices[0].message.content;
-          return JSON.parse(data["choices"][0]["message"]["function_call"]["arguments"]);
+          return JSON.parse(
+            data["choices"][0]["message"]["function_call"]["arguments"]
+          );
         } else {
           this.globalVar.gptHavingError = true;
           throw new Error(
@@ -200,23 +201,21 @@ class GPTHandler {
         this.globalVar.gptIsRequestPending = false;
         scene.updateParticleScene();
       }
-
     }
-
   }
 
   async getGPTReceipt() {
     try {
       let botResponse;
       let isValidResponse = false;
-      while(!isValidResponse){
+      while (!isValidResponse) {
         botResponse = await this.sendRcptRequest(this.globalVar.chatLog);
         console.log(botResponse);
         isValidResponse = this.isRcptValid(botResponse);
-        if(isValidResponse){
-          this.globalVar.receiptData =botResponse;
+        if (isValidResponse) {
+          this.globalVar.receiptData = botResponse;
           return this.globalVar.receiptData; //대화마다 고유 id나 인덱스가 필요하면 추가하기
-        }else{
+        } else {
           console.log("Received invalid bot response. Retrying...");
         }
       }
@@ -231,56 +230,66 @@ class GPTHandler {
     }
   }
 
-  isRcptValid(data){
-        // Validate the type of the main object
-        if (typeof data !== this.judgment_schema.type) {
-          return false;
+  isRcptValid(data) {
+    // Validate the type of the main object
+    if (typeof data !== this.judgment_schema.type) {
+      return false;
+    }
+
+    // Check required properties
+    for (const prop of this.judgment_schema.required) {
+      if (!data.hasOwnProperty(prop)) {
+        return false;
       }
-  
-      // Check required properties
-      for (const prop of this.judgment_schema.required) {
-          if (!data.hasOwnProperty(prop)) {
-              return false;
+    }
+
+    // Validate sentencing
+    if (
+      typeof data.sentencing !== this.judgment_schema.properties.sentencing.type
+    ) {
+      return false;
+    }
+
+    // Validate keywords arrays (PositiveKeywords and NegativeKeywords)
+    function validateKeywords(keywords) {
+      if (!Array.isArray(keywords)) {
+        return false;
+      }
+      for (const item of keywords) {
+        // Check required properties of keyword items
+        for (const key of ["keyword", "relevance"]) {
+          if (!item.hasOwnProperty(key)) {
+            return false;
           }
-      }
-  
-      // Validate sentencing
-      if (typeof data.sentencing !== this.judgment_schema.properties.sentencing.type) {
+        }
+        // Validate each property
+        if (
+          typeof item.keyword !== "string" ||
+          typeof item.relevance !== "number"
+        ) {
           return false;
+        }
       }
-  
-      // Validate keywords arrays (PositiveKeywords and NegativeKeywords)
-      function validateKeywords(keywords) {
-          if (!Array.isArray(keywords)) {
-              return false;
-          }
-          for (const item of keywords) {
-              // Check required properties of keyword items
-              for (const key of ["keyword", "relevance"]) {
-                  if (!item.hasOwnProperty(key)) {
-                      return false;
-                  }
-              }
-              // Validate each property
-              if (typeof item.keyword !== 'string' || typeof item.relevance !== 'number') {
-                  return false;
-              }
-          }
-          return true;
-      }
-  
-      if (!validateKeywords(data.PositiveKeywords) || !validateKeywords(data.NegativeKeywords)) {
-          return false;
-      }
-  
-      // If all checks pass
       return true;
+    }
+
+    if (
+      !validateKeywords(data.PositiveKeywords) ||
+      !validateKeywords(data.NegativeKeywords)
+    ) {
+      return false;
+    }
+
+    // If all checks pass
+    return true;
   }
 
   makeChatLogText(chatLog) {
     let chatText = "";
     for (let i = 0; i < chatLog.length; i++) {
-      chatText += `\n-${chatLog[i].role=="assistant" ? '심판관' : '영혼'}: ${chatLog[i].content.replace('\n','')}`;
+      chatText += `\n-${
+        chatLog[i].role == "assistant" ? "심판관" : "영혼"
+      }: ${chatLog[i].content.replace("\n", "")}`;
     }
     console.log(chatText);
     return chatText;
