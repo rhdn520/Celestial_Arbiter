@@ -1,6 +1,4 @@
 let scene;
-let tts;
-let ttsSound;
 let gpt;
 let ui;
 let button; //버튼 선언
@@ -114,14 +112,6 @@ function draw() {
   // },1000)
 }
 
-//test code for TTS
-function testTTS() {
-  tts.fetchTTS_dev().then((mp3URL) => {
-    loadSound(mp3URL, (sound) => {
-      sound.play();
-    });
-  });
-}
 
 // function mousePressed(){
 // }
