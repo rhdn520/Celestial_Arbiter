@@ -61,13 +61,12 @@ class UIHandler {
     );
     setTimeout(() => {
       printWindow.print();
-      printWindow.window.onfocus = function () {
-        setTimeout(function () {
-          printWindow.close();
-        }, 1000);
-      };
+      // printWindow.window.onfocus = function () {
+      //   setTimeout(function () {
+      //     printWindow.close();
+      //   }, 5000);
+      // };
     }, 500);
-    // printWindow.print();
   }
 
   onClickChangeSceneBtn(sceneToGo) {

@@ -58,7 +58,7 @@ let globalVar = {
       },
     ],
   },
-  conversationStatus: "before",
+  conversationStatus: "after",
   gptHavingError: false,
   gptIsRequestPending: false,
   debugMode: true,
@@ -97,7 +97,7 @@ function setup() {
   ptcl.updateParticles();
   ui.loadUI(scene);
 
-  // templeBGM.loop();
+  templeBGM.loop();
 
   // gpt.makeChatLogText(exampleChatLog);
 
