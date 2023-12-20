@@ -120,6 +120,7 @@ div {
 }
 
 .nextBtn {
+  margin:0;
   padding: 6px;
   background-color: white;
   transform: translateX(-50%);

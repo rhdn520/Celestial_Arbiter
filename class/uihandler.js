@@ -212,6 +212,10 @@ class UIHandler {
 
   //after로 넘어가기
   async changeStatusToAfter() {
+    if (this.globalVar.gptIsRequestPending) {
+      console.log("Request is already pending. Wait for the request");
+      return;
+    }
     scene.progresstargetWidth = width;
     await gpt.getGPTReceipt();
     this.globalVar.conversationStatus = "after";
@@ -275,11 +279,14 @@ class Chat {
 }
 
 class Button {
-  constructor(label, x, y, w = 100, h = 100, callback) {
+  constructor(label, x, y, w = 100, h = 100, callback, className) {
     this.element = createButton(label); //버튼 이름
     this.element.position(x, y); //버튼 위치
     this.element.size(w, h);
     this.element.mousePressed(callback);
+    if(className !==undefined){
+      this.element.addClass(className)
+    }
   }
 
   disable() {
