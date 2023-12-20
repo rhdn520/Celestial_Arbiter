@@ -142,65 +142,62 @@ class GPTHandler {
   }
 
   async sendRcptRequest(chatLog) {
-    if (this.globalVar.gptIsRequestPending) {
-      console.log("Request is already pending. Wait for the request");
-      // return;
-    } else {
-      console.log("Pending receipt data");
 
-      this.globalVar.gptIsRequestPending = true;
-      scene.updateParticleScene();
+    console.log("Pending receipt data");
 
-      try {
-        //에러 시 다시 시도하는 로직 추가 필요
-        const response = await fetch(this.apiUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${this.apiKey}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-4-1106-preview",
-            // model: "gpt-3.5-turbo-0613",
-            messages: [
-              { role: "system", content: this.receiptPrompt }, //프롬프트 넣는 곳
-              { role: "user", content: this.makeChatLogText(chatLog) },
-            ],
-            // response_format: { type: "json" },
-            functions: [
-              {
-                name: "getJudgment",
-                description: "Get the sentencing of the judge and keywords",
-                parameters: this.judgment_schema,
-              },
-            ],
-            function_call: {
+    this.globalVar.gptIsRequestPending = true;
+    scene.updateParticleScene();
+
+    try {
+      //에러 시 다시 시도하는 로직 추가 필요
+      const response = await fetch(this.apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-4-1106-preview",
+          // model: "gpt-3.5-turbo-0613",
+          messages: [
+            { role: "system", content: this.receiptPrompt }, //프롬프트 넣는 곳
+            { role: "user", content: this.makeChatLogText(chatLog) },
+          ],
+          // response_format: { type: "json" },
+          functions: [
+            {
               name: "getJudgment",
+              description: "Get the sentencing of the judge and keywords",
+              parameters: this.judgment_schema,
             },
-          }),
-        });
+          ],
+          function_call: {
+            name: "getJudgment",
+          },
+        }),
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok) {
-          console.log(
-            data["choices"][0]["message"]["function_call"]["arguments"]
-          );
-          // return data.choices[0].message.content;
-          return JSON.parse(
-            data["choices"][0]["message"]["function_call"]["arguments"]
-          );
-        } else {
-          this.globalVar.gptHavingError = true;
-          throw new Error(
-            `Failed to get response from GPT: ${data.error.message}`
-          );
-        }
-      } finally {
-        this.globalVar.gptIsRequestPending = false;
-        scene.updateParticleScene();
+      if (response.ok) {
+        console.log(
+          data["choices"][0]["message"]["function_call"]["arguments"]
+        );
+        // return data.choices[0].message.content;
+        return JSON.parse(
+          data["choices"][0]["message"]["function_call"]["arguments"]
+        );
+      } else {
+        this.globalVar.gptHavingError = true;
+        throw new Error(
+          `Failed to get response from GPT: ${data.error.message}`
+        );
       }
+    } finally {
+      this.globalVar.gptIsRequestPending = false;
+      scene.updateParticleScene();
     }
+
   }
 
   async getGPTReceipt() {
@@ -221,10 +218,9 @@ class GPTHandler {
     } catch (error) {
       this.globalVar.gptHavingError = true;
       console.error("Error sending message to GPT:", error);
+
       if (!this.globalVar.debugMode) {
-        if (!alert("심판자가 졸리다고 합니다.\n다음에 오시죠.")) {
-          window.location.reload();
-        }
+        alert("심판자가 졸리다고 합니다.\n다음에 오시죠.") && window.location.reload();
       }
     }
   }
@@ -286,9 +282,8 @@ class GPTHandler {
   makeChatLogText(chatLog) {
     let chatText = "";
     for (let i = 0; i < chatLog.length; i++) {
-      chatText += `\n-${
-        chatLog[i].role == "assistant" ? "심판관" : "영혼"
-      }: ${chatLog[i].content.replace("\n", "")}`;
+      chatText += `\n-${chatLog[i].role == "assistant" ? "심판관" : "영혼"
+        }: ${chatLog[i].content.replace("\n", "")}`;
     }
     console.log(chatText);
     return chatText;
