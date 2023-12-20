@@ -46,7 +46,7 @@ class ParticleHandler {
     }
 
     for (let i = 0; i < coordsIndexes.length; i++) {
-      console.log(coordsIndexes.length);
+      // console.log(coordsIndexes.length);
       //랜덤 인덱스로 불러서 매 트렌지션마다 섞여보이게 하는 듯
       let randomIndex;
       // if (isMoving) {
