@@ -38,56 +38,59 @@ class ParticleHandler {
       i < this.pg.width * this.pg.height - 1;
       i += this.pixelSteps
     ) {
+      if(this.pg.pixels[i] === 0) continue;
       coordsIndexes.push(i);
     }
 
     for (let i = 0; i < coordsIndexes.length; i++) {
+      console.log(coordsIndexes.length);
       let randomIndex = floor(random(0, coordsIndexes.length));
       let coordIndex = coordsIndexes[randomIndex];
       coordsIndexes.splice(randomIndex, 1);
 
-      if (this.pg.pixels[coordIndex] !== 0) {
-        let x = coordIndex % this.pg.width;
-        let y = floor(coordIndex / this.pg.width);
+      // if (this.pg.pixels[coordIndex] === 0) continue;
 
-        let newParticle;
+      let x = coordIndex % this.pg.width;
+      let y = floor(coordIndex / this.pg.width);
 
-        if (particleIndex < particleCount) {
-          // console.log("new");
-          newParticle = this.particles[particleIndex];
-          newParticle.isKilled = false;
-          particleIndex += 1;
-        } else {
-          newParticle = new Particle();
+      let newParticle;
 
-          let randomPos = this.generateRandomPos(
-            this.pg.width / 2,
-            this.pg.height / 2,
-            (this.pg.width + this.pg.height) / 2
-          );
-          newParticle.pos.x = randomPos.x;
-          newParticle.pos.y = randomPos.y;
-          // console.log(newParticle.pos.x, newParticle.pos.y);
+      if (particleIndex < particleCount) {
+        // console.log("new");
+        newParticle = this.particles[particleIndex];
+        newParticle.isKilled = false;
+        particleIndex += 1;
+      } else {
+        newParticle = new Particle();
 
-          newParticle.maxSpeed = random(4.0, 10.0);
-          newParticle.maxForce = newParticle.maxSpeed * 0.05;
-          newParticle.particleSize = random(6, 12);
-          newParticle.colorBlendRate = random(0.0025, 0.03);
-
-          this.particles.push(newParticle);
-        }
-
-        newParticle.startColor = lerpColor(
-          newParticle.startColor,
-          newParticle.targetColor,
-          newParticle.colorWeight
+        let randomPos = this.generateRandomPos(
+          this.pg.width / 2,
+          this.pg.height / 2,
+          (this.pg.width + this.pg.height) / 2
         );
-        newParticle.targetColor = newColor;
-        newParticle.colorWeight = 0;
+        newParticle.pos.x = randomPos.x;
+        newParticle.pos.y = randomPos.y;
+        // console.log(newParticle.pos.x, newParticle.pos.y);
 
-        newParticle.target.x = x * (width / this.pg.width);
-        newParticle.target.y = y * (height / this.pg.height);
+        newParticle.maxSpeed = random(4.0, 10.0);
+        newParticle.maxForce = newParticle.maxSpeed * 0.05;
+        newParticle.particleSize = random(6, 12);
+        newParticle.colorBlendRate = random(0.0025, 0.03);
+
+        this.particles.push(newParticle);
       }
+
+      newParticle.startColor = lerpColor(
+        newParticle.startColor,
+        newParticle.targetColor,
+        newParticle.colorWeight
+      );
+      newParticle.targetColor = newColor;
+      newParticle.colorWeight = 0;
+
+      newParticle.target.x = x * (width / this.pg.width);
+      newParticle.target.y = y * (height / this.pg.height);
+
     }
 
     if (particleIndex < particleCount) {
