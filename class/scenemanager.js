@@ -53,6 +53,7 @@ class SceneManager {
     //stage bar
     rectMode(CORNERS);
     fill("#b2b2b2");
+    noStroke();
     rect(width, 0, width, 7);
     fill("#fff");
     if (this.globalVar.isDecisionMade) {
