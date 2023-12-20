@@ -4,6 +4,7 @@ class SceneManager {
     this.afterSceneLoadMillis = null;
     this.progressRealWidth = 0;
     this.progresstargetWidth = 0;
+    this.blinkCount = 0;
   }
 
   loadScene() {
@@ -26,7 +27,12 @@ class SceneManager {
   }
 
   loadScene_before() {
-    ptcl.draw();
+    //파티클 상시 그리는 함수
+    ptcl.draw(true);
+    //파티클 애니메이팅
+    // if (frameCount % 180 === 0) {
+    //   ptcl.updateParticles(0, true);
+    // }
     noStroke();
     rectMode(CENTER);
     fill(255);
@@ -47,7 +53,20 @@ class SceneManager {
   loadScene_during() {
     rectMode(CENTER);
     imageMode(CENTER);
-    ptcl.draw();
+    ptcl.draw(true);
+    if (judge.status === "talk") {
+      if (frameCount % 180 === 0) {
+        if (this.globalVar.judgeEmotion === "negative") {
+          ptcl.updateParticles(0, false); //부정적일 땐 눈 부릅 뜨기
+        } else {
+          this.blink();
+        }
+      }
+    } else {
+      if (frameCount % 180 === 0) {
+        ptcl.updateParticles(0, false);
+      }
+    }
     // ptcl.blink();
 
     //stage bar
@@ -106,7 +125,7 @@ class SceneManager {
     if (newConvStatus == "before") {
       this.resetVariables();
 
-      ptcl.updateParticles();
+      ptcl.updateParticles(0, true);
     }
   }
 
@@ -159,6 +178,12 @@ class SceneManager {
 
   updateParticleScene() {
     console.log(judge.status);
-    ptcl.updateParticles();
+    ptcl.updateParticles(0, true);
+  }
+
+  blink() {
+    ptcl.updateParticles((this.blinkCount % 3) * 3, false);
+    this.blinkCount++;
+    //0,3,6번 그림 번갈아 호출(눈동자 가운데, 좌, 우)
   }
 }

@@ -2,22 +2,25 @@ class ParticleHandler {
   constructor(_globalVar) {
     this.globalVar = _globalVar;
     this.particles = [];
-    this.pixelSteps = 6; // 숫자가 클수록 덜 촘촘
+    this.pixelSteps = 4; // 숫자가 클수록 덜 촘촘
     this.drawAsPoints = true; // 점 또는 원으로 그릴 수 있음
     this.bgColor = color(0);
     // this.fontName = "script";
     this.pg = createGraphics(width, height);
-    this.eyePosArr = [];
-    this.current = 0;
   }
-  updateParticles() {
-    this.pixelSteps = 6;
+
+  //아래 계속 나오는 'isMoving'은 boolean, 좀 더 다이내믹하게 움직이느냐의 차이
+  //scene간 전환 (before-during-after) : isMoving=true
+  //scene 내부 움직임(애니메이션) : isMoving=false
+  updateParticles(n, isMoving) {
+    console.log("updateParticles");
+    this.pixelSteps = 4;
     this.pg.pixelDensity(1);
     this.pg.clear();
     this.pg.background(0);
     this.pg.push();
     this.pg.scale(0.25);
-    judge.display(); //그리는 그림 제어는 judgehandler에서
+    judge.display(n); //그리는 그림 제어는 judgehandler에서
     this.pg.pop();
     // this.pg.show();
     this.pg.loadPixels();
@@ -29,7 +32,7 @@ class ParticleHandler {
       random(255.0, 255.0)
     );
 
-    let particleCount = this.particles.length;
+    let particleCount = this.particles.length; //현재 파티클 개수
     let particleIndex = 0;
 
     let coordsIndexes = [];
@@ -38,13 +41,19 @@ class ParticleHandler {
       i < this.pg.width * this.pg.height - 1;
       i += this.pixelSteps
     ) {
-      if(this.pg.pixels[i] === 0) continue;
+      if (this.pg.pixels[i] === 0) continue;
       coordsIndexes.push(i);
     }
 
     for (let i = 0; i < coordsIndexes.length; i++) {
       console.log(coordsIndexes.length);
-      let randomIndex = floor(random(0, coordsIndexes.length));
+      //랜덤 인덱스로 불러서 매 트렌지션마다 섞여보이게 하는 듯
+      let randomIndex;
+      // if (isMoving) {
+      randomIndex = floor(random(0, coordsIndexes.length));
+      // } else {
+      //   randomIndex = i;
+      // }
       let coordIndex = coordsIndexes[randomIndex];
       coordsIndexes.splice(randomIndex, 1);
 
@@ -56,21 +65,29 @@ class ParticleHandler {
       let newParticle;
 
       if (particleIndex < particleCount) {
-        // console.log("new");
         newParticle = this.particles[particleIndex];
         newParticle.isKilled = false;
         particleIndex += 1;
       } else {
+        //이전 그래픽보다 현재 그래픽에 파티클이 더 많이 필요한 경우 새 Particle 인스턴스 생성
         newParticle = new Particle();
 
-        let randomPos = this.generateRandomPos(
-          this.pg.width / 2,
-          this.pg.height / 2,
-          (this.pg.width + this.pg.height) / 2
-        );
-        newParticle.pos.x = randomPos.x;
-        newParticle.pos.y = randomPos.y;
-        // console.log(newParticle.pos.x, newParticle.pos.y);
+        //⭐️⭐️여기서 randomPos를 주면 화면 안팎으로 파티클이 돌아다니기 때문에 애니메이팅이 어려워짐
+        //isMoving일 경우(scene간 전환)만 randomPos를 줘서 다이내믹한 파티클 움직임을 구현한다
+        if (isMoving) {
+          let randomPos = this.generateRandomPos(
+            this.pg.width / 2,
+            this.pg.height / 2,
+            (this.pg.width + this.pg.height) / 2
+          );
+          newParticle.pos.x = randomPos.x;
+          newParticle.pos.y = randomPos.y;
+          // console.log(newParticle.pos.x, newParticle.pos.y);
+        } else {
+          //isMoving이 아닌 경우(scene내 전환) pos=target으로 지정하여 움직임이지 않게 한다
+          newParticle.pos.x = x * (width / this.pg.width);
+          newParticle.pos.y = y * (height / this.pg.height);
+        }
 
         newParticle.maxSpeed = random(4.0, 10.0);
         newParticle.maxForce = newParticle.maxSpeed * 0.05;
@@ -88,18 +105,30 @@ class ParticleHandler {
       newParticle.targetColor = newColor;
       newParticle.colorWeight = 0;
 
+      //target = 그래픽 상 위치 를 정해주는 곳
       newParticle.target.x = x * (width / this.pg.width);
       newParticle.target.y = y * (height / this.pg.height);
-
     }
 
+    //이전 그래픽보다 현재 그래픽 파티클 수가 더 적다면 남은 파티클을 kill
     if (particleIndex < particleCount) {
       for (let i = particleIndex; i < particleCount; i++) {
         this.particles[i].kill();
       }
     }
+
+    //stopped된 파티클은 리셋
     this.resetParticleStopped();
-    // pg.updatePixels();
+
+    //깔끔한 애니메이션 위해 isMoving 아닌 경우 프로퍼티 조정
+    this.particles.forEach((particle) => {
+      if (isMoving) {
+        particle.maxSpeed = random(4.0, 10.0);
+      } else {
+        particle.closeEnoughTarget = 150;
+        particle.maxSpeed = random(10.0, 15.0);
+      }
+    });
   }
 
   resetParticleStopped() {
@@ -108,6 +137,8 @@ class ParticleHandler {
     });
   }
 
+  //sceneManager에 들어가 상시호출되는 함수
+  //파티클을 매 프레임 그린다
   draw() {
     noStroke();
     background(0);
@@ -115,8 +146,8 @@ class ParticleHandler {
     for (let x = this.particles.length - 1; x > -1; x--) {
       let particle = this.particles[x];
       if (!particle.stopped) {
-        particle.move();
-        particle.draw(this.globalVar.judgeEmotion);
+        particle.move(); //pos -> target으로 움직임
+        particle.draw(this.globalVar.judgeEmotion); //그 경로를 매 프레임 그림
         if (particle.isKilled) {
           if (
             particle.pos.x < 0 ||
@@ -128,8 +159,8 @@ class ParticleHandler {
           }
         }
       } else {
-        // console.log(4);
-        // this.drawAgain();
+        //stopped된 파티클은 pos=target 강제 지정하여 move()가 먹히지 않는다
+        //stopped해야 지글이 가능
         particle.draw();
         particle.jiggle(this.globalVar.judgeEmotion);
         if (frameCount % 180 < 90) {
@@ -142,28 +173,6 @@ class ParticleHandler {
     // this.update();
   }
 
-  drawStatic() {
-    noStroke();
-    background(0);
-
-    for (let x = this.particles.length - 1; x > -1; x--) {
-      let particle = this.particles[x];
-      particle.pos = particle.target;
-      particle.draw();
-      particle.jiggle();
-      if (particle.isKilled) {
-        if (
-          particle.pos.x < 0 ||
-          particle.pos.x > width ||
-          particle.pos.y < 0 ||
-          particle.pos.y > height
-        ) {
-          this.particles.splice(x, 1);
-        }
-      }
-    }
-  }
-
   generateRandomPos(x, y, mag) {
     let sourcePos = createVector(x, y);
     let randomPos = createVector(random(0, width), random(0, height));
@@ -174,62 +183,6 @@ class ParticleHandler {
     sourcePos.add(direction);
 
     return sourcePos;
-  }
-
-  makeEyeArr() {
-    for (let i = 0; i < 10; i++) {
-      let ipg = createGraphics(width, height);
-      let eyeInstance = new EyeVector();
-      let instantArr = [];
-      ipg.pixelDensity(1);
-      ipg.push();
-      ipg.scale(0.25);
-      eyeInstance.draw(ipg, i);
-      ipg.pop();
-      ipg.loadPixels();
-
-      let coordsIndexes = [];
-      for (let i = 0; i < ipg.width * ipg.height - 1; i += this.pixelSteps) {
-        coordsIndexes.push(i);
-      }
-
-      for (let i = 0; i < coordsIndexes.length; i++) {
-        let randomIndex = floor(random(0, coordsIndexes.length));
-        let coordIndex = coordsIndexes[randomIndex];
-        coordsIndexes.splice(randomIndex, 1);
-
-        if (ipg.pixels[coordIndex] !== 0) {
-          let x = coordIndex % ipg.width;
-          let y = floor(coordIndex / ipg.width);
-
-          instantArr.push(
-            createVector(x * (width / ipg.width), y * (height / ipg.height))
-          );
-        }
-      }
-      this.eyePosArr.push(instantArr);
-    }
-    console.log(this.eyePosArr);
-  }
-
-  drawEyeParticles(n) {
-    background(0);
-    let eyeArr = this.eyePosArr[n];
-    // stroke(255);
-    for (let i = 0; i < eyeArr.length; i++) {
-      strokeWeight(3);
-      stroke(random(100, 255));
-      // strokeWeight(this.randomSize);
-      point(eyeArr[i].x, eyeArr[i].y);
-    }
-  }
-
-  blink() {
-    if (frameCount % 30 === 0 && this.current < 11) {
-      this.drawEyeParticles(this.current);
-      // this.current = (this.current + 1) % 10; // Increment current and loop back to 0 after reaching 9
-      this.current = this.current + 1; // Increment current and loop back to 0 after reaching 9
-    }
   }
 }
 

@@ -6,7 +6,7 @@ class Judge {
     this.eyeVector = new EyeVector();
   }
 
-  display() {
+  display(n) {
     if (this.globalVar.conversationStatus !== "before") {
       this.status = this.globalVar.gptIsRequestPending ? "think" : "talk";
     } else {
@@ -15,35 +15,30 @@ class Judge {
 
     switch (this.status) {
       case "think":
-        this.displayThinking();
+        this.displayThinking(n);
         break;
 
       case "talk":
-        this.displayTalking();
+        this.displayTalking(n);
         break;
 
       case "before":
-        this.displayBefore();
+        this.displayBefore(n);
         break;
     }
   }
 
-  displayBefore() {
-    this.eyeVector.drawBefore(ptcl.pg);
+  displayBefore(n) {
+    this.eyeVector.drawBefore(ptcl.pg, n);
   }
 
-  displayThinking() {
-    // this.eyeVector.drawOutline(ptcl.pg);
-    // this.eyeVector.drawPupil(ptcl.pg);
+  displayThinking(n) {
     this.eyeVector.draw(ptcl.pg, 9);
-    // ptcl.pg.ellipse(width / 2, height / 2 + 5, 200, 200);
-    // this.judgeThinking.draw(ptcl.pg);
   }
 
-  displayTalking() {
+  displayTalking(n) {
     // this.judgeVector.display(ptcl.pg);
-    this.eyeVector.drawOutline(ptcl.pg);
-    this.eyeVector.drawPupil(ptcl.pg);
+    this.eyeVector.draw(ptcl.pg, n);
   }
 
   isJudgeTalking(ttsAudio) {

@@ -23,8 +23,8 @@
   src: url("assets/Orbit-Regular.ttf");
 }
 
-:root{
-  --receipt-max-height : 600px;
+:root {
+  --receipt-max-height: 600px;
 }
 
 html,
@@ -120,7 +120,7 @@ div {
 }
 
 .nextBtn {
-  margin:0;
+  margin: 0;
   padding: 6px;
   background-color: white;
   transform: translateX(-50%);
@@ -338,10 +338,10 @@ div {
   height: fit-content;
 }
 
-.after-instruction{
+.after-instruction {
   display: flex;
-  position:absolute;
-  top: calc((100vh - var(--receipt-max-height))/4);
+  position: absolute;
+  top: calc((100vh - var(--receipt-max-height)) / 4);
   left: calc(100vw / 2);
   transform: translate3d(-50%, -50%, 0);
   color: white;
@@ -352,7 +352,7 @@ div {
     sans-serif;
 }
 
-.print-button{
+.print-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -361,18 +361,18 @@ div {
   padding: 0;
   width: 80px;
   height: 40px;
-  bottom: calc((100vh - var(--receipt-max-height))/4);
+  bottom: calc((100vh - var(--receipt-max-height)) / 4);
   left: calc(100vw / 2);
   transform: translate3d(-50%, 50%, 0);
-  font-family: 'orbit';
+  font-family: "orbit";
   /* font-size: 14px; */
   line-height: 1;
   background-color: #fff;
   color: black;
   border: none;
 }
-.print-button:hover{
+.print-button:hover {
   cursor: pointer;
-  background-color:grey;
-  color: white
+  background-color: grey;
+  color: white;
 }

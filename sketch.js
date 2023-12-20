@@ -4,6 +4,7 @@ let ui;
 let button; //버튼 선언
 let judge; //심판관 선언
 let ptcl; //파티클 그리는 클래스 선언
+let n = 0;
 
 let mainDummyImg;
 let receiptDummyImg;
@@ -84,12 +85,12 @@ function setup() {
   receipt = new Receipt(globalVar);
   judge = new Judge(globalVar);
   ptcl = new ParticleHandler(globalVar);
-  
+
   rectMode(CENTER);
   imageMode(CENTER);
 
   ptcl.pixelSteps = 4;
-  ptcl.updateParticles();
+  ptcl.updateParticles(0, true);
   ui.loadUI(scene);
 
   // templeBGM.loop();
