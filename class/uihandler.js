@@ -207,7 +207,7 @@ class UIHandler {
     nextBtn.position(width / 2, 400);
     nextBtn.mousePressed(async () => await this.changeStatusToAfter());
     let chatLogBox = select(".gpt-chatlog-wrapper");
-    chatLogBox.style("height", 200);
+    chatLogBox.style("height", '200px');
   }
 
   //after로 넘어가기
