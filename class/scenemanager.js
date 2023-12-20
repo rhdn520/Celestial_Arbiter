@@ -78,7 +78,7 @@ class SceneManager {
     // image(receiptDummyImg, width/2,height/2);
     // receiptDummyImg.resize(width,receiptDummyImg.height*(width/receiptDummyImg.width));
 
-    text(`Press ESC to restart`, width / 2, height - 30);
+    // text(`Press ESC to restart`, width / 2, 60);
 
     // if (this.afterSceneLoadMillis === null) {
     //   this.afterSceneLoadMillis = millis();

@@ -38,15 +38,11 @@ class UIHandler {
   }
 
   loadUI_after() {
+    let instructionText = createDiv('Press ESC to Restart');
+    instructionText.addClass('after-instruction');
     receipt.display();
-    new Button(
-      "print",
-      width / 2 - 25,
-      height - 100,
-      50,
-      30,
-      this.printReceipt
-    );
+    let printButton = createButton("인쇄하기");
+    printButton.addClass('print-button');
   }
 
   printReceipt() {
