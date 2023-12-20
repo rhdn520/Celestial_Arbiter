@@ -1,5 +1,4 @@
 const printstyle = `
-<style>
 @font-face {
   font-family: "typewr_b";
   src: url("assets/TYPEWR_B.TTF");
@@ -36,7 +35,6 @@ width: 100%;
 height: fit-content;
 background-color: #fff;
 text-align: center;
-border: 1px dashed black;
 overflow-y: auto;
 }
 
@@ -221,7 +219,4 @@ flex-flow: column nowrap;
 justify-content: center;
 align-items: center;
 height: fit-content;
-}
-
-
-</style>`;
+}`;

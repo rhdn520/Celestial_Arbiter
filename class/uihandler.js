@@ -52,21 +52,25 @@ class UIHandler {
   printReceipt() {
     console.log("print button pressed!");
     // console.log(document.getElementById("ReceiptContainer").outerHTML);
-    let printContent = document.getElementById("ReceiptContainer").innerHTML;
-    let printContentStyle = printstyle;
-    let printWindow = window.open("");
-    printWindow.document.write(printContentStyle);
-    printWindow.document.write(
-      '<div class="receipt-container">' + printContent + "</div>"
+    const printHTML = '<div class="receipt-container">' + document.getElementById("ReceiptContainer").innerHTML + "</div>";
+    let printWindow = window.open("","_blank");
+    // printWindow.document.write(printContentStyle);
+    printWindow.document.write(`
+    <html>
+      <head>
+          <title>Print</title>
+          <style>
+              ${printstyle}
+          </style>
+      </head>
+      <body onload="window.print(); window.close();">
+          ${printHTML}
+      </body>
+    </html>
+    `
     );
-    setTimeout(() => {
-      printWindow.print();
-      printWindow.onfocus = function () {
-        setTimeout(function () {
-          printWindow.close();
-        }, 10000);
-      };
-    }, 500);
+
+    printWindow.document.close();
   }
 
   onClickChangeSceneBtn(sceneToGo) {
