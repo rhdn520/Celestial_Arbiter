@@ -43,6 +43,7 @@ class UIHandler {
     receipt.display();
     let printButton = createButton("인쇄하기");
     printButton.addClass('print-button');
+    printButton.mousePressed(this.printReceipt);
   }
 
   printReceipt() {
