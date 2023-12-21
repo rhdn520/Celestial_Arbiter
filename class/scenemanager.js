@@ -182,8 +182,9 @@ class SceneManager {
   }
 
   blink() {
-    ptcl.updateParticles((this.blinkCount % 3) * 3, false);
-    this.blinkCount++;
-    //0,3,6번 그림 번갈아 호출(눈동자 가운데, 좌, 우)
+    // ptcl.updateParticles((this.blinkCount % 3) * 3, false);
+    // this.blinkCount++;
+    // //0,3,6번 그림 번갈아 호출(눈동자 가운데, 좌, 우)
+    ptcl.updateParticles(int(random(0, 5)), false);
   }
 }

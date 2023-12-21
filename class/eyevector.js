@@ -14,6 +14,8 @@ class EyeVector {
     switch (n) {
       case 0:
         //eye0
+        pg.push();
+        pg.translate(0, 20);
         pg.beginShape();
         pg.vertex(-80, 0);
         pg.bezierVertex(-30, -50, 30, -50, 80, 0);
@@ -21,10 +23,13 @@ class EyeVector {
         pg.endShape();
 
         pg.fill(255);
-        pg.ellipse(0, 0, 50);
+        pg.ellipse(0, 10, 50);
+        pg.pop();
         break;
       case 1:
-        //eye1
+        //왼쪽 보는1
+        pg.push();
+        pg.translate(130, 10);
         pg.beginShape();
         pg.vertex(-80, 0);
         pg.bezierVertex(-30, -50, 30, -50, 80, 0);
@@ -32,17 +37,14 @@ class EyeVector {
         pg.endShape();
 
         pg.fill(255);
-        pg.ellipse(0, 0, 50);
+        pg.ellipse(-10, 10, 50);
+        pg.pop();
 
-        pg.fill(0);
-        pg.beginShape();
-        pg.vertex(-80, 0);
-        pg.bezierVertex(-30, -50, 30, -50, 80, 0);
-        pg.bezierVertex(30, -40, -30, -40, -80, 0);
-        pg.endShape();
         break;
       case 2:
-        //eye2
+        //왼쪽 보는2
+        pg.push();
+        pg.translate(80, -30);
         pg.beginShape();
         pg.vertex(-80, 0);
         pg.bezierVertex(-30, -50, 30, -50, 80, 0);
@@ -50,34 +52,13 @@ class EyeVector {
         pg.endShape();
 
         pg.fill(255);
-        pg.ellipse(0, 0, 50);
-
-        pg.fill(0);
-        pg.beginShape();
-        pg.vertex(-80, 0);
-        pg.bezierVertex(-30, -50, 30, -50, 67, -8);
-        pg.bezierVertex(30, -30, -30, -30, -80, 0);
-        pg.endShape();
+        pg.ellipse(-10, 15, 50);
+        pg.pop();
         break;
       case 3:
-        //eye3
-        // pg.beginShape();
-        // pg.vertex(-80, 0);
-        // pg.bezierVertex(-30, -50, 30, -50, 80, 0);
-        // pg.bezierVertex(30, 50, -30, 50, -80, 0);
-        // pg.endShape();
-
-        // pg.fill(255);
-        // pg.ellipse(0, 0, 50);
-
-        // pg.fill(0);
-        // pg.beginShape();
-        // pg.vertex(-80, 0);
-        // pg.bezierVertex(-30, -50, 30, -50, 74, -7);
-        // pg.bezierVertex(30, -20, -30, -20, -80, 0);
-        // pg.endShape();
-
-        //왼쪽 보는
+        //오른쪽 보는1
+        pg.push();
+        pg.translate(-80, -30);
         pg.beginShape();
         pg.vertex(-80, 0);
         pg.bezierVertex(-30, -50, 30, -50, 80, 0);
@@ -85,10 +66,13 @@ class EyeVector {
         pg.endShape();
 
         pg.fill(255);
-        pg.ellipse(-10, 0, 50);
+        pg.ellipse(10, 15, 50);
+        pg.pop();
         break;
       case 4:
-        //eye4
+        //오른쪽 보는2
+        pg.push();
+        pg.translate(-130, 10);
         pg.beginShape();
         pg.vertex(-80, 0);
         pg.bezierVertex(-30, -50, 30, -50, 80, 0);
@@ -96,14 +80,8 @@ class EyeVector {
         pg.endShape();
 
         pg.fill(255);
-        pg.ellipse(0, 0, 50);
-
-        pg.fill(0);
-        pg.beginShape();
-        pg.vertex(-80, 0);
-        pg.bezierVertex(-30, -50, 30, -50, 74, -5);
-        pg.bezierVertex(30, -10, -30, -10, -80, 0);
-        pg.endShape();
+        pg.ellipse(10, 10, 50);
+        pg.pop();
         break;
       case 5:
         //eye5
@@ -142,6 +120,8 @@ class EyeVector {
         // pg.endShape();
 
         //오른쪽 보는
+        pg.push();
+        pg.translate(-100, 0);
         pg.beginShape();
         pg.vertex(-80, 0);
         pg.bezierVertex(-30, -50, 30, -50, 80, 0);
@@ -149,7 +129,8 @@ class EyeVector {
         pg.endShape();
 
         pg.fill(255);
-        pg.ellipse(10, 0, 50);
+        pg.ellipse(10, 10, 50);
+        pg.pop();
         break;
       case 7:
         //eye7
