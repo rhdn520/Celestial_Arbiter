@@ -42,7 +42,7 @@ class SceneManager {
 
     textFont(pretendardFont);
     textSize(16);
-    text("Enter your Open-AI API Key to Start\nYou can't use this service if your open-AI account is free tier.\nAlso, Don't worry. We don't collect your key.", width / 2, (height * 4) / 5 - 40);
+    text("Open AI의 API 키를 입력하세요.\nGPT4를 활용하는 서비스입니다. 따라서 만약 당신의 계정이 프리 티어인 경우 작동하지 않습니다.\n우리는 당신의 API 키에 관심이 없습니다. 훔쳐갈까 걱정하지 마세요.", width / 2, (height * 4) / 5 - 40);
     fill(255);
     textSize(15);
     stroke(0);
