@@ -93,7 +93,7 @@ function setup() {
   ptcl.updateParticles(0, true);
   ui.loadUI(scene);
 
-  // templeBGM.loop();
+  templeBGM.loop();
 }
 
 function draw() {

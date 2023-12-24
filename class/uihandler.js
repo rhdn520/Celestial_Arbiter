@@ -110,7 +110,7 @@ class UIHandler {
 
   //맨처음 chatLog 렌더링
   initTextBox(chatLog) {
-    this.chatLogBox = new ChatLogBox(width / 2, 510, 700, 120);
+    this.chatLogBox = new ChatLogBox(width / 2, height-340, 700, 120);
     let initChat = new Chat(chatLog[0]);
     initChat.chatDiv.parent(this.chatLogBox.wrapper);
   }
@@ -122,7 +122,7 @@ class UIHandler {
       this.chatLogBox.status.remove();
     }
     // 새로운 chatLogBox에 업데이트된 chatLog 렌더링 가장 (최근 대화일수록 위)
-    this.chatLogBox = new ChatLogBox(width / 2, 510, 700, 120);
+    this.chatLogBox = new ChatLogBox(width / 2, height-340, 700, 120);
     // if (chatLog[chatLog.length - 1] !== undefined) {
     //   let updatedChat = new Chat(chatLog[chatLog.length - 1]);
     //   updatedChat.chatDiv.parent(this.chatLogBox.wrapper);
@@ -162,7 +162,7 @@ class UIHandler {
     //텍스트 인풋 + 보내기 버튼 wrapper
     this.inputWrapper = createDiv();
     this.inputWrapper.addClass("gpt-text-wrapper");
-    this.inputWrapper.position(width / 2, 650);
+    this.inputWrapper.position(width / 2, height-190);
 
     //텍스트 인풋
     this.textInput = createInput("");
@@ -261,7 +261,7 @@ class ChatLogBox {
     //gpt상태
     this.status = createDiv("ready");
     this.status.addClass("gpt-status");
-    this.status.position(x, height / 2 + 35);
+    this.status.position(x, height / 2 + 55);
   }
 
   handleStatus(status) {

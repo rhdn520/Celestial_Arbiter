@@ -1,6 +1,6 @@
 class GPTHandler {
   constructor(_globalVar, _promptText, _receiptPromptText) {
-    this.apiKey = "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"; //승우
+    this.apiKey = "YOUR-API-KEY"; //승우
     this.apiUrl = "https://api.openai.com/v1/chat/completions";
     this.prompt = _promptText;
     this.receiptPrompt = _receiptPromptText;
