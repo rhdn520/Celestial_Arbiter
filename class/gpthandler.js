@@ -258,7 +258,7 @@ class GPTHandler {
         }
         // Validate each property
         if (
-          typeof item.keyword !== "string" ||
+          typeof item.keyword !== "string" ||  item.keyword.replace(' ','').length == 0 ||
           typeof item.relevance !== "number"
         ) {
           return false;
