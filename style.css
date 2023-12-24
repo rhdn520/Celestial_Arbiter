@@ -58,6 +58,9 @@ div {
   font-family: 'pretendard';
   text-align: center;
 }
+.api-key-input:focus::placeholder {
+  color: transparent;
+}
 
 .gpt-chatlog-wrapper {
   display: flex;
