@@ -9,6 +9,9 @@ class UIHandler {
     this.textInput = null;
     this.submitBtn = null;
     this.inputWrapper = null;
+
+    this.apiKeyInput = null;
+
   }
 
   loadUI() {
@@ -30,7 +33,11 @@ class UIHandler {
     }
   }
 
-  loadUI_before() {}
+  loadUI_before() {
+    this.apiKeyInput = createInput('').attribute('placeholder', 'Type your open-AI api key and press ENTER');;
+    this.apiKeyInput.addClass('api-key-input');
+    this.apiKeyInput.position(width/2, (height * 4) / 5);
+  }
 
   loadUI_during(chatLog) {
     this.createGptInput();
@@ -86,8 +93,12 @@ class UIHandler {
     if (this.globalVar.conversationStatus === "before") {
       if (keyCode === ENTER) {
         userStartAudio();
-        this.globalVar.conversationStatus = "during";
-        scene.updateParticleScene();
+        if(this.apiKeyInput !== null && this.apiKeyInput.value !== ''){
+          this.globalVar.conversationStatus = "during";
+          this.globalVar.gptAPIKey = this.apiKeyInput.value();
+          console.log(this.globalVar.gptAPIKey);
+          scene.updateParticleScene();
+        }
       }
     } else if (this.globalVar.conversationStatus === "during") {
       if (keyCode === ENTER) {

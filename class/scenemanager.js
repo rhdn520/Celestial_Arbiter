@@ -41,8 +41,8 @@ class SceneManager {
     text("Life Receipt", width / 2, height / 4);
 
     textFont(pretendardFont);
-    textSize(20);
-    text("Press ENTER to Start", width / 2, (height * 4) / 5);
+    textSize(16);
+    text("Enter your Open-AI API Key to Start\nYou can't use this service if your open-AI account is free tier.\nAlso, Don't worry. We don't collect your key.", width / 2, (height * 4) / 5 - 40);
     fill(255);
     textSize(15);
     stroke(0);
@@ -136,6 +136,7 @@ class SceneManager {
 
   resetVariables() {
     // location.reload();
+    this.globalVar.gptAPIKey = '';
 
     this.globalVar.chatLog = [
       {

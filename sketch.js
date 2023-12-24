@@ -18,6 +18,7 @@ let pretendardFont;
 let templeBGM;
 
 let globalVar = {
+  gptAPIKey: '',
   chatLog: [
     {
       role: "assistant",

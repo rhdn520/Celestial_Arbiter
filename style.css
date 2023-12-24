@@ -44,6 +44,21 @@ div {
   box-sizing: border-box;
 }
 
+.api-key-input {
+  position: absolute;
+  transform: translate3d(-50%, 50%, 0);
+  display: flex;
+  height: 20px;
+  width:300px;
+  background-color: white;
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: 'pretendard';
+  text-align: center;
+}
+
 .gpt-chatlog-wrapper {
   display: flex;
   flex-direction: column;

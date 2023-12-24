@@ -1,6 +1,5 @@
 class GPTHandler {
   constructor(_globalVar, _promptText, _receiptPromptText) {
-    this.apiKey = "YOUR-API-KEY"; //승우
     this.apiUrl = "https://api.openai.com/v1/chat/completions";
     this.prompt = _promptText;
     this.receiptPrompt = _receiptPromptText;
@@ -73,7 +72,7 @@ class GPTHandler {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.apiKey}`,
+          Authorization: `Bearer ${this.globalVar.gptAPIKey}`,
         },
         body: JSON.stringify({
           model: "gpt-4-1106-preview",
@@ -154,7 +153,7 @@ class GPTHandler {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.apiKey}`,
+          Authorization: `Bearer ${this.globalVar.gptAPIKey}`,
         },
         body: JSON.stringify({
           model: "gpt-4-1106-preview",
