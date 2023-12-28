@@ -188,7 +188,7 @@ class EyeVector {
     pg.noFill();
     pg.stroke(255);
     pg.strokeWeight(4);
-    pg.scale(1.6);
+    pg.scale(height / 610);
     pg.beginShape();
     for (let i = 0; i < 8; i++) {
       pg.vertex(-160 + 20 * 2 * i, -h);
